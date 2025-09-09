@@ -37,6 +37,7 @@ const navigationLinks = [
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const { profile, signOut } = useAuth();
@@ -194,30 +195,49 @@ const Header = () => {
             <nav className="space-y-2">
               {navigationLinks.map((link) => (
                 <div key={link.path}>
-                  <Link
-                    to={link.path}
-                    className={`block px-3 py-2 text-sm font-medium transition-colors rounded-md ${
-                      location.pathname === link.path || (link.hasDropdown && location.pathname.startsWith('/competitions/'))
-                        ? 'bg-accent text-accent-foreground'
-                        : 'text-muted-foreground hover:bg-accent/10 hover:text-accent'
-                    }`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {link.name}
-                  </Link>
-                  {link.hasDropdown && (
-                    <div className="pl-4 mt-2 space-y-1 max-h-60 overflow-y-auto">
-                      {competitionLinks.map((compLink) => (
-                        <Link
-                          key={compLink.path}
-                          to={compLink.path}
-                          className="block px-3 py-2 text-sm text-muted-foreground hover:bg-accent/10 hover:text-accent transition-colors rounded-md"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          {compLink.name}
-                        </Link>
-                      ))}
+                  {link.hasDropdown ? (
+                    <div>
+                      <button
+                        onClick={() => setIsMobileDropdownOpen(!isMobileDropdownOpen)}
+                        className={`w-full text-left flex items-center justify-between px-3 py-2 text-sm font-medium transition-colors rounded-md ${
+                          location.pathname === link.path || location.pathname.startsWith('/competitions/')
+                            ? 'bg-accent text-accent-foreground'
+                            : 'text-muted-foreground hover:bg-accent/10 hover:text-accent'
+                        }`}
+                      >
+                        {link.name}
+                        <ChevronDown className={`h-4 w-4 transition-transform ${isMobileDropdownOpen ? 'rotate-180' : ''}`} />
+                      </button>
+                      {isMobileDropdownOpen && (
+                        <div className="pl-4 mt-2 space-y-1 max-h-60 overflow-y-auto">
+                          {competitionLinks.map((compLink) => (
+                            <Link
+                              key={compLink.path}
+                              to={compLink.path}
+                              className="block px-3 py-2 text-sm text-muted-foreground hover:bg-accent/10 hover:text-accent transition-colors rounded-md"
+                              onClick={() => {
+                                setIsMenuOpen(false);
+                                setIsMobileDropdownOpen(false);
+                              }}
+                            >
+                              {compLink.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
                     </div>
+                  ) : (
+                    <Link
+                      to={link.path}
+                      className={`block px-3 py-2 text-sm font-medium transition-colors rounded-md ${
+                        location.pathname === link.path
+                          ? 'bg-accent text-accent-foreground'
+                          : 'text-muted-foreground hover:bg-accent/10 hover:text-accent'
+                      }`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {link.name}
+                    </Link>
                   )}
                 </div>
               ))}
