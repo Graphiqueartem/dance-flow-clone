@@ -1,0 +1,289 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Play, Upload, Users, Trophy, Calendar, Star, ArrowRight, Globe, Heart } from 'lucide-react';
+
+const Home = () => {
+  return (
+    <div className="pb-24">
+      {/* Hero Section */}
+      <section className="relative min-h-[80vh] flex items-center justify-center bg-primary text-primary-foreground overflow-hidden">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-poppins font-bold leading-tight">
+              Where Passion Meets Performance
+            </h1>
+            <p className="text-lg sm:text-xl md:text-2xl font-open-sans text-primary-foreground/90">
+              Live & Online Dance Competition Platform
+            </p>
+            <p className="text-base sm:text-lg font-lato max-w-2xl mx-auto text-primary-foreground/80">
+              Join thousands of dancers worldwide. Compete live in our global cities or submit your performance online to get expert feedback and win amazing prizes.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-6 sm:mt-8">
+              <Button size="lg" className="bg-white text-accent hover:bg-white/90 font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
+                <Link to="/competitions">
+                  <Trophy className="h-4 sm:h-5 w-4 sm:w-5 mr-2" />
+                  Enter Competition
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-accent font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
+                <Link to="/performance-review-form">
+                  <Upload className="h-4 sm:h-5 w-4 sm:w-5 mr-2" />
+                  Submit Dance Video
+                </Link>
+              </Button>
+              <Button size="lg" variant="ghost" className="text-white hover:bg-white/10 font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
+                <Link to="/live-chat">
+                  <Play className="h-4 sm:h-5 w-4 sm:w-5 mr-2" />
+                  Watch Live
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+        
+        {/* Decorative Elements */}
+        <div className="absolute top-10 left-10 w-16 sm:w-20 h-16 sm:h-20 rounded-full bg-white/10 animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-12 sm:w-16 h-12 sm:h-16 rounded-full bg-neon-pink/30 animate-bounce"></div>
+        <div className="absolute top-1/2 left-1/4 w-8 sm:w-12 h-8 sm:h-12 rotate-45 bg-baby-pink/20"></div>
+      </section>
+
+      {/* About Preview */}
+      <section className="py-12 sm:py-16 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center space-y-4 sm:space-y-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-poppins font-bold text-foreground">
+              Global Dance Community
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+              LoveDanceLive connects dancers from around the world through live competitions, online submissions, and expert mentorship. Whether you're a beginner or professional, find your stage with us.
+            </p>
+            <Button variant="outline" size="lg" asChild>
+              <Link to="/about">
+                Learn Our Story
+                <ArrowRight className="h-4 w-4 ml-2" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Upcoming Events Carousel */}
+      <section className="py-12 sm:py-16 bg-muted">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-4 sm:space-y-6 mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-poppins font-bold text-foreground">
+              Upcoming Events
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground">
+              Join live competitions in our featured cities or participate online
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {[
+              { city: 'Mexico City', date: 'March 15, 2024', type: 'Live Competition', styles: 'Latin, Contemporary' },
+              { city: 'Sydney', date: 'March 22, 2024', type: 'Live Competition', styles: 'Hip-Hop, Jazz' },
+              { city: 'Seoul', date: 'March 29, 2024', type: 'Live Competition', styles: 'K-Pop, Street' },
+            ].map((event, index) => (
+              <Card key={index} className="hover:shadow-lg transition-shadow border-0 bg-card">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <Globe className="h-6 w-6 text-primary" />
+                    <span className="text-sm font-medium text-accent">{event.type}</span>
+                  </div>
+                  <CardTitle className="text-xl font-poppins">{event.city}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center space-x-2 text-muted-foreground">
+                    <Calendar className="h-4 w-4" />
+                    <span className="text-sm">{event.date}</span>
+                  </div>
+                  <p className="text-sm">
+                    <strong>Styles:</strong> {event.styles}
+                  </p>
+                  <Button size="sm" className="w-full bg-primary hover:bg-primary/90">
+                    Register Now
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Workshops Teaser */}
+      <section className="py-12 sm:py-16 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+            <div className="space-y-4 sm:space-y-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-poppins font-bold text-foreground">
+                Master Your Craft
+              </h2>
+              <p className="text-base sm:text-lg text-muted-foreground">
+                Learn from world-renowned choreographers and judges through our exclusive workshops and online classes. Perfect your technique, explore new styles, and get personalized feedback.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3">
+                  <Star className="h-5 w-5 text-accent" />
+                  <span>Expert instructors from 5 continents</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Users className="h-5 w-5 text-accent" />
+                  <span>Small class sizes for personalized attention</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Play className="h-5 w-5 text-accent" />
+                  <span>Live and recorded sessions available</span>
+                </div>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button size="lg" asChild>
+                  <Link to="/workshops">
+                    Browse Workshops
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                  <Link to="/online-classes">
+                    Online Classes
+                  </Link>
+                </Button>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Card className="bg-primary/10 border-0">
+                <CardContent className="p-4 sm:p-6 text-center">
+                  <Trophy className="h-10 sm:h-12 w-10 sm:w-12 text-primary mx-auto mb-3 sm:mb-4" />
+                  <h3 className="font-poppins font-semibold text-base sm:text-lg mb-2">Competition Prep</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Get competition-ready with our intensive prep courses</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-accent/10 border-0">
+                <CardContent className="p-4 sm:p-6 text-center">
+                  <Users className="h-10 sm:h-12 w-10 sm:w-12 text-accent mx-auto mb-3 sm:mb-4" />
+                  <h3 className="font-poppins font-semibold text-base sm:text-lg mb-2">Group Classes</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Learn with dancers from around the world</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-neon-pink/10 border-0">
+                <CardContent className="p-4 sm:p-6 text-center">
+                  <Star className="h-10 sm:h-12 w-10 sm:w-12 text-neon-pink mx-auto mb-3 sm:mb-4" />
+                  <h3 className="font-poppins font-semibold text-base sm:text-lg mb-2">1-on-1 Sessions</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Personal coaching with industry experts</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-light-blue/10 border-0">
+                <CardContent className="p-4 sm:p-6 text-center">
+                  <Play className="h-10 sm:h-12 w-10 sm:w-12 text-light-blue mx-auto mb-3 sm:mb-4" />
+                  <h3 className="font-poppins font-semibold text-base sm:text-lg mb-2">Video Reviews</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Submit videos for detailed feedback</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Community Preview */}
+      <section className="py-12 sm:py-16 bg-muted">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-4 sm:space-y-6 mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-poppins font-bold text-foreground">
+              Join the Community
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+              Connect with dancers worldwide, share your journey, participate in challenges, and celebrate each other's successes.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <Card className="text-center border-0 bg-card hover:shadow-lg transition-shadow">
+              <CardContent className="p-4 sm:p-6">
+                <Users className="h-10 sm:h-12 w-10 sm:w-12 text-primary mx-auto mb-3 sm:mb-4" />
+                <h3 className="font-poppins font-semibold text-base sm:text-lg mb-2">Forums</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">Discuss techniques, share tips, and connect</p>
+                <Button size="sm" variant="outline" asChild>
+                  <Link to="/community">Join Forum</Link>
+                </Button>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center border-0 bg-card hover:shadow-lg transition-shadow">
+              <CardContent className="p-4 sm:p-6">
+                <Trophy className="h-10 sm:h-12 w-10 sm:w-12 text-accent mx-auto mb-3 sm:mb-4" />
+                <h3 className="font-poppins font-semibold text-base sm:text-lg mb-2">Challenges</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">Monthly dance challenges with prizes</p>
+                <Button size="sm" variant="outline" asChild>
+                  <Link to="/challenges">View Challenges</Link>
+                </Button>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center border-0 bg-card hover:shadow-lg transition-shadow">
+              <CardContent className="p-4 sm:p-6">
+                <Heart className="h-10 sm:h-12 w-10 sm:w-12 text-neon-pink mx-auto mb-3 sm:mb-4" />
+                <h3 className="font-poppins font-semibold text-base sm:text-lg mb-2">Gallery</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">Share your best performances</p>
+                <Button size="sm" variant="outline" asChild>
+                  <Link to="/gallery">Explore Gallery</Link>
+                </Button>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center border-0 bg-card hover:shadow-lg transition-shadow">
+              <CardContent className="p-4 sm:p-6">
+                <Play className="h-10 sm:h-12 w-10 sm:w-12 text-light-blue mx-auto mb-3 sm:mb-4" />
+                <h3 className="font-poppins font-semibold text-base sm:text-lg mb-2">Live Chat</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">Chat during live events and competitions</p>
+                <Button size="sm" variant="outline" asChild>
+                  <Link to="/live-chat">Join Chat</Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Sponsors Logos */}
+      <section className="py-8 sm:py-12 bg-background border-t border-border">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-6 sm:space-y-8">
+            <h3 className="text-lg sm:text-xl font-poppins font-semibold text-muted-foreground">
+              Proudly Supported By
+            </h3>
+            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-8 opacity-60">
+              {/* Placeholder sponsor logos */}
+              <div className="w-20 sm:w-24 h-10 sm:h-12 bg-muted rounded flex items-center justify-center text-xs font-medium">
+                Sponsor 1
+              </div>
+              <div className="w-20 sm:w-24 h-10 sm:h-12 bg-muted rounded flex items-center justify-center text-xs font-medium">
+                Sponsor 2
+              </div>
+              <div className="w-20 sm:w-24 h-10 sm:h-12 bg-muted rounded flex items-center justify-center text-xs font-medium">
+                Sponsor 3
+              </div>
+              <div className="w-20 sm:w-24 h-10 sm:h-12 bg-muted rounded flex items-center justify-center text-xs font-medium">
+                Sponsor 4
+              </div>
+              <div className="w-20 sm:w-24 h-10 sm:h-12 bg-muted rounded flex items-center justify-center text-xs font-medium">
+                Sponsor 5
+              </div>
+            </div>
+            <Button variant="outline" asChild>
+              <Link to="/sponsors">
+                Become a Sponsor
+                <ArrowRight className="h-4 w-4 ml-2" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default Home;
