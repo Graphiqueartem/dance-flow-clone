@@ -184,8 +184,10 @@ const Home = () => {
                   <p className="text-lg mb-6 opacity-90">
                     The ultimate dance competition bringing together winners from around the world
                   </p>
-                  <Button size="lg" className="bg-primary hover:bg-primary/90">
-                    Register Now
+                  <Button size="lg" className="bg-primary hover:bg-primary/90" asChild>
+                    <Link to="/performance-review-form">
+                      Register Now
+                    </Link>
                   </Button>
                 </div>
               </div>
@@ -214,8 +216,10 @@ const Home = () => {
                   <p className="text-sm">
                     <strong>Styles:</strong> {event.styles}
                   </p>
-                  <Button size="sm" className="w-full bg-primary hover:bg-primary/90">
-                    Register Now
+                  <Button size="sm" className="w-full bg-primary hover:bg-primary/90" asChild>
+                    <Link to="/performance-review-form">
+                      Register Now
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>

@@ -54,7 +54,15 @@ const Footer = () => {
               <li><Link to="/challenges" className="text-muted-foreground hover:text-accent transition-colors">Dance Challenges</Link></li>
               <li><Link to="/gallery" className="text-muted-foreground hover:text-accent transition-colors">User Gallery</Link></li>
               <li><Link to="/live-chat" className="text-muted-foreground hover:text-accent transition-colors">Live Event Chat</Link></li>
-              <li><Link to="/shop" className="text-muted-foreground hover:text-accent transition-colors">Shop</Link></li>
+              <li>
+                <Link 
+                  to="/coming-soon" 
+                  state={{ pageTitle: "Shop" }}
+                  className="text-muted-foreground hover:text-accent transition-colors"
+                >
+                  Shop
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -79,7 +87,22 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 LoveDanceLive. All rights reserved. | <Link to="/contact" className="hover:text-accent transition-colors">Privacy Policy</Link> | <Link to="/contact" className="hover:text-accent transition-colors">Terms of Service</Link></p>
+          <p>&copy; 2024 LoveDanceLive. All rights reserved. | 
+            <Link 
+              to="/coming-soon" 
+              state={{ pageTitle: "Privacy Policy" }}
+              className="hover:text-accent transition-colors"
+            >
+              Privacy Policy
+            </Link> | 
+            <Link 
+              to="/coming-soon" 
+              state={{ pageTitle: "Terms of Service" }}
+              className="hover:text-accent transition-colors"
+            >
+              Terms of Service
+            </Link>
+          </p>
         </div>
       </div>
     </footer>

@@ -56,7 +56,12 @@ const About = () => {
               </p>
               <div className="text-center">
                 <Button size="lg" asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  <Link to="/contact">Meet the Team</Link>
+                  <Link 
+                    to="/coming-soon" 
+                    state={{ pageTitle: "Meet the Team" }}
+                  >
+                    Meet the Team
+                  </Link>
                 </Button>
               </div>
             </CardContent>
