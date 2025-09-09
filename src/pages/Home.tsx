@@ -358,20 +358,6 @@ const Home = () => {
       </section>
 
       {/* Admin Access Notice */}
-      <section className="py-8 bg-primary/5 border-t border-primary/10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="max-w-md mx-auto">
-            <p className="text-sm text-muted-foreground mb-4">
-              Platform Administrator?
-            </p>
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/auth?mode=admin">
-                Admin Login
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
 
       {/* Sponsors Logos */}
       <section className="py-8 sm:py-12 bg-background border-t border-border">
