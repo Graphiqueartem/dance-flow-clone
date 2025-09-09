@@ -5,15 +5,15 @@ import { Menu, X, Play, Heart, ChevronDown, Settings, LogOut } from 'lucide-reac
 import { useAuth } from '@/contexts/AuthContext';
 
 const competitionLinks = [
-  { name: 'How to Enter', path: '/how-to-enter' },
-  { name: 'Royal Academy Dance Gala and Masterclass', path: '/competitions/royal-academy-dance-gala' },
-  { name: 'Ibiza 2023 Gala/Masterclass', path: '/competitions/ibiza-2023-gala' },
-  { name: 'LoveDance Summer Camp 2023', path: '/competitions/lovedance-summer-camp-2023' },
-  { name: 'Sadlers Wells Competition FEB', path: '/competitions/sadlers-wells-feb' },
-  { name: 'Sadlers Wells Competition NOV', path: '/competitions/sadlers-wells-nov' },
-  { name: 'LoveDance Summer Camp 2022', path: '/competitions/lovedance-summer-camp-2022' },
-  { name: 'LoveDanceLive Convention Summer Picnic 2022', path: '/competitions/convention-summer-picnic-2022' },
   { name: 'Upcoming Events', path: '/competitions/upcoming' },
+  { name: 'How to Enter', path: '/how-to-enter' },
+  { name: 'Royal Academy Dance Gala and Masterclass - 2023', path: '/competitions/royal-academy-dance-gala' },
+  { name: 'Ibiza - 2023', path: '/competitions/ibiza-2023-gala' },
+  { name: 'LoveDance Summer Camp - 2023', path: '/competitions/lovedance-summer-camp-2023' },
+  { name: 'Sadlers Wells - 2023', path: '/competitions/sadlers-wells-feb' },
+  { name: 'Sadlers Wells - 2022', path: '/competitions/sadlers-wells-nov' },
+  { name: 'LoveDance Summer Camp - 2022', path: '/competitions/lovedance-summer-camp-2022' },
+  { name: 'LoveDanceLive Convention Summer Picnic - 2022', path: '/competitions/convention-summer-picnic-2022' },
 ];
 
 const navigationLinks = [
@@ -191,8 +191,8 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="xl:hidden border-t border-border py-4 max-h-[calc(100vh-80px)] overflow-y-auto">
-            <nav className="space-y-2">
+          <div className="xl:hidden border-t border-border py-4 max-h-[calc(100vh-120px)] overflow-y-auto">
+            <nav className="space-y-2 mb-4">
               {navigationLinks.map((link) => (
                 <div key={link.path}>
                   {link.hasDropdown ? (
@@ -209,7 +209,7 @@ const Header = () => {
                         <ChevronDown className={`h-4 w-4 transition-transform ${isMobileDropdownOpen ? 'rotate-180' : ''}`} />
                       </button>
                       {isMobileDropdownOpen && (
-                        <div className="pl-4 mt-2 space-y-1 max-h-60 overflow-y-auto">
+                        <div className="pl-4 mt-2 space-y-1 max-h-60 overflow-y-auto border-l-2 border-accent/20">
                           {competitionLinks.map((compLink) => (
                             <Link
                               key={compLink.path}
@@ -243,8 +243,8 @@ const Header = () => {
               ))}
             </nav>
             
-            {/* Mobile CTA Buttons */}
-            <div className="mt-4 space-y-2">
+            {/* Mobile CTA Buttons - Always visible at bottom */}
+            <div className="sticky bottom-0 bg-background/95 backdrop-blur pt-4 border-t border-border mt-4 space-y-2">
               {profile?.role === 'admin' && (
                 <Button variant="secondary" size="sm" className="w-full" asChild>
                   <Link to="/admin" onClick={() => setIsMenuOpen(false)}>
@@ -268,7 +268,7 @@ const Header = () => {
                   </Link>
                 </Button>
               )}
-              <Button variant="outline" size="sm" className="w-full" asChild>
+              <Button variant="default" size="sm" className="w-full" asChild>
                 <Link to="/performance-review-form" onClick={() => setIsMenuOpen(false)}>
                   <Play className="h-4 w-4 mr-2" />
                   Enter Competition
