@@ -9,10 +9,10 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Textarea } from '@/components/ui/textarea';
-import { Star, MapPin, Languages, Crown, Edit2, Save, X } from 'lucide-react';
+import { Star, MapPin, Languages, Crown, Edit2, Save, X, Mail, DollarSign } from 'lucide-react';
 import { Judge } from '@/types/performance';
 import { useToast } from '@/hooks/use-toast';
-import { databaseService } from '@/services/databaseService';
+import { supabase } from '@/integrations/supabase/client';
 
 interface JudgeProfileProps {
   judge: Judge;
@@ -34,20 +34,23 @@ const JudgeProfile: React.FC<JudgeProfileProps> = ({
   const handleSaveProfile = async () => {
     setIsSaving(true);
     try {
-      const updatedJudge = await databaseService.updateJudge(editedJudge.id, {
-        ...editedJudge,
-        available_for_hire: isAvailableForHire
-      });
+      const { error } = await supabase
+        .from('judges')
+        .update({
+          country: editedJudge.country,
+          hourly_rate: editedJudge.hourly_rate,
+          bio: editedJudge.bio,
+          available_for_hire: isAvailableForHire
+        })
+        .eq('id', editedJudge.id);
+
+      if (error) throw error;
       
-      if (updatedJudge) {
-        setIsEditing(false);
-        toast({
-          title: "Profile Updated",
-          description: "Your profile has been saved successfully.",
-        });
-      } else {
-        throw new Error('Failed to update profile');
-      }
+      setIsEditing(false);
+      toast({
+        title: "Profile Updated",
+        description: "Your profile has been saved successfully.",
+      });
     } catch (error) {
       console.error('Error updating profile:', error);
       toast({
@@ -137,13 +140,14 @@ const JudgeProfile: React.FC<JudgeProfileProps> = ({
           )}
 
           {!isOwnProfile && editedJudge.available_for_hire && (
-            <div className="text-center">
-              <Button onClick={onHire} size="lg" className="bg-green-600 hover:bg-green-700">
-                Hire {editedJudge.name}
+            <div className="text-center bg-primary/5 border border-primary/20 rounded-lg p-4">
+              <Button onClick={onHire} size="lg" className="bg-primary hover:bg-primary/90 mb-2">
+                Hire {editedJudge.name.split(' ')[0]}
               </Button>
-              <p className="text-sm text-gray-600 mt-2">
+              <div className="flex items-center justify-center text-sm text-muted-foreground">
+                <DollarSign className="h-4 w-4 mr-1" />
                 Starting from ${editedJudge.hourly_rate || '75'}/hour
-              </p>
+              </div>
             </div>
           )}
 

@@ -256,7 +256,7 @@ const AdminDashboard: React.FC = () => {
                       {selectedEvent ? 'Edit Event' : 'Create New Event'}
                     </CardTitle>
                     <CardDescription>
-                      Manage competitions, workshops, and masterclasses
+                      Manage competitions, workshops, and masterclasses with poster images and sold out status
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -376,41 +376,48 @@ const AdminDashboard: React.FC = () => {
                   <CardHeader>
                     <CardTitle>Existing Events</CardTitle>
                     <CardDescription>
-                      Manage all events and their status
+                      Manage all events and their status - events marked as "sold_out" will display with overlay
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-3 max-h-96 overflow-y-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
                       {events.map((event) => (
-                        <div
-                          key={event.id}
-                          className="border rounded-lg p-3 hover:bg-muted/50 transition-colors"
-                        >
-                          <div className="flex items-start justify-between">
-                            <div className="flex-1">
-                              <h4 className="font-medium">{event.title}</h4>
-                              <p className="text-sm text-muted-foreground">
-                                {event.event_type} • {event.status}
-                              </p>
-                              <p className="text-sm text-muted-foreground">
-                                ${event.price} • {new Date(event.event_date).toLocaleDateString()}
-                              </p>
-                            </div>
-                            <div className="flex gap-1">
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={() => setSelectedEvent(event)}
-                              >
-                                <Edit className="h-4 w-4" />
-                              </Button>
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={() => deleteEvent(event.id)}
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
+                        <div key={event.id} className="relative">
+                          <div className="mb-2 flex gap-1">
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => setSelectedEvent(event)}
+                              className="flex-1 justify-start"
+                            >
+                              <Edit className="h-4 w-4 mr-2" />
+                              Edit
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => deleteEvent(event.id)}
+                              className="text-destructive hover:text-destructive"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                          <div className="border rounded-lg p-3 hover:bg-muted/50 transition-colors">
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1">
+                                <h4 className="font-medium">{event.title}</h4>
+                                <p className="text-sm text-muted-foreground">
+                                  {event.event_type} • {event.status.replace('_', ' ')}
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                  ${event.price} • {new Date(event.event_date).toLocaleDateString()}
+                                </p>
+                                {event.poster_image_url && (
+                                  <p className="text-xs text-muted-foreground mt-1">
+                                    📷 Has poster image
+                                  </p>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>

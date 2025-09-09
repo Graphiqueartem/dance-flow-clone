@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Camera, Heart, Play, Eye, Upload } from 'lucide-react';
+import communityImage from '@/assets/community-dance.jpg';
 
 const Gallery = () => {
   useEffect(() => {
@@ -47,16 +48,31 @@ const Gallery = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl font-poppins font-bold mb-6 bg-gradient-to-r from-primary via-neon-pink to-accent bg-clip-text text-transparent">
-            User Gallery
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Share your dance performances and discover amazing talent from around the world
-          </p>
+    <div className="min-h-screen bg-muted/30">
+      {/* Hero Section */}
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src={communityImage} 
+            alt="Dance community gathering with diverse performers" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-secondary/90"></div>
         </div>
+        
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-poppins font-bold mb-6 text-white">
+              Dance Gallery
+            </h1>
+            <p className="text-lg sm:text-xl text-white/90 max-w-3xl mx-auto">
+              Share your dance performances and discover amazing talent from around the world
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
 
         <div className="flex justify-between items-center mb-8">
           <div className="flex gap-4">

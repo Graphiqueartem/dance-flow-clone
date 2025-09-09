@@ -121,8 +121,9 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode = 'performer', onSucces
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                placeholder="Enter your password"
+                placeholder="Enter your password (min. 6 characters)"
                 className="pr-10"
+                minLength={6}
               />
               <Button
                 type="button"
@@ -138,6 +139,11 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode = 'performer', onSucces
                 )}
               </Button>
             </div>
+            {!isLogin && (
+              <p className="text-xs text-muted-foreground mt-1">
+                Password must be at least 6 characters long
+              </p>
+            )}
           </div>
 
           {!isLogin && (

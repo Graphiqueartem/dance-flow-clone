@@ -3,26 +3,38 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Heart, Globe, Users, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import heroImage from '@/assets/contemporary-dance.jpg';
 
 const About = () => {
   return (
     <div className="min-h-screen bg-muted/30">
       {/* Hero Section */}
-      <div className="bg-primary text-primary-foreground py-12 sm:py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex justify-center mb-6">
-            <div className="bg-white/10 backdrop-blur-sm rounded-full p-4">
-              <Heart className="h-12 w-12 text-white" />
-            </div>
-          </div>
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-poppins font-bold mb-4">
-            About LoveDanceLive
-          </h1>
-          <p className="text-lg sm:text-xl font-open-sans text-primary-foreground/90 max-w-2xl mx-auto">
-            Our Story & Mission
-          </p>
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src={heroImage} 
+            alt="Contemporary dance performance showcasing artistic movement" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-secondary/90"></div>
         </div>
-      </div>
+        
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
+            <div className="flex justify-center mb-6">
+              <div className="bg-white/10 backdrop-blur-sm rounded-full p-4">
+                <Heart className="h-12 w-12 text-white" />
+              </div>
+            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-poppins font-bold mb-4 text-white">
+              About LoveDanceLive
+            </h1>
+            <p className="text-lg sm:text-xl font-open-sans text-white/90 max-w-2xl mx-auto">
+              Connecting dancers worldwide through passion and performance
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Main Content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">

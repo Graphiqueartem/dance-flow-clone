@@ -24,6 +24,7 @@ import AdminDashboard from '@/pages/AdminDashboard';
 import AdminSecretLogin from '@/pages/AdminSecretLogin';
 import UserDashboard from '@/pages/UserDashboard';
 import JudgeDashboardPage from '@/pages/JudgeDashboardPage';
+import Events from '@/pages/Events';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { initializeDemoData } from '@/services/demoData';
 
@@ -112,6 +113,7 @@ function App() {
               <Route path="/gallery" element={<Layout><Gallery /></Layout>} />
               <Route path="/news" element={<Layout><News /></Layout>} />
               <Route path="/contact" element={<Layout><Contact /></Layout>} />
+              <Route path="/events" element={<Layout><Events /></Layout>} />
               <Route path="/account" element={<Layout><UserDashboard /></Layout>} />
               <Route path="/performance-review-form" element={<Layout><PerformanceReviewForm /></Layout>} />
               
