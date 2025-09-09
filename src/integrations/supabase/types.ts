@@ -14,6 +14,75 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_users: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          name: string
+          password_hash: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          name: string
+          password_hash: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          name?: string
+          password_hash?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          event_date: string | null
+          event_type: string
+          id: string
+          location: string | null
+          poster_image_url: string | null
+          price: number | null
+          status: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          event_date?: string | null
+          event_type: string
+          id?: string
+          location?: string | null
+          poster_image_url?: string | null
+          price?: number | null
+          status?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          event_date?: string | null
+          event_type?: string
+          id?: string
+          location?: string | null
+          poster_image_url?: string | null
+          price?: number | null
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       feedback_requests: {
         Row: {
           created_at: string | null
@@ -80,6 +149,7 @@ export type Database = {
           email: string
           hourly_rate: number | null
           id: string
+          is_active: boolean | null
           is_platinum: boolean | null
           languages: string[] | null
           name: string
@@ -89,6 +159,7 @@ export type Database = {
           review_count: number | null
           role: string | null
           updated_at: string | null
+          user_id: string | null
           username: string | null
         }
         Insert: {
@@ -100,6 +171,7 @@ export type Database = {
           email: string
           hourly_rate?: number | null
           id?: string
+          is_active?: boolean | null
           is_platinum?: boolean | null
           languages?: string[] | null
           name: string
@@ -109,6 +181,7 @@ export type Database = {
           review_count?: number | null
           role?: string | null
           updated_at?: string | null
+          user_id?: string | null
           username?: string | null
         }
         Update: {
@@ -120,6 +193,7 @@ export type Database = {
           email?: string
           hourly_rate?: number | null
           id?: string
+          is_active?: boolean | null
           is_platinum?: boolean | null
           languages?: string[] | null
           name?: string
@@ -129,7 +203,82 @@ export type Database = {
           review_count?: number | null
           role?: string | null
           updated_at?: string | null
+          user_id?: string | null
           username?: string | null
+        }
+        Relationships: []
+      }
+      orders: {
+        Row: {
+          amount: number
+          created_at: string | null
+          currency: string | null
+          id: string
+          payment_intent_id: string | null
+          performance_id: string | null
+          status: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          payment_intent_id?: string | null
+          performance_id?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          payment_intent_id?: string | null
+          performance_id?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_performance_id_fkey"
+            columns: ["performance_id"]
+            isOneToOne: false
+            referencedRelation: "performances"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      page_content: {
+        Row: {
+          content_type: string
+          content_value: string
+          created_at: string | null
+          id: string
+          page_name: string
+          section_name: string
+          updated_at: string | null
+        }
+        Insert: {
+          content_type: string
+          content_value: string
+          created_at?: string | null
+          id?: string
+          page_name: string
+          section_name: string
+          updated_at?: string | null
+        }
+        Update: {
+          content_type?: string
+          content_value?: string
+          created_at?: string | null
+          id?: string
+          page_name?: string
+          section_name?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -140,6 +289,7 @@ export type Database = {
           id: string
           judge_id: string | null
           judge_name: string
+          order_id: string | null
           overall: number | null
           performance_id: string | null
           reflex: number | null
@@ -148,6 +298,7 @@ export type Database = {
           technique: number | null
           text_feedback: string
           timing: number | null
+          video_feedback_file_url: string | null
           video_feedback_url: string | null
         }
         Insert: {
@@ -156,6 +307,7 @@ export type Database = {
           id?: string
           judge_id?: string | null
           judge_name: string
+          order_id?: string | null
           overall?: number | null
           performance_id?: string | null
           reflex?: number | null
@@ -164,6 +316,7 @@ export type Database = {
           technique?: number | null
           text_feedback: string
           timing?: number | null
+          video_feedback_file_url?: string | null
           video_feedback_url?: string | null
         }
         Update: {
@@ -172,6 +325,7 @@ export type Database = {
           id?: string
           judge_id?: string | null
           judge_name?: string
+          order_id?: string | null
           overall?: number | null
           performance_id?: string | null
           reflex?: number | null
@@ -180,6 +334,7 @@ export type Database = {
           technique?: number | null
           text_feedback?: string
           timing?: number | null
+          video_feedback_file_url?: string | null
           video_feedback_url?: string | null
         }
         Relationships: [
@@ -188,6 +343,13 @@ export type Database = {
             columns: ["judge_id"]
             isOneToOne: false
             referencedRelation: "judges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "performance_feedback_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
             referencedColumns: ["id"]
           },
           {
@@ -286,6 +448,42 @@ export type Database = {
           },
         ]
       }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string | null
+          email: string
+          id: string
+          name: string
+          role: Database["public"]["Enums"]["user_role"]
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+          name: string
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          name?: string
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -297,6 +495,7 @@ export type Database = {
       feedback_type: "free" | "paid"
       performance_status: "pending" | "reviewed" | "in-progress"
       request_status: "pending" | "accepted" | "declined"
+      user_role: "admin" | "judge" | "performer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -427,6 +626,7 @@ export const Constants = {
       feedback_type: ["free", "paid"],
       performance_status: ["pending", "reviewed", "in-progress"],
       request_status: ["pending", "accepted", "declined"],
+      user_role: ["admin", "judge", "performer"],
     },
   },
 } as const
