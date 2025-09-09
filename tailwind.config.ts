@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      backgroundImage: {
+        'dance-gradient': 'var(--dance-gradient)',
+        'hero-gradient': 'var(--hero-gradient)',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -46,6 +50,10 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        dance: {
+          teal: "hsl(var(--dance-teal))",
+          pink: "hsl(var(--dance-pink))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
