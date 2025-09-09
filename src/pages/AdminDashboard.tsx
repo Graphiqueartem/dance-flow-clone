@@ -17,7 +17,8 @@ import {
   LogOut,
   Plus,
   Edit,
-  Trash2
+  Trash2,
+  Eye
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -574,9 +575,29 @@ const AdminDashboard: React.FC = () => {
                               Judge: {submission.assigned_judge_name}
                             </p>
                           )}
+                          {/* Status indicators */}
+                          <div className="flex gap-2 mt-2">
+                            <span className={`text-xs px-2 py-1 rounded ${
+                              submission.status === 'pending_payment' ? 'bg-yellow-100 text-yellow-800' :
+                              submission.status === 'pending' ? 'bg-blue-100 text-blue-800' :
+                              submission.status === 'completed' ? 'bg-green-100 text-green-800' :
+                              'bg-gray-100 text-gray-800'
+                            }`}>
+                              {submission.status.replace('_', ' ').toUpperCase()}
+                            </span>
+                            <span className={`text-xs px-2 py-1 rounded ${
+                              submission.feedback_type === 'PAID' ? 'bg-purple-100 text-purple-800' :
+                              'bg-gray-100 text-gray-800'
+                            }`}>
+                              {submission.feedback_type}
+                            </span>
+                          </div>
                         </div>
                         <div className="flex gap-1">
-                          <Button size="sm" variant="ghost">
+                          <Button size="sm" variant="ghost" title="View Video">
+                            <Eye className="h-4 w-4" onClick={() => window.open(submission.video_url, '_blank')} />
+                          </Button>
+                          <Button size="sm" variant="ghost" title="Edit Submission">
                             <Edit className="h-4 w-4" />
                           </Button>
                         </div>

@@ -115,8 +115,10 @@ function App() {
               <Route path="/gallery" element={<Layout><Gallery /></Layout>} />
               <Route path="/news" element={<Layout><News /></Layout>} />
               <Route path="/contact" element={<Layout><Contact /></Layout>} />
+              <Route path="/events" element={<Layout><Events /></Layout>} />
               <Route path="/payment-success" element={<PaymentSuccess />} />
               <Route path="/account" element={<Layout><UserDashboard /></Layout>} />
+              <Route path="/user-dashboard" element={<Layout><UserDashboard /></Layout>} />
               <Route path="/performance-review-form" element={<Layout><PerformanceReviewForm /></Layout>} />
               
               {/* Competition Pages */}
