@@ -3,33 +3,46 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, Upload, Users, Trophy, Calendar, Star, ArrowRight, Globe, Heart } from 'lucide-react';
+import heroImage from '@/assets/hero-dance.jpg';
+import contemporaryImage from '@/assets/contemporary-dance.jpg';
+import ballroomImage from '@/assets/ballroom-dance.jpg';
+import hipHopImage from '@/assets/hip-hop-dance.jpg';
+import competitionImage from '@/assets/competition-stage.jpg';
 
 const Home = () => {
   return (
     <div className="pb-24">
-      {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex items-center justify-center bg-primary text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
+      {/* Hero Section with Background Image */}
+      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src={heroImage} 
+            alt="Professional dance performance" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-secondary/90"></div>
+        </div>
+        
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
-            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-poppins font-bold leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-poppins font-bold leading-tight text-white">
               Where Passion Meets Performance
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl font-open-sans text-primary-foreground/90">
+            <p className="text-lg sm:text-xl md:text-2xl font-open-sans text-white/90">
               Live & Online Dance Competition Platform
             </p>
-            <p className="text-base sm:text-lg font-lato max-w-2xl mx-auto text-primary-foreground/80">
+            <p className="text-base sm:text-lg font-lato max-w-2xl mx-auto text-white/80">
               Join thousands of dancers worldwide. Compete live in our global cities or submit your performance online to get expert feedback and win amazing prizes.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-6 sm:mt-8">
-              <Button size="lg" className="bg-white text-accent hover:bg-white/90 font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
                 <Link to="/competitions">
                   <Trophy className="h-4 sm:h-5 w-4 sm:w-5 mr-2" />
                   Enter Competition
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-accent font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
                 <Link to="/performance-review-form">
                   <Upload className="h-4 sm:h-5 w-4 sm:w-5 mr-2" />
                   Submit Dance Video
@@ -51,28 +64,99 @@ const Home = () => {
         <div className="absolute top-1/2 left-1/4 w-8 sm:w-12 h-8 sm:h-12 rotate-45 bg-baby-pink/20"></div>
       </section>
 
-      {/* About Preview */}
+      {/* About Preview with Image */}
       <section className="py-12 sm:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center space-y-4 sm:space-y-6">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-poppins font-bold text-foreground">
-              Global Dance Community
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-              LoveDanceLive connects dancers from around the world through live competitions, online submissions, and expert mentorship. Whether you're a beginner or professional, find your stage with us.
-            </p>
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/about">
-                Learn Our Story
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Link>
-            </Button>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div className="space-y-4 sm:space-y-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-poppins font-bold text-foreground">
+                Global Dance Community
+              </h2>
+              <p className="text-base sm:text-lg text-muted-foreground">
+                LoveDanceLive connects dancers from around the world through live competitions, online submissions, and expert mentorship. Whether you're a beginner or professional, find your stage with us.
+              </p>
+              <Button variant="outline" size="lg" asChild>
+                <Link to="/about">
+                  Learn Our Story
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Link>
+              </Button>
+            </div>
+            <div className="relative rounded-lg overflow-hidden shadow-xl">
+              <img 
+                src={contemporaryImage} 
+                alt="Contemporary dance performance" 
+                className="w-full h-64 sm:h-80 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Upcoming Events Carousel */}
+      {/* Dance Styles Showcase */}
       <section className="py-12 sm:py-16 bg-muted">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-4 sm:space-y-6 mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-poppins font-bold text-foreground">
+              Every Style Welcome
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground">
+              From classical ballet to street hip-hop, showcase your unique style
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border-0">
+              <div className="relative h-48">
+                <img 
+                  src={ballroomImage} 
+                  alt="Ballroom dance" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute bottom-4 left-4 text-white">
+                  <h3 className="text-xl font-poppins font-bold">Ballroom</h3>
+                  <p className="text-sm opacity-90">Elegant & Timeless</p>
+                </div>
+              </div>
+            </Card>
+            
+            <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border-0">
+              <div className="relative h-48">
+                <img 
+                  src={hipHopImage} 
+                  alt="Hip-hop dance" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute bottom-4 left-4 text-white">
+                  <h3 className="text-xl font-poppins font-bold">Hip-Hop</h3>
+                  <p className="text-sm opacity-90">Urban & Energetic</p>
+                </div>
+              </div>
+            </Card>
+            
+            <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border-0">
+              <div className="relative h-48">
+                <img 
+                  src={contemporaryImage} 
+                  alt="Contemporary dance" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute bottom-4 left-4 text-white">
+                  <h3 className="text-xl font-poppins font-bold">Contemporary</h3>
+                  <p className="text-sm opacity-90">Expressive & Modern</p>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Upcoming Events with Competition Image */}
+      <section className="py-12 sm:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 sm:space-y-6 mb-8 sm:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-poppins font-bold text-foreground">
@@ -81,6 +165,31 @@ const Home = () => {
             <p className="text-base sm:text-lg text-muted-foreground">
               Join live competitions in our featured cities or participate online
             </p>
+          </div>
+          
+          {/* Featured Event */}
+          <div className="relative rounded-xl overflow-hidden mb-8 shadow-2xl">
+            <img 
+              src={competitionImage} 
+              alt="Competition stage" 
+              className="w-full h-64 sm:h-80 object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30"></div>
+            <div className="absolute inset-0 flex items-center">
+              <div className="container mx-auto px-6 text-white">
+                <div className="max-w-lg">
+                  <h3 className="text-2xl sm:text-3xl font-poppins font-bold mb-4">
+                    Global Finals 2024
+                  </h3>
+                  <p className="text-lg mb-6 opacity-90">
+                    The ultimate dance competition bringing together winners from around the world
+                  </p>
+                  <Button size="lg" className="bg-primary hover:bg-primary/90">
+                    Register Now
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
@@ -116,7 +225,7 @@ const Home = () => {
       </section>
 
       {/* Workshops Teaser */}
-      <section className="py-12 sm:py-16 bg-background">
+      <section className="py-12 sm:py-16 bg-muted">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
             <div className="space-y-4 sm:space-y-6">
@@ -189,7 +298,7 @@ const Home = () => {
       </section>
 
       {/* Community Preview */}
-      <section className="py-12 sm:py-16 bg-muted">
+      <section className="py-12 sm:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 sm:space-y-6 mb-8 sm:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-poppins font-bold text-foreground">
@@ -244,6 +353,22 @@ const Home = () => {
                 </Button>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Admin Access Notice */}
+      <section className="py-8 bg-primary/5 border-t border-primary/10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="max-w-md mx-auto">
+            <p className="text-sm text-muted-foreground mb-4">
+              Platform Administrator?
+            </p>
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/auth?mode=admin">
+                Admin Login
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

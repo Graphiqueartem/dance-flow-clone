@@ -21,6 +21,8 @@ import PerformanceReviewForm from '@/pages/PerformanceReviewForm';
 import NotFound from '@/pages/NotFound';
 import Auth from '@/pages/Auth';
 import AdminDashboard from '@/pages/AdminDashboard';
+import UserDashboard from '@/pages/UserDashboard';
+import JudgeDashboardPage from '@/pages/JudgeDashboardPage';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { initializeDemoData } from '@/services/demoData';
 
@@ -89,6 +91,7 @@ function App() {
               {/* Auth routes (no layout) */}
               <Route path="/auth" element={<Auth />} />
               <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/judge-dashboard" element={<JudgeDashboardPage />} />
               
               {/* Main app routes (with layout) */}
               <Route path="/" element={<Layout><Home /></Layout>} />
@@ -107,7 +110,7 @@ function App() {
               <Route path="/gallery" element={<Layout><Gallery /></Layout>} />
               <Route path="/news" element={<Layout><News /></Layout>} />
               <Route path="/contact" element={<Layout><Contact /></Layout>} />
-              <Route path="/account" element={<Layout><div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16"><h1 className="text-3xl sm:text-4xl font-poppins font-bold mb-4 sm:mb-6">Your Dashboard</h1><p className="text-base sm:text-lg text-muted-foreground">Manage Entries & Purchases - Coming Soon!</p></div></Layout>} />
+              <Route path="/account" element={<Layout><UserDashboard /></Layout>} />
               <Route path="/performance-review-form" element={<Layout><PerformanceReviewForm /></Layout>} />
               
               {/* Competition Pages */}
