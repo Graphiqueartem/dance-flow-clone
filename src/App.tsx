@@ -99,9 +99,7 @@ function App() {
           
           {/* Competition Pages */}
           <Route path="/competitions/royal-academy-dance-gala" element={<RoyalAcademyDanceGala />} />
-          <Route path="/competitions/royal-tour-rad" element={<RoyalTourRAD />} />
           <Route path="/competitions/ibiza-2023-gala" element={<Ibiza2023Gala />} />
-          <Route path="/competitions/masterclasses" element={<Masterclasses />} />
           <Route path="/competitions/lovedance-summer-camp-2023" element={<LoveDanceSummerCamp2023 />} />
           <Route path="/competitions/sadlers-wells-feb" element={<SadlersWellsFeb />} />
           <Route path="/competitions/sadlers-wells-nov" element={<SadlersWellsNov />} />

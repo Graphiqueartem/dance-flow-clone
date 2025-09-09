@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Play, Heart, ChevronDown } from 'lucide-react';
@@ -6,9 +6,7 @@ import { Menu, X, Play, Heart, ChevronDown } from 'lucide-react';
 const competitionLinks = [
   { name: 'How to Enter', path: '/how-to-enter' },
   { name: 'Royal Academy Dance Gala and Masterclass', path: '/competitions/royal-academy-dance-gala' },
-  { name: 'Royal Tour RAD Flights Hotels', path: '/competitions/royal-tour-rad' },
   { name: 'Ibiza 2023 Gala/Masterclass', path: '/competitions/ibiza-2023-gala' },
-  { name: 'Masterclasses', path: '/competitions/masterclasses' },
   { name: 'LoveDance Summer Camp 2023', path: '/competitions/lovedance-summer-camp-2023' },
   { name: 'Sadlers Wells Competition FEB', path: '/competitions/sadlers-wells-feb' },
   { name: 'Sadlers Wells Competition NOV', path: '/competitions/sadlers-wells-nov' },
@@ -37,7 +35,34 @@ const navigationLinks = [
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Prevent background scrolling when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border shadow-sm">
@@ -55,9 +80,9 @@ const Header = () => {
           <nav className="hidden xl:flex items-center space-x-6">
             {navigationLinks.slice(0, 8).map((link) => (
               link.hasDropdown ? (
-                <div key={link.path} className="relative group">
-                  <Link
-                    to={link.path}
+                <div key={link.path} className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                     className={`flex items-center px-3 py-2 text-sm font-medium transition-colors hover:text-accent rounded-md whitespace-nowrap ${
                       location.pathname === link.path || location.pathname.startsWith('/competitions/')
                         ? 'bg-accent text-accent-foreground'
@@ -65,21 +90,24 @@ const Header = () => {
                     }`}
                   >
                     {link.name}
-                    <ChevronDown className="ml-1 h-4 w-4" />
-                  </Link>
-                  <div className="absolute top-full left-0 mt-1 w-80 bg-popover border border-border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                    <div className="py-2 max-h-96 overflow-y-auto">
-                      {competitionLinks.map((compLink) => (
-                        <Link
-                          key={compLink.path}
-                          to={compLink.path}
-                          className="block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                        >
-                          {compLink.name}
-                        </Link>
-                      ))}
+                    <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {isDropdownOpen && (
+                    <div className="absolute top-full left-0 mt-1 w-80 bg-popover border border-border rounded-md shadow-lg z-50">
+                      <div className="py-2 max-h-96 overflow-y-auto">
+                        {competitionLinks.map((compLink) => (
+                          <Link
+                            key={compLink.path}
+                            to={compLink.path}
+                            className="block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                            onClick={() => setIsDropdownOpen(false)}
+                          >
+                            {compLink.name}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               ) : (
                 <Link
@@ -120,7 +148,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="xl:hidden border-t border-border py-4">
+          <div className="xl:hidden border-t border-border py-4 max-h-[calc(100vh-80px)] overflow-y-auto">
             <nav className="space-y-2">
               {navigationLinks.map((link) => (
                 <div key={link.path}>
@@ -136,7 +164,7 @@ const Header = () => {
                     {link.name}
                   </Link>
                   {link.hasDropdown && (
-                    <div className="pl-4 mt-2 space-y-1">
+                    <div className="pl-4 mt-2 space-y-1 max-h-60 overflow-y-auto">
                       {competitionLinks.map((compLink) => (
                         <Link
                           key={compLink.path}
