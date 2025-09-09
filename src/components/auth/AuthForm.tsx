@@ -7,6 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { Eye, EyeOff, LogIn, UserPlus } from 'lucide-react';
+import JudgeRegistration from '@/components/JudgeRegistration';
+import { Judge } from '@/types/performance';
 
 interface AuthFormProps {
   mode?: 'admin' | 'judge' | 'performer';
@@ -21,12 +23,20 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode = 'performer', onSucces
   const [role, setRole] = useState(mode);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showJudgeRegistration, setShowJudgeRegistration] = useState(false);
   
   const { signIn, signUp } = useAuth();
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // If registering as a judge, show the detailed registration form
+    if (!isLogin && role === 'judge') {
+      setShowJudgeRegistration(true);
+      return;
+    }
+    
     setLoading(true);
 
     try {
@@ -72,6 +82,17 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode = 'performer', onSucces
     }
   };
 
+  const handleJudgeRegistration = (judge: Judge) => {
+    toast({
+      title: 'Judge Profile Created!',
+      description: 'Your judge profile has been created successfully. You can now log in.'
+    });
+    setShowJudgeRegistration(false);
+    setIsLogin(true);
+    setRole('judge');
+    onSuccess?.();
+  };
+
   const getModeTitle = () => {
     switch (mode) {
       case 'admin': return 'Admin';
@@ -87,6 +108,16 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode = 'performer', onSucces
       default: return 'Submit your performances and receive professional feedback';
     }
   };
+
+  // Show judge registration form if selected
+  if (showJudgeRegistration) {
+    return (
+      <JudgeRegistration
+        onRegister={handleJudgeRegistration}
+        onCancel={() => setShowJudgeRegistration(false)}
+      />
+    );
+  }
 
   return (
     <Card className="w-full max-w-md mx-auto">
