@@ -13,6 +13,7 @@ import { Star, MapPin, Languages, Crown, Edit2, Save, X, Mail, DollarSign } from
 import { Judge } from '@/types/performance';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { useNavigate } from 'react-router-dom';
 import HireJudgeDialog from './HireJudgeDialog';
 
 interface JudgeProfileProps {
@@ -27,10 +28,20 @@ const JudgeProfile: React.FC<JudgeProfileProps> = ({
   onHire 
 }) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [editedJudge, setEditedJudge] = useState<Judge>(judge);
   const [isAvailableForHire, setIsAvailableForHire] = useState(judge.available_for_hire || false);
   const [isSaving, setIsSaving] = useState(false);
+
+  const handleLogout = () => {
+    // Clear judge session and redirect to home
+    navigate('/');
+    toast({
+      title: "Logged Out",
+      description: "You have been successfully logged out.",
+    });
+  };
 
   const handleSaveProfile = async () => {
     setIsSaving(true);
@@ -111,10 +122,16 @@ const JudgeProfile: React.FC<JudgeProfileProps> = ({
                     </Button>
                   </>
                 ) : (
-                  <Button variant="secondary" size="sm" onClick={() => setIsEditing(true)}>
-                    <Edit2 className="h-4 w-4 mr-1" />
-                    Edit Profile
-                  </Button>
+                  <>
+                    <Button variant="secondary" size="sm" onClick={() => setIsEditing(true)}>
+                      <Edit2 className="h-4 w-4 mr-1" />
+                      Edit Profile
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={handleLogout}>
+                      <X className="h-4 w-4 mr-1" />
+                      Logout
+                    </Button>
+                  </>
                 )}
               </div>
             )}

@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 import Navigation from './Navigation';
 import GlobalPrizeProgram from './GlobalPrizeProgram';
 import FileUpload from './FileUpload';
@@ -45,6 +46,25 @@ const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
     setIsSubmitting(true);
     
     try {
+      // Validate required fields
+      if (!formData.video_url) {
+        toast({
+          title: "Video Required",
+          description: "Please upload a performance video before submitting.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      if (!formData.feedback_type) {
+        toast({
+          title: "Feedback Type Required",
+          description: "Please select a feedback type before submitting.",
+          variant: "destructive"
+        });
+        return;
+      }
+
       const performanceData = {
         performer_name: formData.name,
         email: formData.email,
@@ -61,41 +81,102 @@ const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
         teacher_recommendations_shown: false
       };
 
-      const result = await databaseService.createPerformance(performanceData);
+      // Check if payment is required
+      const isPaidFeedback = formData.feedback_type === 'premium';
+      const isPlatinumJudge = formData.judge_type === 'platinum';
       
-      if (result) {
-        toast({
-          title: "Performance Submitted Successfully! 🎉",
-          description: globalCompetitionEnabled 
-            ? "Your performance has been submitted and you're now competing globally!" 
-            : "Your performance has been submitted for review!",
-        });
+      if (isPaidFeedback || isPlatinumJudge) {
+        // Calculate payment amount
+        let amount = 0;
+        if (isPaidFeedback) amount += 25; // Premium feedback $25
+        if (isPlatinumJudge) amount += 50; // Platinum judge $50
         
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          age: '',
-          country: '',
-          language: 'English',
-          category: '',
-          dance_genre: '',
-          feedback_type: '',
-          judge_type: 'standard',
-          performance_title: '',
-          performance_description: '',
-          video_url: '',
-          platinum_upgrade: false
+        const paymentType = isPaidFeedback && isPlatinumJudge 
+          ? 'Premium Feedback + Platinum Judge'
+          : isPaidFeedback 
+            ? 'Premium Feedback' 
+            : 'Platinum Judge';
+
+        // Create payment session
+        const { data, error } = await supabase.functions.invoke('create-payment', {
+          body: {
+            performanceData,
+            paymentType,
+            amount
+          }
         });
-        setGlobalCompetitionEnabled(false);
+
+        if (error) {
+          throw new Error(error.message || 'Payment setup failed');
+        }
+
+        if (data?.url) {
+          // Redirect to Stripe Checkout
+          window.open(data.url, '_blank');
+          
+          toast({
+            title: "Redirecting to Payment",
+            description: "Complete your payment to finalize the submission.",
+          });
+          
+          // Reset form after payment redirect
+          setTimeout(() => {
+            setFormData({
+              name: '',
+              email: '',
+              age: '',
+              country: '',
+              language: 'English',
+              category: '',
+              dance_genre: '',
+              feedback_type: '',
+              judge_type: 'standard',
+              performance_title: '',
+              performance_description: '',
+              video_url: '',
+              platinum_upgrade: false
+            });
+            setGlobalCompetitionEnabled(false);
+          }, 1000);
+        }
       } else {
-        throw new Error('Failed to submit performance');
+        // Free submission - direct database insert
+        const result = await databaseService.createPerformance(performanceData);
+        
+        if (result) {
+          toast({
+            title: "Performance Submitted Successfully! 🎉",
+            description: globalCompetitionEnabled 
+              ? "Your performance has been submitted and you're now competing globally!" 
+              : "Your performance has been submitted for review!",
+          });
+          
+          // Reset form
+          setFormData({
+            name: '',
+            email: '',
+            age: '',
+            country: '',
+            language: 'English',
+            category: '',
+            dance_genre: '',
+            feedback_type: '',
+            judge_type: 'standard',
+            performance_title: '',
+            performance_description: '',
+            video_url: '',
+            platinum_upgrade: false
+          });
+          setGlobalCompetitionEnabled(false);
+        } else {
+          throw new Error('Failed to submit performance');
+        }
       }
     } catch (error) {
       console.error('Submission error:', error);
       toast({
         title: "Submission Failed",
-        description: "There was an error submitting your performance. Please try again.",
+        description: error instanceof Error ? error.message : "There was an error submitting your performance. Please try again.",
         variant: "destructive"
       });
     } finally {
@@ -347,10 +428,13 @@ const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
 
               <Button 
                 type="submit" 
-                disabled={isSubmitting || !formData.video_url}
+                disabled={isSubmitting || !formData.video_url || !formData.feedback_type}
                 className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-4 text-lg shadow-lg disabled:opacity-50"
               >
-                {isSubmitting ? '🔄 Submitting...' : '🚀 Submit My Performance'}
+                {isSubmitting ? '🔄 Processing...' : 
+                 (formData.feedback_type === 'premium' || formData.judge_type === 'platinum') 
+                   ? '💳 Proceed to Payment' 
+                   : '🚀 Submit My Performance'}
               </Button>
             </form>
           </CardContent>

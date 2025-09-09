@@ -26,6 +26,7 @@ import UserDashboard from '@/pages/UserDashboard';
 import JudgeDashboardPage from '@/pages/JudgeDashboardPage';
 import Judges from '@/pages/Judges';
 import Events from '@/pages/Events';
+import PaymentSuccess from '@/pages/PaymentSuccess';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { initializeDemoData } from '@/services/demoData';
 
@@ -114,7 +115,7 @@ function App() {
               <Route path="/gallery" element={<Layout><Gallery /></Layout>} />
               <Route path="/news" element={<Layout><News /></Layout>} />
               <Route path="/contact" element={<Layout><Contact /></Layout>} />
-              <Route path="/events" element={<Layout><Events /></Layout>} />
+              <Route path="/payment-success" element={<PaymentSuccess />} />
               <Route path="/account" element={<Layout><UserDashboard /></Layout>} />
               <Route path="/performance-review-form" element={<Layout><PerformanceReviewForm /></Layout>} />
               
