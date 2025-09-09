@@ -67,7 +67,7 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border shadow-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-4 min-h-[72px]">
+        <div className="flex items-center justify-between py-4 min-h-[88px]">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 font-poppins font-bold text-xl">
             <Heart className="h-8 w-8 text-neon-pink" />
@@ -76,40 +76,60 @@ const Header = () => {
             <span className="text-accent">Live</span>
           </Link>
 
-          {/* Desktop Navigation - Single Row Layout */}
-          <nav className="hidden xl:flex items-center space-x-6">
-            {navigationLinks.slice(0, 8).map((link) => (
-              link.hasDropdown ? (
-                <div key={link.path} className="relative" ref={dropdownRef}>
-                  <button
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className={`flex items-center px-3 py-2 text-sm font-medium transition-colors hover:text-accent rounded-md whitespace-nowrap ${
-                      location.pathname === link.path || location.pathname.startsWith('/competitions/')
+          {/* Desktop Navigation - Two Row Layout */}
+          <nav className="hidden xl:block">
+            {/* First Row */}
+            <div className="flex items-center justify-center space-x-6 mb-2">
+              {navigationLinks.slice(0, 7).map((link) => (
+                link.hasDropdown ? (
+                  <div key={link.path} className="relative" ref={dropdownRef}>
+                    <button
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      className={`flex items-center px-3 py-2 text-sm font-medium transition-colors hover:text-accent rounded-md whitespace-nowrap ${
+                        location.pathname === link.path || location.pathname.startsWith('/competitions/')
+                          ? 'bg-accent text-accent-foreground'
+                          : 'text-muted-foreground hover:bg-accent/10'
+                      }`}
+                    >
+                      {link.name}
+                      <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    {isDropdownOpen && (
+                      <div className="absolute top-full left-0 mt-1 w-80 bg-popover border border-border rounded-md shadow-lg z-50">
+                        <div className="py-2 max-h-96 overflow-y-auto">
+                          {competitionLinks.map((compLink) => (
+                            <Link
+                              key={compLink.path}
+                              to={compLink.path}
+                              className="block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+                              onClick={() => setIsDropdownOpen(false)}
+                            >
+                              {compLink.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`px-3 py-2 text-sm font-medium transition-colors hover:text-accent rounded-md whitespace-nowrap ${
+                      location.pathname === link.path
                         ? 'bg-accent text-accent-foreground'
                         : 'text-muted-foreground hover:bg-accent/10'
                     }`}
                   >
                     {link.name}
-                    <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
-                  </button>
-                  {isDropdownOpen && (
-                    <div className="absolute top-full left-0 mt-1 w-80 bg-popover border border-border rounded-md shadow-lg z-50">
-                      <div className="py-2 max-h-96 overflow-y-auto">
-                        {competitionLinks.map((compLink) => (
-                          <Link
-                            key={compLink.path}
-                            to={compLink.path}
-                            className="block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-                            onClick={() => setIsDropdownOpen(false)}
-                          >
-                            {compLink.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ) : (
+                  </Link>
+                )
+              ))}
+            </div>
+            
+            {/* Second Row */}
+            <div className="flex items-center justify-center space-x-6">
+              {navigationLinks.slice(7).map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
@@ -121,8 +141,8 @@ const Header = () => {
                 >
                   {link.name}
                 </Link>
-              )
-            ))}
+              ))}
+            </div>
           </nav>
 
           {/* CTA Buttons */}
