@@ -9,6 +9,9 @@ import { EventCard } from '@/components/EventCard';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import competitionImage from '@/assets/competition-stage.jpg';
+import competitionPoster from '@/assets/event-poster-competition-1.jpg';
+import workshopPoster from '@/assets/event-poster-workshop-1.jpg';
+import masterclassPoster from '@/assets/event-poster-masterclass-1.jpg';
 
 interface Event {
   id: string;
@@ -44,7 +47,17 @@ const Events: React.FC = () => {
         .order('event_date', { ascending: true });
 
       if (error) throw error;
-      setEvents((data as Event[]) || []);
+      
+      // Add poster images based on event type for events that don't have them
+      const eventsWithPosters = (data as Event[])?.map(event => ({
+        ...event,
+        poster_image_url: event.poster_image_url || 
+          (event.event_type === 'competition' ? competitionPoster :
+           event.event_type === 'workshop' ? workshopPoster : 
+           masterclassPoster)
+      })) || [];
+      
+      setEvents(eventsWithPosters);
     } catch (error) {
       console.error('Error loading events:', error);
       toast({
