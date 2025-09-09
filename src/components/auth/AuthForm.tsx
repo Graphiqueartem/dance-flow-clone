@@ -1,0 +1,202 @@
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/hooks/use-toast';
+import { Eye, EyeOff, LogIn, UserPlus } from 'lucide-react';
+
+interface AuthFormProps {
+  mode?: 'admin' | 'judge' | 'performer';
+  onSuccess?: () => void;
+}
+
+export const AuthForm: React.FC<AuthFormProps> = ({ mode = 'performer', onSuccess }) => {
+  const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [role, setRole] = useState(mode);
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  
+  const { signIn, signUp } = useAuth();
+  const { toast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      if (isLogin) {
+        const { error } = await signIn(email, password);
+        if (error) {
+          toast({
+            title: 'Login Failed',
+            description: error.message,
+            variant: 'destructive'
+          });
+        } else {
+          toast({
+            title: 'Welcome back!',
+            description: 'You have successfully logged in.'
+          });
+          onSuccess?.();
+        }
+      } else {
+        const { error } = await signUp(email, password, role, name);
+        if (error) {
+          toast({
+            title: 'Registration Failed',
+            description: error.message,
+            variant: 'destructive'
+          });
+        } else {
+          toast({
+            title: 'Registration Successful!',
+            description: 'Please check your email to confirm your account.'
+          });
+          setIsLogin(true);
+        }
+      }
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'An unexpected error occurred. Please try again.',
+        variant: 'destructive'
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getModeTitle = () => {
+    switch (mode) {
+      case 'admin': return 'Admin';
+      case 'judge': return 'Judge';
+      default: return 'Performer';
+    }
+  };
+
+  const getModeDescription = () => {
+    switch (mode) {
+      case 'admin': return 'Administrative access to manage the platform';
+      case 'judge': return 'Access to review performances and provide feedback';
+      default: return 'Submit your performances and receive professional feedback';
+    }
+  };
+
+  return (
+    <Card className="w-full max-w-md mx-auto">
+      <CardHeader className="text-center">
+        <CardTitle className="text-2xl font-bold">
+          {isLogin ? 'Sign In' : 'Create Account'} - {getModeTitle()}
+        </CardTitle>
+        <CardDescription>
+          {getModeDescription()}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="Enter your email"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <div className="relative">
+              <Input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Enter your password"
+                className="pr-10"
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4 text-muted-foreground" />
+                ) : (
+                  <Eye className="h-4 w-4 text-muted-foreground" />
+                )}
+              </Button>
+            </div>
+          </div>
+
+          {!isLogin && (
+            <>
+              <div className="space-y-2">
+                <Label htmlFor="name">Full Name</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  placeholder="Enter your full name"
+                />
+              </div>
+
+              {mode === 'performer' && (
+                <div className="space-y-2">
+                  <Label htmlFor="role">Account Type</Label>
+                  <Select value={role} onValueChange={(value) => setRole(value as 'admin' | 'judge' | 'performer')}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select account type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="performer">Performer</SelectItem>
+                      <SelectItem value="judge">Judge</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+            </>
+          )}
+
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? (
+              <div className="flex items-center gap-2">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                Processing...
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                {isLogin ? <LogIn className="h-4 w-4" /> : <UserPlus className="h-4 w-4" />}
+                {isLogin ? 'Sign In' : 'Create Account'}
+              </div>
+            )}
+          </Button>
+
+          <div className="text-center">
+            <Button
+              type="button"
+              variant="link"
+              onClick={() => setIsLogin(!isLogin)}
+              className="text-sm"
+            >
+              {isLogin ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
+            </Button>
+          </div>
+        </form>
+      </CardContent>
+    </Card>
+  );
+};

@@ -1,7 +1,8 @@
-
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from '@/components/ui/toaster';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import Layout from '@/components/layout/Layout';
 import Home from '@/pages/Home';
 import About from '@/pages/About';
@@ -18,6 +19,9 @@ import Challenges from '@/pages/Challenges';
 import Gallery from '@/pages/Gallery';
 import PerformanceReviewForm from '@/pages/PerformanceReviewForm';
 import NotFound from '@/pages/NotFound';
+import Auth from '@/pages/Auth';
+import AdminDashboard from '@/pages/AdminDashboard';
+import { AuthProvider } from '@/contexts/AuthContext';
 import { initializeDemoData } from '@/services/demoData';
 
 // Competition Pages
@@ -31,6 +35,8 @@ import SadlersWellsNov from '@/pages/competitions/SadlersWellsNov';
 import LoveDanceSummerCamp2022 from '@/pages/competitions/LoveDanceSummerCamp2022';
 import ConventionSummerPicnic2022 from '@/pages/competitions/ConventionSummerPicnic2022';
 import UpcomingCompetitions from '@/pages/competitions/UpcomingCompetitions';
+
+const queryClient = new QueryClient();
 
 // Page titles mapping
 const pageTitles: { [key: string]: string } = {
@@ -75,43 +81,52 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/competitions" element={<Competitions />} />
-          <Route path="/how-to-enter" element={<HowToEnter />} />
-          <Route path="/workshops" element={<Workshops />} />
-          <Route path="/online-classes" element={<OnlineClasses />} />
-          <Route path="/results-videos" element={<ResultsVideos />} />
-          <Route path="/judges" element={<div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16"><h1 className="text-3xl sm:text-4xl font-poppins font-bold mb-4 sm:mb-6">Meet the Judges</h1><p className="text-base sm:text-lg text-muted-foreground">Expert Panel - Coming Soon!</p></div>} />
-          <Route path="/sponsors" element={<div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16"><h1 className="text-3xl sm:text-4xl font-poppins font-bold mb-4 sm:mb-6">Sponsors</h1><p className="text-base sm:text-lg text-muted-foreground">Partner with LoveDanceLive - Coming Soon!</p></div>} />
-          <Route path="/shop" element={<div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16"><h1 className="text-3xl sm:text-4xl font-poppins font-bold mb-4 sm:mb-6">Shop</h1><p className="text-base sm:text-lg text-muted-foreground">Merchandise & Downloads - Coming Soon!</p></div>} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/live-chat" element={<LiveChat />} />
-          <Route path="/challenges" element={<Challenges />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/account" element={<div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16"><h1 className="text-3xl sm:text-4xl font-poppins font-bold mb-4 sm:mb-6">Your Dashboard</h1><p className="text-base sm:text-lg text-muted-foreground">Manage Entries & Purchases - Coming Soon!</p></div>} />
-          <Route path="/performance-review-form" element={<PerformanceReviewForm />} />
-          
-          {/* Competition Pages */}
-          <Route path="/competitions/royal-academy-dance-gala" element={<RoyalAcademyDanceGala />} />
-          <Route path="/competitions/ibiza-2023-gala" element={<Ibiza2023Gala />} />
-          <Route path="/competitions/lovedance-summer-camp-2023" element={<LoveDanceSummerCamp2023 />} />
-          <Route path="/competitions/sadlers-wells-feb" element={<SadlersWellsFeb />} />
-          <Route path="/competitions/sadlers-wells-nov" element={<SadlersWellsNov />} />
-          <Route path="/competitions/lovedance-summer-camp-2022" element={<LoveDanceSummerCamp2022 />} />
-          <Route path="/competitions/convention-summer-picnic-2022" element={<ConventionSummerPicnic2022 />} />
-          <Route path="/competitions/upcoming" element={<UpcomingCompetitions />} />
-          
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Layout>
-      <Toaster />
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <AuthProvider>
+          <Router>
+            <Routes>
+              {/* Auth routes (no layout) */}
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/admin" element={<AdminDashboard />} />
+              
+              {/* Main app routes (with layout) */}
+              <Route path="/" element={<Layout><Home /></Layout>} />
+              <Route path="/about" element={<Layout><About /></Layout>} />
+              <Route path="/competitions" element={<Layout><Competitions /></Layout>} />
+              <Route path="/how-to-enter" element={<Layout><HowToEnter /></Layout>} />
+              <Route path="/workshops" element={<Layout><Workshops /></Layout>} />
+              <Route path="/online-classes" element={<Layout><OnlineClasses /></Layout>} />
+              <Route path="/results-videos" element={<Layout><ResultsVideos /></Layout>} />
+              <Route path="/judges" element={<Layout><div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16"><h1 className="text-3xl sm:text-4xl font-poppins font-bold mb-4 sm:mb-6">Meet the Judges</h1><p className="text-base sm:text-lg text-muted-foreground">Expert Panel - Coming Soon!</p></div></Layout>} />
+              <Route path="/sponsors" element={<Layout><div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16"><h1 className="text-3xl sm:text-4xl font-poppins font-bold mb-4 sm:mb-6">Sponsors</h1><p className="text-base sm:text-lg text-muted-foreground">Partner with LoveDanceLive - Coming Soon!</p></div></Layout>} />
+              <Route path="/shop" element={<Layout><div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16"><h1 className="text-3xl sm:text-4xl font-poppins font-bold mb-4 sm:mb-6">Shop</h1><p className="text-base sm:text-lg text-muted-foreground">Merchandise & Downloads - Coming Soon!</p></div></Layout>} />
+              <Route path="/community" element={<Layout><Community /></Layout>} />
+              <Route path="/live-chat" element={<Layout><LiveChat /></Layout>} />
+              <Route path="/challenges" element={<Layout><Challenges /></Layout>} />
+              <Route path="/gallery" element={<Layout><Gallery /></Layout>} />
+              <Route path="/news" element={<Layout><News /></Layout>} />
+              <Route path="/contact" element={<Layout><Contact /></Layout>} />
+              <Route path="/account" element={<Layout><div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16"><h1 className="text-3xl sm:text-4xl font-poppins font-bold mb-4 sm:mb-6">Your Dashboard</h1><p className="text-base sm:text-lg text-muted-foreground">Manage Entries & Purchases - Coming Soon!</p></div></Layout>} />
+              <Route path="/performance-review-form" element={<Layout><PerformanceReviewForm /></Layout>} />
+              
+              {/* Competition Pages */}
+              <Route path="/competitions/royal-academy-dance-gala" element={<Layout><RoyalAcademyDanceGala /></Layout>} />
+              <Route path="/competitions/ibiza-2023-gala" element={<Layout><Ibiza2023Gala /></Layout>} />
+              <Route path="/competitions/lovedance-summer-camp-2023" element={<Layout><LoveDanceSummerCamp2023 /></Layout>} />
+              <Route path="/competitions/sadlers-wells-feb" element={<Layout><SadlersWellsFeb /></Layout>} />
+              <Route path="/competitions/sadlers-wells-nov" element={<Layout><SadlersWellsNov /></Layout>} />
+              <Route path="/competitions/lovedance-summer-camp-2022" element={<Layout><LoveDanceSummerCamp2022 /></Layout>} />
+              <Route path="/competitions/convention-summer-picnic-2022" element={<Layout><ConventionSummerPicnic2022 /></Layout>} />
+              <Route path="/competitions/upcoming" element={<Layout><UpcomingCompetitions /></Layout>} />
+              
+              <Route path="*" element={<Layout><NotFound /></Layout>} />
+            </Routes>
+            <Toaster />
+          </Router>
+        </AuthProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
   );
 }
 
