@@ -48,14 +48,24 @@ const Events: React.FC = () => {
 
       if (error) throw error;
       
-      // Add poster images based on event type for events that don't have them
-      const eventsWithPosters = (data as Event[])?.map(event => ({
-        ...event,
-        poster_image_url: event.poster_image_url || 
-          (event.event_type === 'competition' ? competitionPoster :
-           event.event_type === 'workshop' ? workshopPoster : 
-           masterclassPoster)
-      })) || [];
+      // Map poster images properly for all events
+      const eventsWithPosters = (data as Event[])?.map(event => {
+        let posterUrl = event.poster_image_url;
+        
+        // Map the poster based on event type regardless of what's in the database
+        if (event.event_type === 'competition') {
+          posterUrl = competitionPoster;
+        } else if (event.event_type === 'workshop') {
+          posterUrl = workshopPoster;
+        } else if (event.event_type === 'masterclass') {
+          posterUrl = masterclassPoster;
+        }
+        
+        return {
+          ...event,
+          poster_image_url: posterUrl
+        };
+      }) || [];
       
       setEvents(eventsWithPosters);
     } catch (error) {
