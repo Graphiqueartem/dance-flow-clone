@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Play, Heart, ChevronDown, Settings } from 'lucide-react';
+import { Menu, X, Play, Heart, ChevronDown, Settings, LogOut } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
 const competitionLinks = [
@@ -39,7 +39,7 @@ const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
-  const { profile } = useAuth();
+  const { profile, signOut } = useAuth();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -157,6 +157,18 @@ const Header = () => {
                 </Link>
               </Button>
             )}
+            {profile ? (
+              <Button variant="outline" size="sm" onClick={signOut}>
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
+            ) : (
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/auth">
+                  Login
+                </Link>
+              </Button>
+            )}
             <Button variant="outline" size="sm" asChild>
               <Link to="/performance-review-form">
                 <Play className="h-4 w-4 mr-2" />
@@ -218,6 +230,21 @@ const Header = () => {
                   <Link to="/admin" onClick={() => setIsMenuOpen(false)}>
                     <Settings className="h-4 w-4 mr-2" />
                     Admin Dashboard
+                  </Link>
+                </Button>
+              )}
+              {profile ? (
+                <Button variant="outline" size="sm" className="w-full" onClick={() => {
+                  signOut();
+                  setIsMenuOpen(false);
+                }}>
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Logout
+                </Button>
+              ) : (
+                <Button variant="outline" size="sm" className="w-full" asChild>
+                  <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
+                    Login
                   </Link>
                 </Button>
               )}

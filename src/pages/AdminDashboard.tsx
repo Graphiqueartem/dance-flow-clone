@@ -52,7 +52,8 @@ const AdminDashboard: React.FC = () => {
   // Redirect to login if not admin
   useEffect(() => {
     if (!loading && (!profile || profile.role !== 'admin')) {
-      navigate('/admin-login');
+      console.log('Redirecting to admin login - profile:', profile, 'loading:', loading);
+      navigate('/admin-login', { replace: true });
     }
   }, [profile, loading, navigate]);
 

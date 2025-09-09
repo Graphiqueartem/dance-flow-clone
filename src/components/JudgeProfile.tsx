@@ -13,6 +13,7 @@ import { Star, MapPin, Languages, Crown, Edit2, Save, X, Mail, DollarSign } from
 import { Judge } from '@/types/performance';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import HireJudgeDialog from './HireJudgeDialog';
 
 interface JudgeProfileProps {
   judge: Judge;
@@ -140,10 +141,12 @@ const JudgeProfile: React.FC<JudgeProfileProps> = ({
           )}
 
           {!isOwnProfile && editedJudge.available_for_hire && (
-            <div className="text-center bg-primary/5 border border-primary/20 rounded-lg p-4">
-              <Button onClick={onHire} size="lg" className="bg-primary hover:bg-primary/90 mb-2">
-                Hire {editedJudge.name.split(' ')[0]}
-              </Button>
+            <div className="text-center bg-green-50 border border-green-200 rounded-lg p-4">
+              <HireJudgeDialog judge={editedJudge}>
+                <Button size="lg" className="bg-green-600 hover:bg-green-700 mb-2">
+                  Hire {editedJudge.name.split(' ')[0]}
+                </Button>
+              </HireJudgeDialog>
               <div className="flex items-center justify-center text-sm text-muted-foreground">
                 <DollarSign className="h-4 w-4 mr-1" />
                 Starting from ${editedJudge.hourly_rate || '75'}/hour
