@@ -374,6 +374,7 @@ export type Database = {
           global_scoring: boolean | null
           id: string
           language: string
+          payment_status: string | null
           performance_description: string | null
           performance_title: string
           performer_name: string
@@ -397,6 +398,7 @@ export type Database = {
           global_scoring?: boolean | null
           id?: string
           language: string
+          payment_status?: string | null
           performance_description?: string | null
           performance_title: string
           performer_name: string
@@ -420,6 +422,7 @@ export type Database = {
           global_scoring?: boolean | null
           id?: string
           language?: string
+          payment_status?: string | null
           performance_description?: string | null
           performance_title?: string
           performer_name?: string
