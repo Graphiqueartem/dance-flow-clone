@@ -31,7 +31,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode = 'performer', onSucces
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // If registering as a judge, show the detailed registration form
+    // If registering as a judge, show the detailed registration form immediately
     if (!isLogin && role === 'judge') {
       setShowJudgeRegistration(true);
       return;
@@ -191,20 +191,18 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode = 'performer', onSucces
                 />
               </div>
 
-              {mode === 'performer' && (
-                <div className="space-y-2">
-                  <Label htmlFor="role">Account Type</Label>
-                  <Select value={role} onValueChange={(value) => setRole(value as 'admin' | 'judge' | 'performer')}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select account type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="performer">Performer</SelectItem>
-                      <SelectItem value="judge">Judge</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              )}
+              <div className="space-y-2">
+                <Label htmlFor="role">Account Type</Label>
+                <Select value={role} onValueChange={(value) => setRole(value as 'admin' | 'judge' | 'performer')}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select account type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="performer">Performer</SelectItem>
+                    <SelectItem value="judge">Judge</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </>
           )}
 
