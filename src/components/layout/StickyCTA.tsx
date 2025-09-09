@@ -6,18 +6,18 @@ import { Play, Upload } from 'lucide-react';
 const StickyCTA = () => {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t border-border shadow-lg">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <div className="flex items-center justify-center space-x-4">
-            <Button variant="outline" size="sm" asChild className="flex-1 max-w-xs">
-              <Link to="/performance-review-form">
-                <Play className="h-4 w-4 mr-2" />
-                Enter Competition
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="flex items-center justify-center gap-4 max-w-2xl mx-auto">
+            <Button variant="outline" size="sm" asChild className="flex-1 min-w-0">
+              <Link to="/performance-review-form" className="flex items-center justify-center">
+                <Play className="h-4 w-4 mr-2 flex-shrink-0" />
+                <span className="truncate">Enter Competition</span>
               </Link>
             </Button>
-            <Button size="sm" className="flex-1 max-w-xs" asChild>
-              <Link to="/performance-review-form">
-                <Upload className="h-4 w-4 mr-2" />
-                Submit Your Dance Video
+            <Button size="sm" asChild className="flex-1 min-w-0">
+              <Link to="/performance-review-form" className="flex items-center justify-center">
+                <Upload className="h-4 w-4 mr-2 flex-shrink-0" />
+                <span className="truncate">Submit Video</span>
               </Link>
             </Button>
         </div>

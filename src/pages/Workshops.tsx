@@ -46,81 +46,117 @@ const Workshops = () => {
   return (
     <div className="min-h-screen bg-muted/30">
       {/* Hero Section */}
-      <div className="bg-primary text-primary-foreground py-12 sm:py-16">
+      <div className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground py-16 sm:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex justify-center mb-6">
-            <div className="bg-white/10 backdrop-blur-sm rounded-full p-4">
-              <Users className="h-12 w-12 text-white" />
+          <div className="flex justify-center mb-8">
+            <div className="bg-white/10 backdrop-blur-sm rounded-full p-6">
+              <Users className="h-16 w-16 text-white" />
             </div>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-poppins font-bold mb-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-poppins font-bold mb-6">
             Workshops
           </h1>
-          <p className="text-lg sm:text-xl font-open-sans text-primary-foreground/90 max-w-2xl mx-auto">
-            Learn From the Best
+          <p className="text-xl sm:text-2xl font-open-sans text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
+            Learn From the Best Dance Instructors
           </p>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         {/* Overview */}
-        <div className="max-w-4xl mx-auto mb-12 sm:mb-16 text-center">
-          <h2 className="text-2xl sm:text-3xl font-poppins font-bold text-foreground mb-6">
+        <div className="max-w-5xl mx-auto mb-16 sm:mb-20 text-center">
+          <h2 className="text-3xl sm:text-4xl font-poppins font-bold text-foreground mb-8">
             Master Your Craft
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+          <p className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-3xl mx-auto">
             Learn from the best. Our workshops cover five dance genres, led by top instructors at each regional event. 
             Whether you're a beginner or an experienced dancer, there's a class for you. Register early to secure your spot.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <Button size="lg" variant="default" asChild>
               <Link to="#schedule">View Workshop Schedule</Link>
             </Button>
-            <Button size="lg" asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
+            <Button size="lg" variant="secondary" asChild>
               <Link to="/performance-review-form">Register for Workshops</Link>
             </Button>
           </div>
         </div>
 
         {/* Workshop Categories */}
-        <div id="schedule" className="mb-12 sm:mb-16">
-          <h3 className="text-2xl sm:text-3xl font-poppins font-bold text-foreground text-center mb-8">
+        <div id="schedule" className="mb-16 sm:mb-20">
+          <h3 className="text-3xl sm:text-4xl font-poppins font-bold text-foreground text-center mb-12">
             Workshop Categories
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {workshops.map((workshop, index) => (
-              <Card key={index} className={`hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-${workshop.color}/10 border-0`}>
-                <CardHeader className="text-center pb-4">
-                  <Star className={`h-12 w-12 text-${workshop.color} mx-auto mb-3`} />
-                  <CardTitle className="text-xl font-poppins font-bold text-foreground">
-                    {workshop.genre}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-6">
-                  <div className="space-y-3 text-center">
-                    <div>
-                      <p className="font-semibold text-foreground">Instructor</p>
-                      <p className="text-sm text-muted-foreground">{workshop.instructor}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10">
+            {workshops.map((workshop, index) => {
+              const getCardColor = (color: string) => {
+                switch (color) {
+                  case 'turquoise': return 'bg-turquoise/10 border-turquoise/20';
+                  case 'baby-pink': return 'bg-baby-pink/10 border-baby-pink/20';
+                  case 'accent': return 'bg-accent/10 border-accent/20';
+                  case 'light-blue': return 'bg-light-blue/10 border-light-blue/20';
+                  case 'primary': return 'bg-primary/10 border-primary/20';
+                  default: return 'bg-muted border-border';
+                }
+              };
+
+              const getIconColor = (color: string) => {
+                switch (color) {
+                  case 'turquoise': return 'text-turquoise';
+                  case 'baby-pink': return 'text-baby-pink';
+                  case 'accent': return 'text-accent';
+                  case 'light-blue': return 'text-light-blue';
+                  case 'primary': return 'text-primary';
+                  default: return 'text-foreground';
+                }
+              };
+
+              const getButtonVariant = (color: string) => {
+                switch (color) {
+                  case 'turquoise': return 'secondary';
+                  case 'baby-pink': return 'outline';
+                  case 'accent': return 'default';
+                  case 'light-blue': return 'secondary';
+                  case 'primary': return 'secondary';
+                  default: return 'default';
+                }
+              };
+
+              return (
+                <Card key={index} className={`hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border ${getCardColor(workshop.color)}`}>
+                  <CardHeader className="text-center pb-4">
+                    <Star className={`h-12 w-12 ${getIconColor(workshop.color)} mx-auto mb-3`} />
+                    <CardTitle className="text-xl font-poppins font-bold text-foreground">
+                      {workshop.genre}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4 sm:p-6">
+                    <div className="space-y-4 text-center">
+                      <div>
+                        <p className="font-semibold text-foreground">Instructor</p>
+                        <p className="text-sm text-muted-foreground">{workshop.instructor}</p>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground">Level</p>
+                        <p className="text-sm text-muted-foreground">{workshop.level}</p>
+                      </div>
+                      <div className="flex items-center justify-center text-muted-foreground">
+                        <Clock className="h-4 w-4 mr-2" />
+                        <span className="text-sm">{workshop.duration}</span>
+                      </div>
+                      <Button 
+                        variant={getButtonVariant(workshop.color)}
+                        className="w-full mt-4"
+                        asChild
+                      >
+                        <Link to="/performance-review-form">Register</Link>
+                      </Button>
                     </div>
-                    <div>
-                      <p className="font-semibold text-foreground">Level</p>
-                      <p className="text-sm text-muted-foreground">{workshop.level}</p>
-                    </div>
-                    <div className="flex items-center justify-center text-muted-foreground">
-                      <Clock className="h-4 w-4 mr-2" />
-                      <span className="text-sm">{workshop.duration}</span>
-                    </div>
-                    <Button 
-                      className={`w-full mt-4 bg-${workshop.color} text-white hover:bg-${workshop.color}/90`} 
-                      asChild
-                    >
-                      <Link to="/performance-review-form">Register</Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
 

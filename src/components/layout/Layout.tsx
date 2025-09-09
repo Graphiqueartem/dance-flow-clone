@@ -15,7 +15,7 @@ const Layout: React.FC<LayoutProps> = ({ children, showStickyCTA = true }) => {
       <CountryBanner />
       <Header />
       
-      <main className="flex-1">
+      <main className="flex-1" style={{ paddingBottom: showStickyCTA ? '88px' : '0' }}>
         {children}
       </main>
       
