@@ -48,6 +48,9 @@ const AdminDashboard: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [dashboardLoading, setDashboardLoading] = useState(false);
+  const [judges, setJudges] = useState<any[]>([]);
+  const [performers, setPerformers] = useState<any[]>([]);
+  const [submissions, setSubmissions] = useState<any[]>([]);
 
   // Redirect to login if not admin
   useEffect(() => {
@@ -60,6 +63,9 @@ const AdminDashboard: React.FC = () => {
   useEffect(() => {
     if (profile?.role === 'admin') {
       loadEvents();
+      loadJudges();
+      loadPerformers();
+      loadSubmissions();
     }
   }, [profile]);
 
@@ -76,6 +82,61 @@ const AdminDashboard: React.FC = () => {
       toast({
         title: 'Error',
         description: 'Failed to load events',
+        variant: 'destructive'
+      });
+    }
+  };
+
+  const loadJudges = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('judges')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setJudges(data || []);
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to load judges',
+        variant: 'destructive'
+      });
+    }
+  };
+
+  const loadPerformers = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('role', 'performer')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setPerformers(data || []);
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to load performers',
+        variant: 'destructive'
+      });
+    }
+  };
+
+  const loadSubmissions = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('performances')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setSubmissions(data || []);
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to load submissions',
         variant: 'destructive'
       });
     }
@@ -189,18 +250,26 @@ const AdminDashboard: React.FC = () => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="events" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="events" className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
               Events
             </TabsTrigger>
+            <TabsTrigger value="judges" className="flex items-center gap-2">
+              <Users className="h-4 w-4" />
+              Judges
+            </TabsTrigger>
+            <TabsTrigger value="performers" className="flex items-center gap-2">
+              <Users className="h-4 w-4" />
+              Performers
+            </TabsTrigger>
+            <TabsTrigger value="submissions" className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              Submissions
+            </TabsTrigger>
             <TabsTrigger value="content" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
               Content
-            </TabsTrigger>
-            <TabsTrigger value="users" className="flex items-center gap-2">
-              <Users className="h-4 w-4" />
-              Users
             </TabsTrigger>
             <TabsTrigger value="settings" className="flex items-center gap-2">
               <Settings className="h-4 w-4" />
@@ -391,32 +460,169 @@ const AdminDashboard: React.FC = () => {
             </div>
           </TabsContent>
 
+          {/* Judges Tab */}
+          <TabsContent value="judges" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Judge Management</CardTitle>
+                <CardDescription>
+                  Manage all judge profiles and settings
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4 max-h-96 overflow-y-auto">
+                  {judges.map((judge) => (
+                    <div key={judge.id} className="border rounded-lg p-4">
+                      <div className="flex items-start justify-between mb-2">
+                        <div className="flex-1">
+                          <h4 className="font-medium">{judge.name}</h4>
+                          <p className="text-sm text-muted-foreground">
+                            {judge.email} • {judge.country}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            ${judge.hourly_rate}/hr • Rating: {judge.rating}/5 ({judge.review_count} reviews)
+                          </p>
+                          <div className="flex gap-1 mt-1">
+                            {judge.is_platinum && (
+                              <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">
+                                Platinum
+                              </span>
+                            )}
+                            {judge.available_for_hire && (
+                              <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+                                Available
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex gap-1">
+                          <Button size="sm" variant="ghost">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Performers Tab */}
+          <TabsContent value="performers" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Performer Management</CardTitle>
+                <CardDescription>
+                  Manage all performer profiles and accounts
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4 max-h-96 overflow-y-auto">
+                  {performers.map((performer) => (
+                    <div key={performer.id} className="border rounded-lg p-4">
+                      <div className="flex items-start justify-between mb-2">
+                        <div className="flex-1">
+                          <h4 className="font-medium">{performer.name}</h4>
+                          <p className="text-sm text-muted-foreground">
+                            {performer.email}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            Joined: {new Date(performer.created_at).toLocaleDateString()}
+                          </p>
+                        </div>
+                        <div className="flex gap-1">
+                          <Button size="sm" variant="ghost">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Submissions Tab */}
+          <TabsContent value="submissions" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Performance Submissions</CardTitle>
+                <CardDescription>
+                  Manage all performance submissions and feedback
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4 max-h-96 overflow-y-auto">
+                  {submissions.map((submission) => (
+                    <div key={submission.id} className="border rounded-lg p-4">
+                      <div className="flex items-start justify-between mb-2">
+                        <div className="flex-1">
+                          <h4 className="font-medium">{submission.performance_title}</h4>
+                          <p className="text-sm text-muted-foreground">
+                            By: {submission.performer_name} • {submission.email}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            {submission.dance_genre} • {submission.status} • {submission.feedback_type}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            Submitted: {new Date(submission.submitted_at).toLocaleDateString()}
+                          </p>
+                          {submission.assigned_judge_name && (
+                            <p className="text-sm text-blue-600">
+                              Judge: {submission.assigned_judge_name}
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex gap-1">
+                          <Button size="sm" variant="ghost">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           {/* Content Tab */}
           <TabsContent value="content" className="space-y-6">
             <Card>
               <CardHeader>
                 <CardTitle>Content Management</CardTitle>
                 <CardDescription>
-                  Manage page content, images, and text
+                  Manage page content, sold out posters, and site configuration
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">Content management features coming soon...</p>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Users Tab */}
-          <TabsContent value="users">
-            <Card>
-              <CardHeader>
-                <CardTitle>User Management</CardTitle>
-                <CardDescription>
-                  Manage users, judges, and performers
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">User management features coming soon...</p>
+                <div className="space-y-6">
+                  <div className="border rounded-lg p-4">
+                    <h3 className="font-medium mb-2">Sold Out Poster Configuration</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Current sold out poster is automatically applied to all events with 'sold_out' status
+                    </p>
+                    <div className="flex items-center gap-4">
+                      <img 
+                        src="/src/assets/sold-out-poster.jpg" 
+                        alt="Current Sold Out Poster" 
+                        className="w-24 h-24 object-cover rounded"
+                      />
+                      <Button variant="outline">
+                        Update Sold Out Poster
+                      </Button>
+                    </div>
+                  </div>
+                  
+                  <div className="border rounded-lg p-4">
+                    <h3 className="font-medium mb-2">Page Content</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Advanced content management features coming soon...
+                    </p>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
