@@ -21,7 +21,7 @@ import PerformanceReviewForm from '@/pages/PerformanceReviewForm';
 import NotFound from '@/pages/NotFound';
 import Auth from '@/pages/Auth';
 import AdminDashboard from '@/pages/AdminDashboard';
-import AdminSecretLogin from '@/pages/AdminSecretLogin';
+import AdminLogin from '@/pages/AdminLogin';
 import UserDashboard from '@/pages/UserDashboard';
 import JudgeDashboardPage from '@/pages/JudgeDashboardPage';
 import Events from '@/pages/Events';
@@ -93,7 +93,7 @@ function App() {
               {/* Auth routes (no layout) */}
               <Route path="/auth" element={<Auth />} />
               <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/admin-portal-secure-access-2024" element={<AdminSecretLogin />} />
+              <Route path="/admin-login" element={<AdminLogin />} />
               <Route path="/judge-dashboard" element={<JudgeDashboardPage />} />
               
               {/* Main app routes (with layout) */}

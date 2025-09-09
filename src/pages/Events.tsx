@@ -12,6 +12,7 @@ import competitionImage from '@/assets/competition-stage.jpg';
 import competitionPoster from '@/assets/event-poster-competition-1.jpg';
 import workshopPoster from '@/assets/event-poster-workshop-1.jpg';
 import masterclassPoster from '@/assets/event-poster-masterclass-1.jpg';
+import soldOutPoster from '@/assets/sold-out-poster.jpg';
 
 interface Event {
   id: string;
@@ -52,13 +53,18 @@ const Events: React.FC = () => {
       const eventsWithPosters = (data as Event[])?.map(event => {
         let posterUrl = event.poster_image_url;
         
-        // Map the poster based on event type regardless of what's in the database
-        if (event.event_type === 'competition') {
-          posterUrl = competitionPoster;
-        } else if (event.event_type === 'workshop') {
-          posterUrl = workshopPoster;
-        } else if (event.event_type === 'masterclass') {
-          posterUrl = masterclassPoster;
+        // If event is sold out, use the sold out poster
+        if (event.status === 'sold_out') {
+          posterUrl = soldOutPoster;
+        } else {
+          // Otherwise map based on event type
+          if (event.event_type === 'competition') {
+            posterUrl = competitionPoster;
+          } else if (event.event_type === 'workshop') {
+            posterUrl = workshopPoster;
+          } else if (event.event_type === 'masterclass') {
+            posterUrl = masterclassPoster;
+          }
         }
         
         return {

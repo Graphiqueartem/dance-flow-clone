@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Play, Heart, ChevronDown } from 'lucide-react';
+import { Menu, X, Play, Heart, ChevronDown, Settings } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 const competitionLinks = [
   { name: 'How to Enter', path: '/how-to-enter' },
@@ -38,6 +39,7 @@ const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const { profile } = useAuth();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -147,6 +149,14 @@ const Header = () => {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-3">
+            {profile?.role === 'admin' && (
+              <Button variant="secondary" size="sm" asChild>
+                <Link to="/admin">
+                  <Settings className="h-4 w-4 mr-2" />
+                  Admin
+                </Link>
+              </Button>
+            )}
             <Button variant="outline" size="sm" asChild>
               <Link to="/performance-review-form">
                 <Play className="h-4 w-4 mr-2" />
@@ -203,6 +213,14 @@ const Header = () => {
             
             {/* Mobile CTA Buttons */}
             <div className="mt-4 space-y-2">
+              {profile?.role === 'admin' && (
+                <Button variant="secondary" size="sm" className="w-full" asChild>
+                  <Link to="/admin" onClick={() => setIsMenuOpen(false)}>
+                    <Settings className="h-4 w-4 mr-2" />
+                    Admin Dashboard
+                  </Link>
+                </Button>
+              )}
               <Button variant="outline" size="sm" className="w-full" asChild>
                 <Link to="/performance-review-form" onClick={() => setIsMenuOpen(false)}>
                   <Play className="h-4 w-4 mr-2" />
