@@ -39,11 +39,12 @@ const ContentManager = () => {
   const [editingContent, setEditingContent] = useState<Partial<PageContent>>({
     page_name: '',
     section_name: '',
-    content_type: 'title',
+    content_type: 'text',
     content_value: ''
   });
   const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('manage');
 
   useEffect(() => {
     loadContent();
@@ -114,9 +115,10 @@ const ContentManager = () => {
       setEditingContent({
         page_name: '',
         section_name: '',
-        content_type: 'title',
+        content_type: 'text',
         content_value: ''
       });
+      setActiveTab('manage'); // Switch back to manage tab
       loadContent();
     } catch (error) {
       console.error('Error saving content:', error);
@@ -127,6 +129,7 @@ const ContentManager = () => {
   const handleEdit = (item: PageContent) => {
     setEditingContent(item);
     setEditingId(item.id);
+    setActiveTab('add'); // Switch to edit tab
   };
 
   const handleDelete = async (id: string) => {
@@ -151,10 +154,11 @@ const ContentManager = () => {
     setEditingContent({
       page_name: '',
       section_name: '',
-      content_type: 'title',
+      content_type: 'text',
       content_value: ''
     });
     setEditingId(null);
+    setActiveTab('manage'); // Switch back to manage tab
   };
 
   if (loading) {
@@ -180,7 +184,7 @@ const ContentManager = () => {
         </Select>
       </div>
 
-      <Tabs defaultValue="manage" className="space-y-4">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
         <TabsList>
           <TabsTrigger value="manage">Manage Content</TabsTrigger>
           <TabsTrigger value="add">Add New Content</TabsTrigger>
