@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import ImageManager from '@/components/admin/ImageManager';
+import ContentManager from '@/components/admin/ContentManager';
 
 interface Event {
   id: string;
@@ -657,6 +658,11 @@ const AdminDashboard: React.FC = () => {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Content Tab */}
+          <TabsContent value="content" className="space-y-6">
+            <ContentManager />
           </TabsContent>
 
           {/* Settings Tab */}
