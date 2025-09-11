@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MapPin, Calendar, Trophy, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import competitionImage from '@/assets/competition-stage.jpg';
+const heroImage = '/lovable-uploads/ce1c8c79-cd7f-41eb-82b2-4635bcfa4eb0.png';
 
 const Competitions = () => {
   const regionalEvents = [
@@ -45,8 +46,8 @@ const Competitions = () => {
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src={competitionImage} 
-            alt="Dance competition stage" 
+            src={heroImage} 
+            alt="Children's dance performance in colorful costumes on stage" 
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-secondary/90"></div>

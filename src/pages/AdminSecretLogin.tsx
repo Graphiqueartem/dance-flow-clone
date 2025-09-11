@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Shield } from 'lucide-react';
 import heroImage from '@/assets/hero-dance.jpg';
+const adminSecretImage = '/lovable-uploads/ef992f15-aa19-4054-b55d-bf80e2c37149.png';
 
 const AdminSecretLogin: React.FC = () => {
   const navigate = useNavigate();
@@ -41,8 +42,8 @@ const AdminSecretLogin: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center p-4">
       <div className="absolute inset-0 opacity-10">
         <img 
-          src={heroImage} 
-          alt="Dance performance" 
+          src={adminSecretImage} 
+          alt="Young hip-hop dancers in black outfits showing attitude and style" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background/90 to-background/70"></div>

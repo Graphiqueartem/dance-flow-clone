@@ -4,6 +4,7 @@ import { AuthForm } from '@/components/auth/AuthForm';
 import { useAuth } from '@/contexts/AuthContext';
 import { useEffect } from 'react';
 import heroImage from '@/assets/hero-dance.jpg';
+const authPageImage = '/lovable-uploads/7b552ba3-15eb-4c78-881a-39a59b4dde8c.png';
 
 const Auth: React.FC = () => {
   const navigate = useNavigate();
@@ -48,8 +49,8 @@ const Auth: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center p-4">
       <div className="absolute inset-0 opacity-20">
         <img 
-          src={heroImage} 
-          alt="Dance performance" 
+          src={authPageImage} 
+          alt="Solo breakdancer performing dynamic freeze move with artistic lighting" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-background/60"></div>

@@ -4,6 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Camera, Heart, Play, Eye, Upload } from 'lucide-react';
 import communityImage from '@/assets/community-dance.jpg';
+const galleryHeroImage = '/lovable-uploads/47a64dda-9083-4c59-962a-605d69645979.png';
+const featuredImage1 = '/lovable-uploads/7b552ba3-15eb-4c78-881a-39a59b4dde8c.png';
+const featuredImage2 = '/lovable-uploads/ce1c8c79-cd7f-41eb-82b2-4635bcfa4eb0.png';
 
 const Gallery = () => {
   useEffect(() => {
@@ -53,8 +56,8 @@ const Gallery = () => {
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src={communityImage} 
-            alt="Dance community gathering with diverse performers" 
+            src={galleryHeroImage} 
+            alt="Acrobatic dance group performance with dynamic formations and lifts" 
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-secondary/90"></div>

@@ -4,15 +4,15 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, Upload, Users, Trophy, Calendar, Star, ArrowRight, Globe, Heart, Monitor } from 'lucide-react';
 import { usePageContent } from '@/hooks/usePageContent';
-const heroImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
-const contemporaryImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
-const ballroomImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
-const hipHopImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
-const competitionImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
-const kidsHipHopImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
-const promoFilmingImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
-const promoExperienceImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
-const promoPaymentImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
+const heroImage = '/lovable-uploads/47a64dda-9083-4c59-962a-605d69645979.png';
+const contemporaryImage = '/lovable-uploads/7b552ba3-15eb-4c78-881a-39a59b4dde8c.png';
+const ballroomImage = '/lovable-uploads/d2c069b1-e51d-49e4-abab-48fe272bce2a.png';
+const hipHopImage = '/lovable-uploads/b0860258-46f0-4e90-abc6-5f88cb2d3f46.png';
+const competitionImage = '/lovable-uploads/ce1c8c79-cd7f-41eb-82b2-4635bcfa4eb0.png';
+const kidsHipHopImage = '/lovable-uploads/ef992f15-aa19-4054-b55d-bf80e2c37149.png';
+const promoFilmingImage = '/lovable-uploads/b0860258-46f0-4e90-abc6-5f88cb2d3f46.png';
+const promoExperienceImage = '/lovable-uploads/47a64dda-9083-4c59-962a-605d69645979.png';
+const promoPaymentImage = '/lovable-uploads/ce1c8c79-cd7f-41eb-82b2-4635bcfa4eb0.png';
 
 const Home = () => {
   const { getContent, loading } = usePageContent('home');

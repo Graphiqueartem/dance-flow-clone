@@ -11,6 +11,8 @@ import JudgeDirectory from '@/components/JudgeDirectory';
 import PerformerAccount from '@/components/PerformerAccount';
 import heroImage from '@/assets/hero-dance.jpg';
 import contemporaryImage from '@/assets/contemporary-dance.jpg';
+const loginHeroImage = '/lovable-uploads/ef992f15-aa19-4054-b55d-bf80e2c37149.png';
+const performanceImage = '/lovable-uploads/d2c069b1-e51d-49e4-abab-48fe272bce2a.png';
 
 const PerformanceReviewForm = () => {
   const { user, profile } = useAuth();
@@ -52,8 +54,8 @@ const PerformanceReviewForm = () => {
       <div className="relative bg-primary text-primary-foreground py-16 sm:py-24 overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src={heroImage} 
-            alt="Professional dance performance" 
+            src={loginHeroImage} 
+            alt="Young hip-hop dancers in black outfits with confident poses" 
             className="w-full h-full object-cover opacity-30"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70"></div>

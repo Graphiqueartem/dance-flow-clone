@@ -13,6 +13,7 @@ import competitionPoster from '@/assets/event-poster-competition-1.jpg';
 import workshopPoster from '@/assets/event-poster-workshop-1.jpg';
 import masterclassPoster from '@/assets/event-poster-masterclass-1.jpg';
 import soldOutPoster from '@/assets/sold-out-poster.jpg';
+const eventsHeroImage = '/lovable-uploads/ce1c8c79-cd7f-41eb-82b2-4635bcfa4eb0.png';
 
 interface Event {
   id: string;
@@ -102,8 +103,8 @@ const Events: React.FC = () => {
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src={competitionImage} 
-            alt="Dance events and competitions stage" 
+            src={eventsHeroImage} 
+            alt="Children's dance performance in colorful costumes on stage" 
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-secondary/90"></div>

@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Shield } from 'lucide-react';
 import heroImage from '@/assets/hero-dance.jpg';
+const adminLoginImage = '/lovable-uploads/b0860258-46f0-4e90-abc6-5f88cb2d3f46.png';
 
 const AdminLogin: React.FC = () => {
   const navigate = useNavigate();
@@ -41,8 +42,8 @@ const AdminLogin: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center p-4">
       <div className="absolute inset-0 opacity-10">
         <img 
-          src={heroImage} 
-          alt="Dance performance" 
+          src={adminLoginImage} 
+          alt="Hip-hop dance crew with dramatic lighting and smoke effects" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background/90 to-background/70"></div>
