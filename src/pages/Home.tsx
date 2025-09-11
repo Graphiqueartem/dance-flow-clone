@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, Upload, Users, Trophy, Calendar, Star, ArrowRight, Globe, Heart } from 'lucide-react';
-import heroImage from '@/assets/dance-children-performance.jpg';
-import contemporaryImage from '@/assets/dance-solo-performance.jpg';
-import ballroomImage from '@/assets/dance-group-jump.jpg';
-import hipHopImage from '@/assets/dance-hip-hop-group.jpg';
-import competitionImage from '@/assets/dance-acrobatic-group.jpg';
-import kidsHipHopImage from '@/assets/dance-kids-hip-hop.jpg';
-import promoFilmingImage from '@/assets/promo-filming.png';
-import promoExperienceImage from '@/assets/promo-experience.png';
-import promoPaymentImage from '@/assets/promo-payment-plans.png';
+import heroImage from '@/assets/hero-dance.jpg';
+import contemporaryImage from '@/assets/contemporary-dance.jpg';
+import ballroomImage from '@/assets/ballroom-dance.jpg';
+import hipHopImage from '@/assets/hip-hop-dance.jpg';
+import competitionImage from '@/assets/competition-stage.jpg';
+import kidsHipHopImage from '@/assets/community-dance.jpg';
+import promoFilmingImage from '@/assets/promo-payment-plans.png';
+import promoExperienceImage from '@/assets/event-poster-1.jpg';
+import promoPaymentImage from '@/assets/event-poster-2.jpg';
 
 const Home = () => {
   

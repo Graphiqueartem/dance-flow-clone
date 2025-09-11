@@ -3,9 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Heart, Globe, Users, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import heroImage from '@/assets/dance-solo-performance.jpg';
-import communityImage1 from '@/assets/dance-group-jump.jpg';
-import communityImage2 from '@/assets/dance-acrobatic-group.jpg';
+import heroImage from '@/assets/contemporary-dance.jpg';
+import communityImage1 from '@/assets/ballroom-dance.jpg';
+import communityImage2 from '@/assets/hip-hop-dance.jpg';
 
 const About = () => {
   
