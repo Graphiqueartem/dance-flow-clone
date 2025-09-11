@@ -83,7 +83,8 @@ const ContentManager = () => {
     try {
       if (editingId) {
         // Update existing content
-        const { error } = await supabase
+        console.log('Updating content with ID:', editingId, editingContent);
+        const { data, error } = await supabase
           .from('page_content')
           .update({
             page_name: editingContent.page_name,
@@ -92,23 +93,34 @@ const ContentManager = () => {
             content_value: editingContent.content_value,
             updated_at: new Date().toISOString()
           })
-          .eq('id', editingId);
+          .eq('id', editingId)
+          .select();
 
-        if (error) throw error;
+        if (error) {
+          console.error('Update error:', error);
+          throw error;
+        }
+        console.log('Update successful:', data);
         toast.success('Content updated successfully');
         setEditingId(null);
       } else {
         // Create new content
-        const { error } = await supabase
+        console.log('Creating new content:', editingContent);
+        const { data, error } = await supabase
           .from('page_content')
           .insert([{
             page_name: editingContent.page_name!,
             section_name: editingContent.section_name!,
             content_type: editingContent.content_type!,
             content_value: editingContent.content_value!
-          }]);
+          }])
+          .select();
 
-        if (error) throw error;
+        if (error) {
+          console.error('Insert error:', error);
+          throw error;
+        }
+        console.log('Insert successful:', data);
         toast.success('Content created successfully');
       }
 
@@ -122,7 +134,7 @@ const ContentManager = () => {
       loadContent();
     } catch (error) {
       console.error('Error saving content:', error);
-      toast.error('Failed to save content');
+      toast.error(`Failed to save content: ${error.message || 'Unknown error'}`);
     }
   };
 
@@ -136,17 +148,23 @@ const ContentManager = () => {
     if (!confirm('Are you sure you want to delete this content?')) return;
 
     try {
-      const { error } = await supabase
+      console.log('Deleting content with ID:', id);
+      const { data, error } = await supabase
         .from('page_content')
         .delete()
-        .eq('id', id);
+        .eq('id', id)
+        .select();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Delete error:', error);
+        throw error;
+      }
+      console.log('Delete successful:', data);
       toast.success('Content deleted successfully');
       loadContent();
     } catch (error) {
       console.error('Error deleting content:', error);
-      toast.error('Failed to delete content');
+      toast.error(`Failed to delete content: ${error.message || 'Unknown error'}`);
     }
   };
 

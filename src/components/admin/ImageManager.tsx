@@ -72,19 +72,31 @@ export default function ImageManager() {
 
     try {
       if (editingId) {
-        const { error } = await supabase
+        console.log('Updating image with ID:', editingId, newImage);
+        const { data, error } = await supabase
           .from('page_images')
           .update(newImage)
-          .eq('id', editingId);
+          .eq('id', editingId)
+          .select();
 
-        if (error) throw error;
+        if (error) {
+          console.error('Update error:', error);
+          throw error;
+        }
+        console.log('Update successful:', data);
         toast.success('Image updated successfully');
       } else {
-        const { error } = await supabase
+        console.log('Creating new image:', newImage);
+        const { data, error } = await supabase
           .from('page_images')
-          .insert([{ ...newImage, is_active: true }]);
+          .insert([{ ...newImage, is_active: true }])
+          .select();
 
-        if (error) throw error;
+        if (error) {
+          console.error('Insert error:', error);
+          throw error;
+        }
+        console.log('Insert successful:', data);
         toast.success('Image added successfully');
       }
 
@@ -99,7 +111,7 @@ export default function ImageManager() {
       loadImages();
     } catch (error) {
       console.error('Error saving image:', error);
-      toast.error('Failed to save image');
+      toast.error(`Failed to save image: ${error.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
@@ -120,33 +132,45 @@ export default function ImageManager() {
     if (!confirm('Are you sure you want to delete this image?')) return;
 
     try {
-      const { error } = await supabase
+      console.log('Deleting image with ID:', id);
+      const { data, error } = await supabase
         .from('page_images')
         .delete()
-        .eq('id', id);
+        .eq('id', id)
+        .select();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Delete error:', error);
+        throw error;
+      }
+      console.log('Delete successful:', data);
       toast.success('Image deleted successfully');
       loadImages();
     } catch (error) {
       console.error('Error deleting image:', error);
-      toast.error('Failed to delete image');
+      toast.error(`Failed to delete image: ${error.message || 'Unknown error'}`);
     }
   };
 
   const toggleActive = async (id: string, isActive: boolean) => {
     try {
-      const { error } = await supabase
+      console.log('Toggling image status with ID:', id, 'from', isActive, 'to', !isActive);
+      const { data, error } = await supabase
         .from('page_images')
         .update({ is_active: !isActive })
-        .eq('id', id);
+        .eq('id', id)
+        .select();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Toggle error:', error);
+        throw error;
+      }
+      console.log('Toggle successful:', data);
       toast.success(`Image ${!isActive ? 'activated' : 'deactivated'}`);
       loadImages();
     } catch (error) {
       console.error('Error updating image status:', error);
-      toast.error('Failed to update image status');
+      toast.error(`Failed to update image status: ${error.message || 'Unknown error'}`);
     }
   };
 
