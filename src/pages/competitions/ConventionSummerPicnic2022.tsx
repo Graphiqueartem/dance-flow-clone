@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { AlertTriangle, ArrowRight } from 'lucide-react';
+import { AlertTriangle, ArrowRight, Calendar, MapPin, Clock, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SoldOutOverlay } from '@/components/SoldOutOverlay';
 
@@ -34,42 +34,82 @@ const ConventionSummerPicnic2022 = () => {
 
       {/* Content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center">
-            <Card className="bg-white border-0 shadow-lg">
-              <CardContent className="p-8 sm:p-12">
-                {/* Sold Out Poster with Overlay */}
-                <div className="relative mb-8 max-w-md mx-auto">
-                  <img 
-                    src={posterImage} 
-                    alt="Convention Summer Picnic 2022 - Sold Out"
-                    className="w-full h-auto rounded-lg shadow-lg"
-                  />
-                  <SoldOutOverlay className="rounded-lg" />
-                </div>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Poster Section */}
+            <div className="relative max-w-md mx-auto lg:mx-0">
+              <img 
+                src={posterImage} 
+                alt="Convention Summer Picnic 2022 - Sold Out"
+                className="w-full h-auto rounded-lg shadow-lg"
+              />
+              <SoldOutOverlay className="rounded-lg" />
+            </div>
 
-                <div className="mb-6">
-                  <h2 className="text-2xl sm:text-3xl font-poppins font-bold text-foreground mb-4">
-                    Event Sold Out
-                  </h2>
-                  <p className="text-lg text-muted-foreground mb-8">
-                    This event has reached capacity, but don't worry!
-                  </p>
+            {/* Event Details Section */}
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-poppins font-bold text-foreground mb-6">
+                  Event Details
+                </h2>
+                
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <Calendar className="h-5 w-5 text-primary" />
+                    <span>August 6, 2022</span>
+                  </div>
+                  
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <Clock className="h-5 w-5 text-primary" />
+                    <span>11:00 AM - 8:00 PM</span>
+                  </div>
+                  
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <MapPin className="h-5 w-5 text-primary" />
+                    <span>Brighton Park Convention Center</span>
+                  </div>
+                  
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <Users className="h-5 w-5 text-primary" />
+                    <span>Dance Convention & Picnic</span>
+                  </div>
                 </div>
+              </div>
 
-                <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 mb-8">
-                  <p className="text-base sm:text-lg text-foreground mb-4">
-                    👉 Please check here for upcoming events
+              <div className="space-y-4">
+                <Button 
+                  size="lg" 
+                  className="w-full bg-destructive hover:bg-destructive/90 cursor-not-allowed opacity-60"
+                  disabled
+                >
+                  Register Now - SOLD OUT
+                </Button>
+                
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  className="w-full"
+                  asChild
+                >
+                  <Link to="/competitions">
+                    <ArrowRight className="mr-2 h-5 w-5 rotate-180" />
+                    Back to Competitions
+                  </Link>
+                </Button>
+
+                <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
+                  <p className="text-base text-foreground mb-4">
+                    👉 Don't miss future events - check upcoming competitions
                   </p>
-                  <Button size="lg" asChild className="w-full sm:w-auto">
+                  <Button variant="outline" size="sm" asChild className="w-full">
                     <Link to="/competitions/upcoming">
                       View Upcoming Events
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </div>
