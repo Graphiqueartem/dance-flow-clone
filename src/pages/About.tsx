@@ -3,9 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Heart, Globe, Users, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import heroImage from '@/assets/contemporary-dance.jpg';
-import communityImage1 from '@/assets/ballroom-dance.jpg';
-import communityImage2 from '@/assets/hip-hop-dance.jpg';
+const heroImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
+const communityImage1 = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
+const communityImage2 = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
 
 const About = () => {
   

@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, Upload, Users, Trophy, Calendar, Star, ArrowRight, Globe, Heart } from 'lucide-react';
-import heroImage from '@/assets/hero-dance.jpg';
-import contemporaryImage from '@/assets/contemporary-dance.jpg';
-import ballroomImage from '@/assets/ballroom-dance.jpg';
-import hipHopImage from '@/assets/hip-hop-dance.jpg';
-import competitionImage from '@/assets/competition-stage.jpg';
-import kidsHipHopImage from '@/assets/community-dance.jpg';
-import promoFilmingImage from '@/assets/promo-payment-plans.png';
-import promoExperienceImage from '@/assets/event-poster-1.jpg';
-import promoPaymentImage from '@/assets/event-poster-2.jpg';
+const heroImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
+const contemporaryImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
+const ballroomImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
+const hipHopImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
+const competitionImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
+const kidsHipHopImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
+const promoFilmingImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
+const promoExperienceImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
+const promoPaymentImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
 
 const Home = () => {
   
