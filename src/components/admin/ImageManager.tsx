@@ -31,7 +31,7 @@ const sections = [
 
 export default function ImageManager() {
   const [images, setImages] = useState<PageImage[]>([]);
-  const [selectedPage, setSelectedPage] = useState('');
+  const [selectedPage, setSelectedPage] = useState('all');
   const [newImage, setNewImage] = useState({
     page_name: '',
     section_name: '',
@@ -62,9 +62,9 @@ export default function ImageManager() {
     }
   };
 
-  const filteredImages = selectedPage 
-    ? images.filter(img => img.page_name === selectedPage)
-    : images;
+  const filteredImages = selectedPage === 'all'
+    ? images
+    : images.filter(img => img.page_name === selectedPage);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -207,7 +207,7 @@ export default function ImageManager() {
             <SelectValue placeholder="Filter by page" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Pages</SelectItem>
+            <SelectItem value="all">All Pages</SelectItem>
             {pages.map(page => (
               <SelectItem key={page} value={page}>
                 {page.charAt(0).toUpperCase() + page.slice(1)}
