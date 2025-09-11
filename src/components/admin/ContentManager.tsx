@@ -30,8 +30,7 @@ const sections = [
 ];
 
 const contentTypes = [
-  'title', 'subtitle', 'description', 'button-text', 'text', 
-  'heading', 'paragraph', 'quote', 'list-item'
+  'text', 'image', 'html'
 ];
 
 const ContentManager = () => {

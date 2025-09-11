@@ -3,11 +3,17 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Heart, Globe, Users, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { usePageContent } from '@/hooks/usePageContent';
 const heroImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
 const communityImage1 = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
 const communityImage2 = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
 
 const About = () => {
+  const { getContent, loading } = usePageContent('about');
+  
+  if (loading) {
+    return <div className="min-h-screen bg-background flex items-center justify-center">Loading...</div>;
+  }
   
   return (
     <div className="min-h-screen bg-muted/30">
@@ -30,10 +36,10 @@ const About = () => {
               </div>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-poppins font-bold mb-4 text-white">
-              About LoveDanceLive
+              {getContent('hero_title', 'About LoveDanceLive')}
             </h1>
             <p className="text-lg sm:text-xl font-open-sans text-white/90 max-w-2xl mx-auto">
-              Connecting dancers worldwide through passion and performance
+              {getContent('hero_subtitle', 'Connecting dancers worldwide through passion and performance')}
             </p>
           </div>
         </div>

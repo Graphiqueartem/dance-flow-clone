@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Play, Upload, Users, Trophy, Calendar, Star, ArrowRight, Globe, Heart } from 'lucide-react';
+import { Play, Upload, Users, Trophy, Calendar, Star, ArrowRight, Globe, Heart, Monitor } from 'lucide-react';
+import { usePageContent } from '@/hooks/usePageContent';
 const heroImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
 const contemporaryImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
 const ballroomImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
@@ -14,7 +15,12 @@ const promoExperienceImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03
 const promoPaymentImage = '/lovable-uploads/ebc949cf-633c-4a0a-b0a4-f106a1f03184.png';
 
 const Home = () => {
+  const { getContent, loading } = usePageContent('home');
   
+  if (loading) {
+    return <div className="min-h-screen bg-background flex items-center justify-center">Loading...</div>;
+  }
+
   return (
     <div className="pb-24">
       {/* Hero Section with Background Image */}
@@ -31,13 +37,13 @@ const Home = () => {
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-poppins font-bold leading-tight text-white">
-              Where Young Dreams Take Flight
+              {getContent('hero_title', 'Where Young Dreams Take Flight')}
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl font-open-sans text-white/90">
-              Youth Dance Competition Platform
+              {getContent('hero_subtitle', 'Youth Dance Competition Platform')}
             </p>
             <p className="text-base sm:text-lg font-lato max-w-2xl mx-auto text-white/80">
-              Nurturing the next generation of dancers. Young performers can compete live or submit performances online to receive expert feedback and win amazing prizes.
+              {getContent('hero_description', 'Nurturing the next generation of dancers. Young performers can compete live or submit performances online to receive expert feedback and win amazing prizes.')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-6 sm:mt-8">
