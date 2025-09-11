@@ -3,15 +3,17 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, Upload, Users, Trophy, Calendar, Star, ArrowRight, Globe, Heart } from 'lucide-react';
-import { usePageImages } from '@/hooks/usePageImages';
-import heroImage from '@/assets/hero-dance.jpg';
-import contemporaryImage from '@/assets/contemporary-dance.jpg';
-import ballroomImage from '@/assets/ballroom-dance.jpg';
-import hipHopImage from '@/assets/hip-hop-dance.jpg';
-import competitionImage from '@/assets/competition-stage.jpg';
+import heroImage from '@/assets/dance-children-performance.jpg';
+import contemporaryImage from '@/assets/dance-solo-performance.jpg';
+import ballroomImage from '@/assets/dance-group-jump.jpg';
+import hipHopImage from '@/assets/dance-hip-hop-group.jpg';
+import competitionImage from '@/assets/dance-acrobatic-group.jpg';
+import kidsHipHopImage from '@/assets/dance-kids-hip-hop.jpg';
+import promoFilmingImage from '@/assets/promo-filming.png';
+import promoExperienceImage from '@/assets/promo-experience.png';
+import promoPaymentImage from '@/assets/promo-payment-plans.png';
 
 const Home = () => {
-  const { images: promoImages } = usePageImages('home', 'promo');
   
   return (
     <div className="pb-24">
@@ -29,13 +31,13 @@ const Home = () => {
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-poppins font-bold leading-tight text-white">
-              Where Passion Meets Performance
+              Where Young Dreams Take Flight
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl font-open-sans text-white/90">
-              Live & Online Dance Competition Platform
+              Youth Dance Competition Platform
             </p>
             <p className="text-base sm:text-lg font-lato max-w-2xl mx-auto text-white/80">
-              Join thousands of dancers worldwide. Compete live in our global cities or submit your performance online to get expert feedback and win amazing prizes.
+              Nurturing the next generation of dancers. Young performers can compete live or submit performances online to receive expert feedback and win amazing prizes.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-6 sm:mt-8">
@@ -88,7 +90,7 @@ const Home = () => {
             <div className="relative rounded-lg overflow-hidden shadow-xl">
               <img 
                 src={contemporaryImage} 
-                alt="Contemporary dance performance" 
+                alt="Solo dance performance showcasing individual artistry and technique" 
                 className="w-full h-64 sm:h-80 object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
@@ -98,23 +100,37 @@ const Home = () => {
       </section>
 
       {/* Promotional Images Section */}
-      {promoImages.length > 0 && (
-        <section className="py-16 bg-gradient-to-b from-background to-muted/20">
-          <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-3 gap-8">
-              {promoImages.map((image, index) => (
-                <div key={image.id} className="flex justify-center">
-                  <img 
-                    src={image.image_url} 
-                    alt={image.alt_text}
-                    className="max-w-full h-auto rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-              ))}
+      <section className="py-16 bg-gradient-to-b from-background to-muted/20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Our Services</h2>
+            <p className="text-xl text-muted-foreground">Professional dance experiences and flexible programs</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="flex justify-center">
+              <img 
+                src={promoFilmingImage} 
+                alt="Professional dance filming services with high-quality equipment"
+                className="max-w-full h-auto rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+            <div className="flex justify-center">
+              <img 
+                src={promoExperienceImage} 
+                alt="Premium dance experience with expert instruction and VIP events"
+                className="max-w-full h-auto rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+            <div className="flex justify-center">
+              <img 
+                src={promoPaymentImage} 
+                alt="Flexible payment plans for dance programs and competitions"
+                className="max-w-full h-auto rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+              />
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* Dance Styles Showcase */}
       <section className="py-12 sm:py-16 bg-muted">
@@ -133,13 +149,13 @@ const Home = () => {
               <div className="relative h-48">
                 <img 
                   src={ballroomImage} 
-                  alt="Ballroom dance" 
+                  alt="Group of dancers performing synchronized jump movement" 
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="text-xl font-poppins font-bold">Ballroom</h3>
-                  <p className="text-sm opacity-90">Elegant & Timeless</p>
+                  <h3 className="text-xl font-poppins font-bold">Group Performance</h3>
+                  <p className="text-sm opacity-90">Unity & Synchronization</p>
                 </div>
               </div>
             </Card>
@@ -148,7 +164,7 @@ const Home = () => {
               <div className="relative h-48">
                 <img 
                   src={hipHopImage} 
-                  alt="Hip-hop dance" 
+                  alt="Hip hop dance group performing energetic choreography" 
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -162,14 +178,14 @@ const Home = () => {
             <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border-0">
               <div className="relative h-48">
                 <img 
-                  src={contemporaryImage} 
-                  alt="Contemporary dance" 
+                  src={kidsHipHopImage} 
+                  alt="Kids hip hop dance group performing with energy and joy" 
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="text-xl font-poppins font-bold">Contemporary</h3>
-                  <p className="text-sm opacity-90">Expressive & Modern</p>
+                  <h3 className="text-xl font-poppins font-bold">Youth Programs</h3>
+                  <p className="text-sm opacity-90">Building Future Stars</p>
                 </div>
               </div>
             </Card>
@@ -193,7 +209,7 @@ const Home = () => {
           <div className="relative rounded-xl overflow-hidden mb-8 shadow-2xl">
             <img 
               src={competitionImage} 
-              alt="Competition stage" 
+              alt="Acrobatic dance group performing dynamic choreography on competition stage" 
               className="w-full h-64 sm:h-80 object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30"></div>
