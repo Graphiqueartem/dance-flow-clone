@@ -24,6 +24,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import ImageManager from '@/components/admin/ImageManager';
 import ContentManager from '@/components/admin/ContentManager';
+import SoldOutPosterManager from '@/components/admin/SoldOutPosterManager';
 
 interface Event {
   id: string;
@@ -254,7 +255,7 @@ const AdminDashboard: React.FC = () => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="events" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-7">
+          <TabsList className="grid w-full grid-cols-8">
             <TabsTrigger value="events" className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
               Events
@@ -278,6 +279,10 @@ const AdminDashboard: React.FC = () => {
             <TabsTrigger value="content" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
               Content
+            </TabsTrigger>
+            <TabsTrigger value="posters" className="flex items-center gap-2">
+              <Image className="h-4 w-4" />
+              Posters
             </TabsTrigger>
             <TabsTrigger value="settings" className="flex items-center gap-2">
               <Settings className="h-4 w-4" />
@@ -623,46 +628,12 @@ const AdminDashboard: React.FC = () => {
 
           {/* Content Tab */}
           <TabsContent value="content" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Content Management</CardTitle>
-                <CardDescription>
-                  Manage page content, sold out posters, and site configuration
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  <div className="border rounded-lg p-4">
-                    <h3 className="font-medium mb-2">Sold Out Poster Configuration</h3>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Current sold out poster is automatically applied to all events with 'sold_out' status
-                    </p>
-                    <div className="flex items-center gap-4">
-                      <img 
-                        src="/src/assets/sold-out-poster.jpg" 
-                        alt="Current Sold Out Poster" 
-                        className="w-24 h-24 object-cover rounded"
-                      />
-                      <Button variant="outline">
-                        Update Sold Out Poster
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <div className="border rounded-lg p-4">
-                    <h3 className="font-medium mb-2">Page Content</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Advanced content management features coming soon...
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <ContentManager />
           </TabsContent>
 
-          {/* Content Tab */}
-          <TabsContent value="content" className="space-y-6">
-            <ContentManager />
+          {/* Posters Tab */}
+          <TabsContent value="posters" className="space-y-6">
+            <SoldOutPosterManager />
           </TabsContent>
 
           {/* Settings Tab */}
