@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, Upload, Users, Trophy, Calendar, Star, ArrowRight, Globe, Heart } from 'lucide-react';
+import { usePageImages } from '@/hooks/usePageImages';
 import heroImage from '@/assets/hero-dance.jpg';
 import contemporaryImage from '@/assets/contemporary-dance.jpg';
 import ballroomImage from '@/assets/ballroom-dance.jpg';
@@ -10,6 +11,8 @@ import hipHopImage from '@/assets/hip-hop-dance.jpg';
 import competitionImage from '@/assets/competition-stage.jpg';
 
 const Home = () => {
+  const { images: promoImages } = usePageImages('home', 'promo');
+  
   return (
     <div className="pb-24">
       {/* Hero Section with Background Image */}
@@ -93,6 +96,25 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Promotional Images Section */}
+      {promoImages.length > 0 && (
+        <section className="py-16 bg-gradient-to-b from-background to-muted/20">
+          <div className="container mx-auto px-4">
+            <div className="grid md:grid-cols-3 gap-8">
+              {promoImages.map((image, index) => (
+                <div key={image.id} className="flex justify-center">
+                  <img 
+                    src={image.image_url} 
+                    alt={image.alt_text}
+                    className="max-w-full h-auto rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Dance Styles Showcase */}
       <section className="py-12 sm:py-16 bg-muted">

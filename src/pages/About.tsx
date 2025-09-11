@@ -3,9 +3,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Heart, Globe, Users, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { usePageImages } from '@/hooks/usePageImages';
 import heroImage from '@/assets/contemporary-dance.jpg';
 
 const About = () => {
+  const { images: galleryImages } = usePageImages('about', 'gallery');
+  
   return (
     <div className="min-h-screen bg-muted/30">
       {/* Hero Section */}
@@ -67,6 +70,29 @@ const About = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Gallery Images Section */}
+        {galleryImages.length > 0 && (
+          <div className="mb-12 sm:mb-16">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4">Our Dance Community</h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Celebrating the artistry and passion of dancers from around the world.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8">
+              {galleryImages.map((image, index) => (
+                <div key={image.id} className="aspect-video overflow-hidden rounded-lg shadow-lg">
+                  <img 
+                    src={image.image_url} 
+                    alt={image.alt_text}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Values Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">

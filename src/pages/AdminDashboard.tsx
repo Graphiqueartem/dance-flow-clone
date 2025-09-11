@@ -18,9 +18,11 @@ import {
   Plus,
   Edit,
   Trash2,
-  Eye
+  Eye,
+  Image
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import ImageManager from '@/components/admin/ImageManager';
 
 interface Event {
   id: string;
@@ -251,7 +253,7 @@ const AdminDashboard: React.FC = () => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="events" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-7">
             <TabsTrigger value="events" className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
               Events
@@ -267,6 +269,10 @@ const AdminDashboard: React.FC = () => {
             <TabsTrigger value="submissions" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
               Submissions
+            </TabsTrigger>
+            <TabsTrigger value="images" className="flex items-center gap-2">
+              <Image className="h-4 w-4" />
+              Images
             </TabsTrigger>
             <TabsTrigger value="content" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
@@ -607,6 +613,11 @@ const AdminDashboard: React.FC = () => {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Images Tab */}
+          <TabsContent value="images" className="space-y-6">
+            <ImageManager />
           </TabsContent>
 
           {/* Content Tab */}
