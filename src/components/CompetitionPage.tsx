@@ -184,8 +184,8 @@ const CompetitionPage: React.FC<CompetitionPageProps> = ({ title }) => {
                     </div>
 
                     <div className="mt-8 space-y-4">
-                      <Button size="lg" className="w-full">
-                        Register Now
+                      <Button size="lg" className="w-full" asChild>
+                        <Link to="/registration">Register Now</Link>
                       </Button>
                       <Button variant="outline" size="lg" className="w-full" asChild>
                         <Link to="/competitions">Back to Competitions</Link>

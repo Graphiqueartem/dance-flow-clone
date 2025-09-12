@@ -237,7 +237,7 @@ const OnlineClasses = () => {
                 </div>
               </div>
               <Button size="lg" asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
-                <Link to="/performance-review-form">Join the Community</Link>
+                <Link to="/registration">Join the Community</Link>
               </Button>
             </CardContent>
           </Card>

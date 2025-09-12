@@ -87,7 +87,7 @@ const Competitions = () => {
               <Link to="#events">View Event Dates</Link>
             </Button>
             <Button size="lg" asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
-              <Link to="/performance-review-form">Register Now</Link>
+              <Link to="/registration">Register Now</Link>
             </Button>
           </div>
         </div>

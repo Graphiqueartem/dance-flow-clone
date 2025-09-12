@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Star, Upload, CheckCircle, Play, Award, User, Calendar, Trophy } from 'lucide-react';
@@ -235,7 +235,7 @@ const PerformanceReviewForm = () => {
                   <a href="/competitions">View Competitions</a>
                 </Button>
                 <Button size="lg" asChild>
-                  <a href="/workshops">Join Workshops</a>
+                  <Link to="/registration">Join Workshops</Link>
                 </Button>
               </div>
             </CardContent>

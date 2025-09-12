@@ -64,7 +64,7 @@ const HowToEnter = () => {
                 className="w-full bg-turquoise text-white hover:bg-turquoise/90" 
                 asChild
               >
-                <Link to="/performance-review-form">Register for Live Event</Link>
+                <Link to="/registration">Register for Live Event</Link>
               </Button>
             </CardContent>
           </Card>
