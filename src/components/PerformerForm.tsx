@@ -7,10 +7,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import Navigation from './Navigation';
 import GlobalPrizeProgram from './GlobalPrizeProgram';
 import FileUpload from './FileUpload';
+import { AuthGuard } from '@/components/auth/AuthGuard';
 import { databaseService } from '@/services/databaseService';
 
 interface PerformerFormProps {
@@ -19,6 +21,7 @@ interface PerformerFormProps {
 
 const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
   const { toast } = useToast();
+  const { user, profile } = useAuth();
   const [globalCompetitionEnabled, setGlobalCompetitionEnabled] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -66,8 +69,8 @@ const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
       }
 
       const performanceData = {
-        performer_name: formData.name,
-        email: formData.email,
+        performer_name: formData.name || profile?.name || '',
+        email: formData.email || user?.email || '',
         performance_title: formData.performance_title,
         performance_description: formData.performance_description,
         video_url: formData.video_url,
@@ -185,8 +188,9 @@ const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
   };
 
   return (
-    <div className="bg-background">
-      {onBack && <Navigation onBack={onBack} title="Submit Your Performance" />}
+    <AuthGuard redirectPath="/auth?mode=performer">
+      <div className="bg-background">
+        {onBack && <Navigation onBack={onBack} title="Submit Your Performance" />}
       <div className="max-w-4xl mx-auto p-6 space-y-6">
         {/* Global Competition Toggle */}
         <GlobalPrizeProgram 
@@ -216,7 +220,7 @@ const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
                     <Label htmlFor="name" className="text-sm font-medium text-gray-700">Full Name *</Label>
                     <Input
                       id="name"
-                      value={formData.name}
+                      value={formData.name || profile?.name || ''}
                       onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                       className="mt-1"
                       required
@@ -228,11 +232,11 @@ const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
                     <Input
                       id="email"
                       type="email"
-                      value={formData.email}
+                      value={formData.email || user?.email || ''}
                       onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                       className="mt-1"
                       required
-                      disabled={isSubmitting}
+                      disabled={true}
                     />
                   </div>
                 </div>
@@ -441,6 +445,7 @@ const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
         </Card>
       </div>
     </div>
+    </AuthGuard>
   );
 };
 
