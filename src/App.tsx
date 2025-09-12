@@ -18,6 +18,7 @@ import LiveChat from '@/pages/LiveChat';
 import Challenges from '@/pages/Challenges';
 import Gallery from '@/pages/Gallery';
 import PerformanceReviewForm from '@/pages/PerformanceReviewForm';
+import PerformerRegistration from '@/components/PerformerRegistration';
 import NotFound from '@/pages/NotFound';
 import Auth from '@/pages/Auth';
 import AdminDashboard from '@/pages/AdminDashboard';
@@ -122,6 +123,7 @@ function App() {
               <Route path="/account" element={<Layout><UserDashboard /></Layout>} />
               <Route path="/user-dashboard" element={<Layout><UserDashboard /></Layout>} />
               <Route path="/performance-review-form" element={<Layout><PerformanceReviewForm /></Layout>} />
+              <Route path="/registration" element={<PerformerRegistration />} />
               
               {/* Competition Pages */}
               <Route path="/competitions/royal-academy-dance-gala" element={<Layout><RoyalAcademyDanceGala /></Layout>} />

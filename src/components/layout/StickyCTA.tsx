@@ -9,15 +9,15 @@ const StickyCTA = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-center gap-4 max-w-2xl mx-auto">
             <Button variant="outline" size="sm" asChild className="flex-1 min-w-0">
-              <Link to="/performance-review-form" className="flex items-center justify-center">
+              <Link to="/registration" className="flex items-center justify-center">
                 <Play className="h-4 w-4 mr-2 flex-shrink-0" />
                 <span className="truncate">Enter Competition</span>
               </Link>
             </Button>
             <Button size="sm" asChild className="flex-1 min-w-0">
-              <Link to="/performance-review-form" className="flex items-center justify-center">
+              <Link to="/registration" className="flex items-center justify-center">
                 <Upload className="h-4 w-4 mr-2 flex-shrink-0" />
-                <span className="truncate">Submit Video</span>
+                <span className="truncate">Submit Performance</span>
               </Link>
             </Button>
         </div>

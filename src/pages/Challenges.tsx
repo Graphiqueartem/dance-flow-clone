@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -141,9 +142,9 @@ const Challenges = () => {
                 <p className="text-sm text-muted-foreground mb-4">
                   Challenges are launching soon! Be the first to know.
                 </p>
-                <Button className="w-full">
-                  Get Notified
-                </Button>
+              <Button className="w-full" asChild>
+                <Link to="/registration">Get Notified</Link>
+              </Button>
               </CardContent>
             </Card>
           </div>

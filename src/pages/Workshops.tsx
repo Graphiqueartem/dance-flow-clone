@@ -78,7 +78,7 @@ const Workshops = () => {
               <Link to="#schedule">View Workshop Schedule</Link>
             </Button>
             <Button size="lg" variant="secondary" asChild>
-              <Link to="/performance-review-form">Register for Workshops</Link>
+              <Link to="/registration">Register for Workshops</Link>
             </Button>
           </div>
         </div>
@@ -226,7 +226,7 @@ const Workshops = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
-                  <Link to="/performance-review-form">Book Your Workshop</Link>
+                  <Link to="/registration">Book Your Workshop</Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
                   <Link to="/judges">Meet Our Instructors</Link>

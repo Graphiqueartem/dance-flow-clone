@@ -67,7 +67,7 @@ const UpcomingCompetitions = () => {
               
               <div className="space-y-4">
                 <Button size="lg" asChild>
-                  <Link to="/performance-review-form">
+                  <Link to="/registration">
                     Get Notified When Registration Opens
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>

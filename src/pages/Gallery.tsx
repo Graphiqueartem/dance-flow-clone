@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -132,8 +133,8 @@ const Gallery = () => {
                 The gallery is currently in development. Soon you'll be able to upload and share your dance performances with the global community!
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg">
-                  Get Notified When Live
+                <Button size="lg" asChild>
+                  <Link to="/registration">Get Notified When Live</Link>
                 </Button>
                 <Button variant="outline" size="lg" asChild>
                   <a href="/performance-review-form">Submit for Review Instead</a>

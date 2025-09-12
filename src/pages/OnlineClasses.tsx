@@ -72,7 +72,7 @@ const OnlineClasses = () => {
               <Link to="#classes">Browse Classes</Link>
             </Button>
             <Button size="lg" asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
-              <Link to="/performance-review-form">Subscribe Now</Link>
+              <Link to="/registration">Subscribe Now</Link>
             </Button>
           </div>
         </div>

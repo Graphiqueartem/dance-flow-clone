@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Users, MessageCircle, Trophy, Heart } from 'lucide-react';
@@ -81,8 +82,8 @@ const Community = () => {
               <p className="text-muted-foreground mb-6">
                 Our community features are currently in development. Join our newsletter to be the first to know when they launch!
               </p>
-              <Button size="lg">
-                Subscribe to Updates
+              <Button size="lg" asChild>
+                <Link to="/registration">Subscribe to Updates</Link>
               </Button>
             </CardContent>
           </Card>

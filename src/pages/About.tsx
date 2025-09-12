@@ -148,9 +148,9 @@ const About = () => {
                 there's a place for you in the LoveDanceLive community.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
-                  <Link to="/performance-review-form">Enter Competition</Link>
-                </Button>
+              <Button size="lg" asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
+                <Link to="/registration">Enter Competition</Link>
+              </Button>
                 <Button size="lg" variant="outline" asChild>
                   <Link to="/competitions">View Events</Link>
                 </Button>

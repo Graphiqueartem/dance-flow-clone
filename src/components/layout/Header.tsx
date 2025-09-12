@@ -171,7 +171,7 @@ const Header = () => {
               </Button>
             )}
             <Button variant="outline" size="sm" asChild>
-              <Link to="/performance-review-form">
+              <Link to="/registration">
                 <Play className="h-4 w-4 mr-2" />
                 Enter Competition
               </Link>
@@ -269,7 +269,7 @@ const Header = () => {
                 </Button>
               )}
               <Button variant="default" size="sm" className="w-full" asChild>
-                <Link to="/performance-review-form" onClick={() => setIsMenuOpen(false)}>
+                <Link to="/registration" onClick={() => setIsMenuOpen(false)}>
                   <Play className="h-4 w-4 mr-2" />
                   Enter Competition
                 </Link>

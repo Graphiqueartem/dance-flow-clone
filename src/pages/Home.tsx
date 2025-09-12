@@ -54,9 +54,9 @@ const Home = () => {
                 </Link>
               </Button>
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
-                <Link to="/performance-review-form">
+                <Link to="/registration">
                   <Upload className="h-4 sm:h-5 w-4 sm:w-5 mr-2" />
-                  Submit Dance Video
+                  Submit Performance
                 </Link>
               </Button>
               <Button size="lg" variant="ghost" className="text-white hover:bg-white/10 font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
@@ -228,11 +228,11 @@ const Home = () => {
                   <p className="text-lg mb-6 opacity-90">
                     The ultimate dance competition bringing together winners from around the world
                   </p>
-                  <Button size="lg" className="bg-primary hover:bg-primary/90" asChild>
-                    <Link to="/performance-review-form">
-                      Register Now
-                    </Link>
-                  </Button>
+                <Button size="lg" asChild>
+                  <Link to="/registration">
+                    Register Now
+                  </Link>
+                </Button>
                 </div>
               </div>
             </div>
@@ -260,11 +260,11 @@ const Home = () => {
                   <p className="text-sm">
                     <strong>Styles:</strong> {event.styles}
                   </p>
-                  <Button size="sm" className="w-full bg-primary hover:bg-primary/90" asChild>
-                    <Link to="/performance-review-form">
-                      Register Now
-                    </Link>
-                  </Button>
+                   <Button size="sm" className="w-full bg-primary hover:bg-primary/90" asChild>
+                     <Link to="/registration">
+                       Register Now
+                     </Link>
+                   </Button>
                 </CardContent>
               </Card>
             ))}

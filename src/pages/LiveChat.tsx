@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MessageSquare, Video, Zap, Globe } from 'lucide-react';
@@ -76,8 +77,8 @@ const LiveChat = () => {
                 <Button size="lg" asChild>
                   <a href="/competitions">View Competitions</a>
                 </Button>
-                <Button variant="outline" size="lg">
-                  Get Notifications
+                <Button variant="outline" size="lg" asChild>
+                  <Link to="/registration">Get Notifications</Link>
                 </Button>
               </div>
             </CardContent>
