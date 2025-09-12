@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -49,26 +50,7 @@ const PerformerRegistration = () => {
     );
   }
 
-  if (!user || !profile) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5 flex items-center justify-center p-4">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-              <User className="h-8 w-8 text-primary" />
-            </div>
-            <h1 className="text-3xl font-bold text-foreground mb-2">
-              Performer Registration
-            </h1>
-            <p className="text-muted-foreground">
-              Please sign in to register for events and submit performances
-            </p>
-          </div>
-          <AuthForm mode="performer" />
-        </div>
-      </div>
-    );
-  }
+  // Registration form is accessible to everyone, authentication only required for performance submissions
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,7 +62,7 @@ const PerformerRegistration = () => {
       
       const registrationData = {
         ...formData,
-        userId: user.id,
+        userId: user?.id || null,
         submittedAt: new Date().toISOString()
       };
 
@@ -177,12 +159,14 @@ const PerformerRegistration = () => {
 
         <Card className="shadow-xl border-0">
           <CardHeader className="text-center pb-6">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Badge variant="outline" className="px-3 py-1">
-                <User className="h-4 w-4 mr-1" />
-                Signed in as {profile.name}
-              </Badge>
-            </div>
+            {profile && (
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <Badge variant="outline" className="px-3 py-1">
+                  <User className="h-4 w-4 mr-1" />
+                  Signed in as {profile.name}
+                </Badge>
+              </div>
+            )}
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -223,7 +207,8 @@ const PerformerRegistration = () => {
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
                     required
-                    disabled
+                    disabled={!!profile}
+                    placeholder={!profile ? "Enter your email address" : ""}
                   />
                 </div>
               </div>
@@ -353,13 +338,28 @@ const PerformerRegistration = () => {
           </CardContent>
         </Card>
 
-        <div className="text-center mt-8 text-sm text-muted-foreground">
-          <p>
-            Questions? Contact us at{' '}
-            <a href="mailto:support@lovedancelive.com" className="text-primary hover:underline">
-              support@lovedancelive.com
-            </a>
-          </p>
+        <div className="text-center mt-8 space-y-4">
+          {!profile && (
+            <div className="bg-muted/50 rounded-lg p-4">
+              <p className="text-sm text-muted-foreground mb-2">
+                Already have an account?{' '}
+                <Link to="/auth?mode=performer" className="text-primary hover:underline font-medium">
+                  Sign in here
+                </Link>
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Note: You'll need to sign in to submit performance videos
+              </p>
+            </div>
+          )}
+          <div className="text-sm text-muted-foreground">
+            <p>
+              Questions? Contact us at{' '}
+              <a href="mailto:support@lovedancelive.com" className="text-primary hover:underline">
+                support@lovedancelive.com
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
