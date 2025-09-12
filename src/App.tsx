@@ -123,6 +123,7 @@ function App() {
               <Route path="/account" element={<Layout><UserDashboard /></Layout>} />
               <Route path="/user-dashboard" element={<Layout><UserDashboard /></Layout>} />
               <Route path="/performance-review-form" element={<Layout><PerformanceReviewForm /></Layout>} />
+              <Route path="/submit-performance" element={<Layout><PerformanceReviewForm /></Layout>} />
               <Route path="/registration" element={<PerformerRegistration />} />
               
               {/* Competition Pages */}

@@ -27,7 +27,9 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({
   }
 
   if (!user || !profile) {
-    return <Navigate to={redirectPath} replace />;
+    const currentPath = window.location.pathname;
+    const authUrl = `/auth?mode=performer&redirect=${encodeURIComponent(currentPath)}`;
+    return <Navigate to={authUrl} replace />;
   }
 
   if (requiredRole && profile.role !== requiredRole) {

@@ -3,24 +3,27 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-import { Eye, EyeOff, LogIn, UserPlus } from 'lucide-react';
+import { Eye, EyeOff, LogIn, UserPlus, User, Scale } from 'lucide-react';
 import JudgeRegistration from '@/components/JudgeRegistration';
 import { Judge } from '@/types/performance';
 
 interface AuthFormProps {
   mode?: 'admin' | 'judge' | 'performer';
   onSuccess?: () => void;
+  defaultTab?: 'performer' | 'judge';
 }
 
-export const AuthForm: React.FC<AuthFormProps> = ({ mode = 'performer', onSuccess }) => {
+export const AuthForm: React.FC<AuthFormProps> = ({ mode = 'performer', onSuccess, defaultTab = 'performer' }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [role, setRole] = useState(mode);
+  const [role, setRole] = useState(defaultTab);
+  const [activeTab, setActiveTab] = useState(defaultTab);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showJudgeRegistration, setShowJudgeRegistration] = useState(false);
@@ -32,7 +35,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode = 'performer', onSucces
     e.preventDefault();
     
     // If registering as a judge, show the detailed registration form immediately
-    if (!isLogin && role === 'judge') {
+    if (!isLogin && activeTab === 'judge') {
       setShowJudgeRegistration(true);
       return;
     }
@@ -56,7 +59,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode = 'performer', onSucces
           onSuccess?.();
         }
       } else {
-        const { error } = await signUp(email, password, role, name);
+        const { error } = await signUp(email, password, activeTab, name);
         if (error) {
           toast({
             title: 'Registration Failed',
@@ -89,21 +92,19 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode = 'performer', onSucces
     });
     setShowJudgeRegistration(false);
     setIsLogin(true);
-    setRole('judge');
+    setActiveTab('judge');
     onSuccess?.();
   };
 
-  const getModeTitle = () => {
-    switch (mode) {
-      case 'admin': return 'Admin';
+  const getTabTitle = (tabType: 'performer' | 'judge') => {
+    switch (tabType) {
       case 'judge': return 'Judge';
       default: return 'Performer';
     }
   };
 
-  const getModeDescription = () => {
-    switch (mode) {
-      case 'admin': return 'Administrative access to manage the platform';
+  const getTabDescription = (tabType: 'performer' | 'judge') => {
+    switch (tabType) {
       case 'judge': return 'Access to review performances and provide feedback';
       default: return 'Submit your performances and receive professional feedback';
     }
@@ -123,13 +124,42 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode = 'performer', onSucces
     <Card className="w-full max-w-md mx-auto">
       <CardHeader className="text-center">
         <CardTitle className="text-2xl font-bold">
-          {isLogin ? 'Sign In' : 'Create Account'} - {getModeTitle()}
+          {isLogin ? 'Sign In' : 'Create Account'}
         </CardTitle>
         <CardDescription>
-          {getModeDescription()}
+          Choose your account type to get started
         </CardDescription>
       </CardHeader>
       <CardContent>
+        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'performer' | 'judge')} className="mb-6">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="performer" className="flex items-center gap-2">
+              <User className="h-4 w-4" />
+              Performer
+            </TabsTrigger>
+            <TabsTrigger value="judge" className="flex items-center gap-2">
+              <Scale className="h-4 w-4" />
+              Judge
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="performer" className="space-y-2 mt-4">
+            <div className="text-center p-3 bg-primary/5 rounded-lg">
+              <p className="text-sm text-muted-foreground">
+                Submit your performances and receive professional feedback
+              </p>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="judge" className="space-y-2 mt-4">
+            <div className="text-center p-3 bg-secondary/5 rounded-lg">
+              <p className="text-sm text-muted-foreground">
+                Review performances and provide expert feedback
+              </p>
+            </div>
+          </TabsContent>
+        </Tabs>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
@@ -178,32 +208,17 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode = 'performer', onSucces
           </div>
 
           {!isLogin && (
-            <>
-              <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
-                <Input
-                  id="name"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                  placeholder="Enter your full name"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="role">Account Type</Label>
-                <Select value={role} onValueChange={(value) => setRole(value as 'admin' | 'judge' | 'performer')}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select account type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="performer">Performer</SelectItem>
-                    <SelectItem value="judge">Judge</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </>
+            <div className="space-y-2">
+              <Label htmlFor="name">Full Name</Label>
+              <Input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                placeholder="Enter your full name"
+              />
+            </div>
           )}
 
           <Button type="submit" className="w-full" disabled={loading}>

@@ -54,7 +54,7 @@ const Home = () => {
                 </Link>
               </Button>
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
-                <Link to="/registration">
+                <Link to="/submit-performance">
                   <Upload className="h-4 sm:h-5 w-4 sm:w-5 mr-2" />
                   Submit Performance
                 </Link>

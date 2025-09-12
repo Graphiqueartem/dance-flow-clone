@@ -15,7 +15,7 @@ const StickyCTA = () => {
               </Link>
             </Button>
             <Button size="sm" asChild className="flex-1 min-w-0">
-              <Link to="/registration" className="flex items-center justify-center">
+              <Link to="/submit-performance" className="flex items-center justify-center">
                 <Upload className="h-4 w-4 mr-2 flex-shrink-0" />
                 <span className="truncate">Submit Performance</span>
               </Link>

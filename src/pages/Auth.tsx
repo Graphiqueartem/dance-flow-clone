@@ -12,10 +12,17 @@ const Auth: React.FC = () => {
   const { user, profile, loading } = useAuth();
   
   const mode = searchParams.get('mode') as 'admin' | 'judge' | 'performer' || 'performer';
+  const redirect = searchParams.get('redirect');
 
   useEffect(() => {
     if (!loading && user && profile) {
-      // Redirect based on user role
+      // Check if there's a redirect URL first
+      if (redirect) {
+        navigate(redirect);
+        return;
+      }
+      
+      // Otherwise redirect based on user role
       switch (profile.role) {
         case 'admin':
           navigate('/admin');
@@ -28,7 +35,7 @@ const Auth: React.FC = () => {
           break;
       }
     }
-  }, [user, profile, loading, navigate]);
+  }, [user, profile, loading, navigate, redirect]);
 
   if (loading) {
     return (
@@ -66,7 +73,7 @@ const Auth: React.FC = () => {
           </p>
         </div>
         
-        <AuthForm mode={mode} onSuccess={handleAuthSuccess} />
+        <AuthForm mode={mode} defaultTab={mode === 'admin' ? 'performer' : mode} onSuccess={handleAuthSuccess} />
       </div>
     </div>
   );
