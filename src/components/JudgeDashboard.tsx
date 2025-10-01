@@ -142,7 +142,7 @@ const JudgeDashboard: React.FC<JudgeDashboardProps> = ({ judge, onLogout, onBack
     return (
       <div className="min-h-screen bg-gray-50">
         <Navigation onBack={() => setShowProfile(false)} title="My Profile" />
-        <div className="max-w-4xl mx-auto p-6">
+        <div className="max-w-4xl mx-auto p-4 sm:p-6">
           <JudgeProfile judge={judgeData} isOwnProfile={true} />
         </div>
       </div>
@@ -153,7 +153,7 @@ const JudgeDashboard: React.FC<JudgeDashboardProps> = ({ judge, onLogout, onBack
     return (
       <div className="min-h-screen bg-gray-50">
         <Navigation onBack={() => setShowFeedbackForm(false)} title="Provide Feedback" />
-        <div className="max-w-4xl mx-auto p-6">
+        <div className="max-w-4xl mx-auto p-4 sm:p-6">
           <FeedbackForm
             performance={selectedPerformance}
             judge={judge}
@@ -168,36 +168,46 @@ const JudgeDashboard: React.FC<JudgeDashboardProps> = ({ judge, onLogout, onBack
   return (
     <div className="min-h-screen bg-gray-50">
       {onBack && <Navigation onBack={onBack} title="Judge Dashboard" />}
-      <div className="max-w-6xl mx-auto p-6">
+      <div className="max-w-6xl mx-auto p-4 sm:p-6">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <Card className="border-0 shadow-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <Avatar className="h-16 w-16 border-4 border-white">
+            <CardHeader className="p-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="flex items-start sm:items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                  <Avatar className="h-12 w-12 sm:h-16 sm:w-16 border-2 sm:border-4 border-white flex-shrink-0">
                     <AvatarImage src={judgeData?.profile_image} />
-                    <AvatarFallback className="bg-white text-purple-600 text-lg font-bold">
+                    <AvatarFallback className="bg-white text-purple-600 text-base sm:text-lg font-bold">
                       {judge.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
-                  <div>
-                    <h1 className="text-3xl font-bold">Welcome, {judge.name}!</h1>
-                    <p className="text-purple-100">{judge.email}</p>
+                  <div className="min-w-0 flex-1">
+                    <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold truncate">Welcome, {judge.name}!</h1>
+                    <p className="text-purple-100 text-sm sm:text-base truncate">{judge.email}</p>
                     {judgeData?.is_platinum && (
-                      <Badge className="bg-yellow-500 text-yellow-900 mt-2">
+                      <Badge className="bg-yellow-500 text-yellow-900 mt-1 sm:mt-2 text-xs">
                         <Award className="h-3 w-3 mr-1" />
                         Platinum Judge
                       </Badge>
                     )}
                   </div>
                 </div>
-                <div className="flex gap-2">
-                  <Button variant="secondary" onClick={() => setShowProfile(true)}>
-                    <User className="h-4 w-4 mr-2" />
-                    Profile
+                <div className="flex gap-2 w-full sm:w-auto">
+                  <Button 
+                    variant="secondary" 
+                    onClick={() => setShowProfile(true)}
+                    size="sm"
+                    className="flex-1 sm:flex-none"
+                  >
+                    <User className="h-4 w-4 sm:mr-2" />
+                    <span className="hidden sm:inline">Profile</span>
                   </Button>
-                  <Button variant="secondary" onClick={onLogout}>
+                  <Button 
+                    variant="secondary" 
+                    onClick={onLogout}
+                    size="sm"
+                    className="flex-1 sm:flex-none"
+                  >
                     <LogOut className="h-4 w-4 mr-2" />
                     Logout
                   </Button>
@@ -215,59 +225,65 @@ const JudgeDashboard: React.FC<JudgeDashboardProps> = ({ judge, onLogout, onBack
           </Card>
         ) : (
           <Tabs defaultValue="performances" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="performances">Performances to Review</TabsTrigger>
-              <TabsTrigger value="requests">Feedback Requests</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 h-auto">
+              <TabsTrigger value="performances" className="text-xs sm:text-sm py-2">
+                <span className="hidden sm:inline">Performances to Review</span>
+                <span className="sm:hidden">Performances</span>
+              </TabsTrigger>
+              <TabsTrigger value="requests" className="text-xs sm:text-sm py-2">
+                <span className="hidden sm:inline">Feedback Requests</span>
+                <span className="sm:hidden">Requests</span>
+              </TabsTrigger>
             </TabsList>
             
-            <TabsContent value="performances" className="mt-6">
+            <TabsContent value="performances" className="mt-4 sm:mt-6">
               <div>
-                <h2 className="text-2xl font-bold mb-6">Performances Awaiting Review</h2>
-                <div className="grid gap-6">
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6">Performances Awaiting Review</h2>
+                <div className="grid gap-4 sm:gap-6">
                   {performances.filter(p => p.status !== 'REVIEWED').map((performance) => (
                     <Card key={performance.id} className="hover:shadow-lg transition-shadow">
-                      <CardHeader>
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <CardTitle className="text-lg">{performance.performance_title}</CardTitle>
-                            <p className="text-gray-600">by {performance.performer_name}</p>
-                            <div className="flex items-center gap-4 text-sm text-gray-600 mt-2">
+                      <CardHeader className="p-4 sm:p-6">
+                        <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
+                          <div className="flex-1 min-w-0">
+                            <CardTitle className="text-base sm:text-lg truncate">{performance.performance_title}</CardTitle>
+                            <p className="text-sm text-gray-600 truncate">by {performance.performer_name}</p>
+                            <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 mt-2">
                               <div className="flex items-center gap-1">
-                                <Calendar className="h-4 w-4" />
-                                {new Date(performance.submitted_at).toLocaleDateString()}
+                                <Calendar className="h-3 w-3 sm:h-4 sm:w-4" />
+                                <span className="text-xs">{new Date(performance.submitted_at).toLocaleDateString()}</span>
                               </div>
-                              <Badge variant="outline" className="capitalize">
+                              <Badge variant="outline" className="capitalize text-xs">
                                 {performance.dance_genre}
                               </Badge>
                             </div>
                           </div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
                             {getStatusIcon(performance.status)}
-                            <Badge className={getStatusColor(performance.status)}>
+                            <Badge className={`${getStatusColor(performance.status)} text-xs whitespace-nowrap`}>
                               {performance.status.replace('_', ' ')}
                             </Badge>
                           </div>
                         </div>
                       </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
+                      <CardContent className="p-4 sm:p-6 pt-0">
+                        <div className="space-y-3 sm:space-y-4">
                           <div>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">
                               {performance.performance_description || 'No description provided'}
                             </p>
                           </div>
                           <div className="flex items-center gap-2">
-                            <Video className="h-4 w-4 text-gray-500" />
+                            <Video className="h-3 w-3 sm:h-4 sm:w-4 text-gray-500 flex-shrink-0" />
                             <a 
                               href={performance.video_url} 
                               target="_blank" 
                               rel="noopener noreferrer"
-                              className="text-blue-600 hover:underline"
+                              className="text-xs sm:text-sm text-blue-600 hover:underline truncate"
                             >
                               View Performance Video
                             </a>
                           </div>
-                          <div className="flex gap-2">
+                          <div className="flex flex-col sm:flex-row gap-2">
                             <Button 
                               className="bg-gradient-to-r from-purple-600 to-blue-600 text-white"
                               onClick={() => handleProvideFeedback(performance)}
@@ -292,65 +308,68 @@ const JudgeDashboard: React.FC<JudgeDashboardProps> = ({ judge, onLogout, onBack
               </div>
             </TabsContent>
 
-            <TabsContent value="requests" className="mt-6">
+            <TabsContent value="requests" className="mt-4 sm:mt-6">
               <div>
-                <h2 className="text-2xl font-bold mb-6">Direct Feedback Requests</h2>
-                <div className="grid gap-6">
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6">Direct Feedback Requests</h2>
+                <div className="grid gap-4 sm:gap-6">
                   {feedbackRequests.map((request) => (
                     <Card key={request.id} className="hover:shadow-lg transition-shadow">
-                      <CardHeader>
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <CardTitle className="text-lg">{request.performance_title}</CardTitle>
-                            <p className="text-gray-600">from {request.performer_name}</p>
-                            <div className="flex items-center gap-4 text-sm text-gray-600 mt-2">
+                      <CardHeader className="p-4 sm:p-6">
+                        <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
+                          <div className="flex-1 min-w-0">
+                            <CardTitle className="text-base sm:text-lg truncate">{request.performance_title}</CardTitle>
+                            <p className="text-sm text-gray-600 truncate">from {request.performer_name}</p>
+                            <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 mt-2">
                               <div className="flex items-center gap-1">
-                                <Calendar className="h-4 w-4" />
-                                {new Date(request.requested_at).toLocaleDateString()}
+                                <Calendar className="h-3 w-3 sm:h-4 sm:w-4" />
+                                <span className="text-xs">{new Date(request.requested_at).toLocaleDateString()}</span>
                               </div>
                             </div>
                           </div>
-                          <Badge className={getStatusColor(request.status)}>
+                          <Badge className={`${getStatusColor(request.status)} text-xs whitespace-nowrap`}>
                             {request.status.toUpperCase()}
                           </Badge>
                         </div>
                       </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
+                      <CardContent className="p-4 sm:p-6 pt-0">
+                        <div className="space-y-3 sm:space-y-4">
                           <div>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">
                               {request.performance_description || 'No description provided'}
                             </p>
                           </div>
                           {request.message && (
                             <div>
-                              <strong className="text-sm">Message:</strong>
-                              <p className="text-sm text-gray-600">{request.message}</p>
+                              <strong className="text-xs sm:text-sm">Message:</strong>
+                              <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">{request.message}</p>
                             </div>
                           )}
                           <div className="flex items-center gap-2">
-                            <Video className="h-4 w-4 text-gray-500" />
+                            <Video className="h-3 w-3 sm:h-4 sm:w-4 text-gray-500 flex-shrink-0" />
                             <a 
-                              href={request.video_url} 
+                              href={request.video_url}
                               target="_blank" 
                               rel="noopener noreferrer"
-                              className="text-blue-600 hover:underline"
+                              className="text-xs sm:text-sm text-blue-600 hover:underline truncate"
                             >
                               View Performance Video
                             </a>
                           </div>
                           {request.status === 'pending' && (
-                            <div className="flex gap-2">
+                            <div className="flex flex-col sm:flex-row gap-2">
                               <Button 
-                                className="bg-green-600 hover:bg-green-700 text-white"
+                                className="bg-green-600 hover:bg-green-700 text-white text-xs sm:text-sm"
                                 onClick={() => handleAcceptRequest(request.id)}
+                                size="sm"
                               >
-                                <CheckCircle className="h-4 w-4 mr-2" />
+                                <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
                                 Accept
                               </Button>
                               <Button 
                                 variant="outline"
                                 onClick={() => handleDeclineRequest(request.id)}
+                                size="sm"
+                                className="text-xs sm:text-sm"
                               >
                                 Decline
                               </Button>
@@ -363,8 +382,8 @@ const JudgeDashboard: React.FC<JudgeDashboardProps> = ({ judge, onLogout, onBack
                   
                   {feedbackRequests.length === 0 && (
                     <Card>
-                      <CardContent className="text-center py-8">
-                        <p className="text-gray-600">No feedback requests at the moment.</p>
+                      <CardContent className="text-center py-6 sm:py-8">
+                        <p className="text-sm sm:text-base text-gray-600">No feedback requests at the moment.</p>
                       </CardContent>
                     </Card>
                   )}

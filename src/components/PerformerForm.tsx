@@ -191,7 +191,7 @@ const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
     <AuthGuard redirectPath="/auth?mode=performer">
       <div className="bg-background">
         {onBack && <Navigation onBack={onBack} title="Submit Your Performance" />}
-      <div className="max-w-4xl mx-auto p-6 space-y-6">
+      <div className="max-w-4xl mx-auto p-4 sm:p-6 space-y-4 sm:space-y-6">
         {/* Global Competition Toggle */}
         <GlobalPrizeProgram 
           isEnabled={globalCompetitionEnabled}
@@ -200,22 +200,22 @@ const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
 
         {/* Main Form */}
         <Card className="shadow-xl border-0 bg-white">
-          <CardHeader className="bg-primary text-primary-foreground">
-            <CardTitle className="text-2xl font-bold text-center flex items-center justify-center gap-3">
+          <CardHeader className="bg-primary text-primary-foreground p-4 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl lg:text-2xl font-bold text-center flex items-center justify-center gap-2 sm:gap-3">
               🎭 Performance Details
             </CardTitle>
-            <p className="text-center opacity-90 mt-2">
+            <p className="text-center text-xs sm:text-sm opacity-90 mt-2">
               Share your talent with expert judges and get professional feedback
             </p>
           </CardHeader>
-          <CardContent className="p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <CardContent className="p-4 sm:p-6 lg:p-8">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               {/* Personal Information */}
-              <div className="bg-gray-50 rounded-lg p-6 space-y-4">
-                <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">
+              <div className="bg-gray-50 rounded-lg p-4 sm:p-6 space-y-3 sm:space-y-4">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-800 border-b pb-2">
                   👤 Personal Information
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <Label htmlFor="name" className="text-sm font-medium text-gray-700">Full Name *</Label>
                     <Input
@@ -241,7 +241,7 @@ const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                   <div>
                     <Label htmlFor="age" className="text-sm font-medium text-gray-700">Age *</Label>
                     <Input
@@ -287,11 +287,11 @@ const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
               </div>
 
               {/* Performance Details */}
-              <div className="bg-blue-50 rounded-lg p-6 space-y-4">
-                <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">
+              <div className="bg-blue-50 rounded-lg p-4 sm:p-6 space-y-3 sm:space-y-4">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-800 border-b pb-2">
                   🎯 Performance Details
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <Label htmlFor="category" className="text-sm font-medium text-gray-700">Performance Category *</Label>
                     <Select value={formData.category} onValueChange={(value) => setFormData(prev => ({ ...prev, category: value }))}>
@@ -363,33 +363,33 @@ const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
               </div>
 
               {/* Judge Selection */}
-              <div className="bg-yellow-50 rounded-lg p-6 space-y-4">
-                <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">
+              <div className="bg-yellow-50 rounded-lg p-4 sm:p-6 space-y-3 sm:space-y-4">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-800 border-b pb-2">
                   👨‍⚖️ Judge Selection
                 </h3>
                 <div>
-                  <Label className="text-sm font-medium text-gray-700">Choose Judge Type *</Label>
+                  <Label className="text-xs sm:text-sm font-medium text-gray-700">Choose Judge Type *</Label>
                   <RadioGroup 
                     value={formData.judge_type} 
                     onValueChange={(value) => setFormData(prev => ({ ...prev, judge_type: value }))}
-                    className="mt-2 space-y-3"
+                    className="mt-2 space-y-2 sm:space-y-3"
                   >
-                    <div className="flex items-center space-x-3 p-3 border rounded-lg bg-white">
+                    <div className="flex items-center space-x-2 sm:space-x-3 p-3 border rounded-lg bg-white">
                       <RadioGroupItem value="standard" id="standard" />
-                      <div className="flex-1">
-                        <Label htmlFor="standard" className="font-medium cursor-pointer">
+                      <div className="flex-1 min-w-0">
+                        <Label htmlFor="standard" className="text-sm sm:text-base font-medium cursor-pointer">
                           🎯 Standard Judge
                         </Label>
-                        <p className="text-sm text-gray-600">Professional judge matched to your performance category</p>
+                        <p className="text-xs sm:text-sm text-gray-600">Professional judge matched to your performance category</p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3 p-3 border rounded-lg bg-white">
+                    <div className="flex items-center space-x-2 sm:space-x-3 p-3 border rounded-lg bg-white">
                       <RadioGroupItem value="platinum" id="platinum" />
-                      <div className="flex-1">
-                        <Label htmlFor="platinum" className="font-medium cursor-pointer">
+                      <div className="flex-1 min-w-0">
+                        <Label htmlFor="platinum" className="text-sm sm:text-base font-medium cursor-pointer">
                           👑 Platinum Judge (+$50)
                         </Label>
-                        <p className="text-sm text-gray-600">Elite expert judge with 15+ years experience and premium feedback</p>
+                        <p className="text-xs sm:text-sm text-gray-600">Elite expert judge with 15+ years experience and premium feedback</p>
                       </div>
                     </div>
                   </RadioGroup>
@@ -397,33 +397,33 @@ const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
               </div>
 
               {/* Feedback Options */}
-              <div className="bg-green-50 rounded-lg p-6 space-y-4">
-                <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">
+              <div className="bg-green-50 rounded-lg p-4 sm:p-6 space-y-3 sm:space-y-4">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-800 border-b pb-2">
                   💬 Feedback Options
                 </h3>
                 <div>
-                  <Label className="text-sm font-medium text-gray-700">Choose Feedback Type *</Label>
+                  <Label className="text-xs sm:text-sm font-medium text-gray-700">Choose Feedback Type *</Label>
                   <RadioGroup 
                     value={formData.feedback_type} 
                     onValueChange={(value) => setFormData(prev => ({ ...prev, feedback_type: value }))}
-                    className="mt-2 space-y-3"
+                    className="mt-2 space-y-2 sm:space-y-3"
                   >
-                    <div className="flex items-center space-x-3 p-3 border rounded-lg bg-white">
+                    <div className="flex items-center space-x-2 sm:space-x-3 p-3 border rounded-lg bg-white">
                       <RadioGroupItem value="free" id="free" />
-                      <div className="flex-1">
-                        <Label htmlFor="free" className="font-medium cursor-pointer">
+                      <div className="flex-1 min-w-0">
+                        <Label htmlFor="free" className="text-sm sm:text-base font-medium cursor-pointer">
                           🆓 Free Feedback
                         </Label>
-                        <p className="text-sm text-gray-600">Basic written review and quality scores</p>
+                        <p className="text-xs sm:text-sm text-gray-600">Basic written review and quality scores</p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3 p-3 border rounded-lg bg-white">
+                    <div className="flex items-center space-x-2 sm:space-x-3 p-3 border rounded-lg bg-white">
                       <RadioGroupItem value="premium" id="premium" />
-                      <div className="flex-1">
-                        <Label htmlFor="premium" className="font-medium cursor-pointer">
+                      <div className="flex-1 min-w-0">
+                        <Label htmlFor="premium" className="text-sm sm:text-base font-medium cursor-pointer">
                           ⭐ Premium Feedback ($25)
                         </Label>
-                        <p className="text-sm text-gray-600">Detailed analysis + video feedback from expert judges</p>
+                        <p className="text-xs sm:text-sm text-gray-600">Detailed analysis + video feedback from expert judges</p>
                       </div>
                     </div>
                   </RadioGroup>
@@ -433,7 +433,7 @@ const PerformerForm: React.FC<PerformerFormProps> = ({ onBack }) => {
               <Button 
                 type="submit" 
                 disabled={isSubmitting || !formData.video_url || !formData.feedback_type}
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-4 text-lg shadow-lg disabled:opacity-50"
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 sm:py-4 text-base sm:text-lg shadow-lg disabled:opacity-50"
               >
                 {isSubmitting ? '🔄 Processing...' : 
                  (formData.feedback_type === 'premium' || formData.judge_type === 'platinum') 

@@ -146,23 +146,23 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ performance, judge, onSubmi
   };
 
   return (
-    <div className="space-y-6 pb-8">
+    <div className="space-y-4 sm:space-y-6 pb-6 sm:pb-8">
       {/* Performance Details Card */}
       <Card className="border-2 border-primary/20">
-        <CardHeader className="bg-gradient-to-r from-primary/10 to-primary/5">
-          <div className="flex items-start justify-between">
-            <div className="space-y-2 flex-1">
-              <div className="flex items-center gap-3">
-                <Video className="h-6 w-6 text-primary" />
-                <CardTitle className="text-2xl">{performance.performance_title}</CardTitle>
+        <CardHeader className="bg-gradient-to-r from-primary/10 to-primary/5 p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row items-start justify-between gap-3">
+            <div className="space-y-2 flex-1 min-w-0">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Video className="h-5 w-5 sm:h-6 sm:w-6 text-primary flex-shrink-0" />
+                <CardTitle className="text-lg sm:text-xl lg:text-2xl truncate">{performance.performance_title}</CardTitle>
               </div>
-              <div className="flex flex-wrap gap-2 text-sm text-muted-foreground">
+              <div className="flex flex-wrap gap-1 sm:gap-2 text-xs sm:text-sm text-muted-foreground">
                 <span>Performer: <strong>{performance.performer_name}</strong></span>
-                <span>•</span>
-                <Badge variant="secondary">{performance.dance_genre}</Badge>
+                <span className="hidden sm:inline">•</span>
+                <Badge variant="secondary" className="text-xs">{performance.dance_genre}</Badge>
                 {performance.feedback_type && (
                   <>
-                    <span>•</span>
+                    <span className="hidden sm:inline">•</span>
                     <Badge variant="outline" className="capitalize">
                       {performance.feedback_type} Feedback
                     </Badge>
@@ -172,30 +172,30 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ performance, judge, onSubmi
             </div>
           </div>
         </CardHeader>
-        <CardContent className="pt-6 space-y-4">
+        <CardContent className="pt-4 sm:pt-6 space-y-3 sm:space-y-4 px-4 sm:px-6">
           {performance.performance_description && (
-            <p className="text-muted-foreground">{performance.performance_description}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3">{performance.performance_description}</p>
           )}
           
           {/* Video Review Notice */}
           {(performance.feedback_type === 'PAID' || performance.platinum_upgrade) && (
-            <Alert className="border-primary/50 bg-primary/5">
-              <Video className="h-4 w-4 text-primary" />
-              <AlertDescription className="text-sm">
+            <Alert className="border-primary/50 bg-primary/5 p-3 sm:p-4">
+              <Video className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
+              <AlertDescription className="text-xs sm:text-sm">
                 <strong>Video Feedback Required:</strong> This performer has opted for paid video review. 
                 Please record and submit a video feedback along with your written feedback.
               </AlertDescription>
             </Alert>
           )}
 
-          <Button variant="outline" asChild className="w-full sm:w-auto">
+          <Button variant="outline" asChild className="w-full sm:w-auto text-xs sm:text-sm">
             <a 
               href={performance.video_url} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center gap-2"
+              className="flex items-center justify-center gap-2"
             >
-              <Video className="h-4 w-4" />
+              <Video className="h-3 w-3 sm:h-4 sm:w-4" />
               Watch Performance Video
             </a>
           </Button>
@@ -204,18 +204,18 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ performance, judge, onSubmi
 
       {/* Status Alerts */}
       {hasSubmitted && (
-        <Alert className="border-green-500 bg-green-50">
-          <CheckCircle2 className="h-4 w-4 text-green-600" />
-          <AlertDescription className="text-green-800">
+        <Alert className="border-green-500 bg-green-50 p-3 sm:p-4">
+          <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" />
+          <AlertDescription className="text-xs sm:text-sm text-green-800">
             Feedback submitted successfully! This form is now locked and cannot be edited.
           </AlertDescription>
         </Alert>
       )}
 
       {!hasSubmitted && (
-        <Alert>
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>
+        <Alert className="p-3 sm:p-4">
+          <AlertCircle className="h-3 w-3 sm:h-4 sm:w-4" />
+          <AlertDescription className="text-xs sm:text-sm">
             Select feedback points from each category and provide scores. You can also add custom comments. 
             <strong> Once submitted, feedback cannot be edited.</strong>
           </AlertDescription>
@@ -224,16 +224,16 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ performance, judge, onSubmi
 
       {/* Average Score Display */}
       <Card className="bg-gradient-to-r from-primary/10 to-secondary/10">
-        <CardContent className="pt-6">
+        <CardContent className="pt-4 sm:pt-6 p-4">
           <div className="text-center">
-            <p className="text-sm text-muted-foreground mb-1">Overall Average Score</p>
-            <p className="text-4xl font-bold text-primary">{calculateAverageScore()}/10</p>
+            <p className="text-xs sm:text-sm text-muted-foreground mb-1">Overall Average Score</p>
+            <p className="text-3xl sm:text-4xl font-bold text-primary">{calculateAverageScore()}/10</p>
           </div>
         </CardContent>
       </Card>
 
       {/* Feedback Categories */}
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {FEEDBACK_BANKS.map((category) => (
           <FeedbackCategorySection
             key={category.id}
@@ -248,26 +248,26 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ performance, judge, onSubmi
       </div>
 
       {/* Action Buttons */}
-      <div className="flex flex-col sm:flex-row gap-4 pt-6 sticky bottom-0 bg-background/95 backdrop-blur-sm py-4 border-t">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 sm:pt-6 sticky bottom-0 bg-background/95 backdrop-blur-sm py-3 sm:py-4 border-t px-4 sm:px-0">
         <Button 
           variant="outline" 
           onClick={onCancel}
           disabled={isSubmitting || hasSubmitted}
-          className="flex-1 sm:flex-none"
+          className="flex-1 sm:flex-none text-sm"
         >
           {hasSubmitted ? 'Close' : 'Cancel'}
         </Button>
         <Button 
           onClick={handleSubmitFeedback}
           disabled={!isFormComplete() || isSubmitting || hasSubmitted}
-          className="flex-1 bg-gradient-to-r from-primary to-secondary text-white hover:opacity-90"
+          className="flex-1 bg-gradient-to-r from-primary to-secondary text-white hover:opacity-90 text-sm"
         >
           {isSubmitting ? 'Submitting...' : hasSubmitted ? 'Submitted ✓' : 'Submit Feedback'}
         </Button>
       </div>
 
       {!isFormComplete() && !hasSubmitted && (
-        <p className="text-sm text-muted-foreground text-center">
+        <p className="text-xs sm:text-sm text-muted-foreground text-center px-4">
           Please provide feedback in all categories before submitting
         </p>
       )}
