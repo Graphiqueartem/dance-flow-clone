@@ -1,16 +1,14 @@
-
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Slider } from '@/components/ui/slider';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Star, Video, User, Calendar, MessageSquare } from 'lucide-react';
 import { Performance } from '@/types/performance';
 import { useToast } from '@/hooks/use-toast';
 import { databaseService } from '@/services/databaseService';
+import { Video, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import FeedbackCategorySection from './feedback/FeedbackCategorySection';
+import { FEEDBACK_BANKS, CompleteFeedback, CategoryFeedback } from '@/data/feedbackBanks';
 
 interface FeedbackFormProps {
   performance: Performance;
@@ -19,71 +17,127 @@ interface FeedbackFormProps {
   onCancel: () => void;
 }
 
-const FeedbackForm: React.FC<FeedbackFormProps> = ({ 
-  performance, 
-  judge, 
-  onSubmit, 
-  onCancel 
-}) => {
+const FeedbackForm: React.FC<FeedbackFormProps> = ({ performance, judge, onSubmit, onCancel }) => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [scores, setScores] = useState({
-    technique: [75],
-    timing: [75],
-    reflex: [75],
-    smoothness: [75],
-    creativity: [75],
-    overall: [75]
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({
+    technique: true,
+    musicality: false,
+    performance_expression: false,
+    choreography: false,
+    overall_impression: false,
   });
-  const [textFeedback, setTextFeedback] = useState('');
-  const [videoFeedbackUrl, setVideoFeedbackUrl] = useState('');
 
-  const handleScoreChange = (category: keyof typeof scores, value: number[]) => {
-    setScores(prev => ({
+  const [feedback, setFeedback] = useState<CompleteFeedback>({
+    technique: { score: 5, selectedSentences: [], customComment: '' },
+    musicality: { score: 5, selectedSentences: [], customComment: '' },
+    performance_expression: { score: 5, selectedSentences: [], customComment: '' },
+    choreography: { score: 5, selectedSentences: [], customComment: '' },
+    overall_impression: { score: 5, selectedSentences: [], customComment: '' },
+  });
+
+  const handleCategoryChange = (categoryId: string, categoryFeedback: CategoryFeedback) => {
+    setFeedback(prev => ({
       ...prev,
-      [category]: value
+      [categoryId]: categoryFeedback,
     }));
   };
 
+  const toggleSection = (categoryId: string) => {
+    setOpenSections(prev => ({
+      ...prev,
+      [categoryId]: !prev[categoryId],
+    }));
+  };
+
+  const calculateAverageScore = () => {
+    const scores = Object.values(feedback).map(f => f.score);
+    return (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
+  };
+
+  const isFormComplete = () => {
+    return Object.values(feedback).every(
+      cat => cat.selectedSentences.length > 0 || cat.customComment.trim() !== ''
+    );
+  };
+
   const handleSubmitFeedback = async () => {
-    if (!textFeedback.trim()) {
+    if (hasSubmitted) {
       toast({
-        title: "Feedback Required",
-        description: "Please provide written feedback.",
+        title: "Already Submitted",
+        description: "This feedback has already been submitted and cannot be edited.",
         variant: "destructive",
       });
       return;
     }
 
-    setIsSubmitting(true);
+    if (!isFormComplete()) {
+      toast({
+        title: "Incomplete Feedback",
+        description: "Please provide feedback for all categories before submitting.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
+      setIsSubmitting(true);
+      
+      // Compile all feedback into structured text
+      const compiledFeedback = FEEDBACK_BANKS.map(category => {
+        const catFeedback = feedback[category.id as keyof CompleteFeedback];
+        let text = `**${category.label}** (Score: ${catFeedback.score}/10)\n\n`;
+        
+        if (catFeedback.selectedSentences.length > 0) {
+          text += catFeedback.selectedSentences.map(s => `• ${s}`).join('\n');
+          text += '\n\n';
+        }
+        
+        if (catFeedback.customComment.trim()) {
+          text += `Additional Notes: ${catFeedback.customComment}\n`;
+        }
+        
+        return text;
+      }).join('\n---\n\n');
+
       const feedbackData = {
         performance_id: performance.id,
         judge_id: judge.id,
         judge_name: judge.name,
-        technique: scores.technique[0],
-        timing: scores.timing[0],
-        reflex: scores.reflex[0],
-        smoothness: scores.smoothness[0],
-        creativity: scores.creativity[0],
-        overall: scores.overall[0],
-        text_feedback: textFeedback,
-        video_feedback_url: videoFeedbackUrl || null
+        text_feedback: compiledFeedback,
+        technique: Math.round(feedback.technique.score * 10), // Convert to 0-100 scale
+        timing: Math.round(feedback.musicality.score * 10),
+        reflex: Math.round(feedback.performance_expression.score * 10),
+        smoothness: Math.round(feedback.choreography.score * 10),
+        creativity: Math.round(feedback.overall_impression.score * 10),
+        overall: Math.round(parseFloat(calculateAverageScore()) * 10),
+        submitted_at: new Date().toISOString()
       };
 
       console.log('Submitting feedback:', feedbackData);
-      const result = await databaseService.createFeedback(feedbackData);
       
-      if (result) {
+      await databaseService.createFeedback(feedbackData);
+      
+      // Update performance status to 'REVIEWED'
+      await databaseService.updatePerformance(performance.id, { status: 'REVIEWED' });
+      
+      setHasSubmitted(true);
+      
+      toast({
+        title: "Success! 🎉",
+        description: "Your feedback has been submitted successfully and cannot be edited.",
+      });
+      
+      // Delay to show success message before closing
+      setTimeout(() => {
         onSubmit();
-      } else {
-        throw new Error('Failed to submit feedback');
-      }
+      }, 2000);
     } catch (error) {
       console.error('Error submitting feedback:', error);
       toast({
         title: "Submission Failed",
-        description: "Failed to submit feedback. Please try again.",
+        description: error instanceof Error ? error.message : "Failed to submit feedback. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -91,160 +145,112 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({
     }
   };
 
-  const averageScore = Math.round(
-    (scores.technique[0] + scores.timing[0] + scores.reflex[0] + 
-     scores.smoothness[0] + scores.creativity[0] + scores.overall[0]) / 6
-  );
-
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      {/* Performance Info */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <User className="h-5 w-5" />
-            Performance Details
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <Label className="text-sm font-medium">Performance Title</Label>
-              <p className="font-semibold">{performance.performance_title}</p>
-            </div>
-            <div>
-              <Label className="text-sm font-medium">Performer</Label>
-              <p className="font-semibold">{performance.performer_name}</p>
-            </div>
-            <div>
-              <Label className="text-sm font-medium">Dance Genre</Label>
-              <Badge variant="outline" className="capitalize">
-                {performance.dance_genre}
-              </Badge>
-            </div>
-            <div>
-              <Label className="text-sm font-medium">Submitted</Label>
-              <div className="flex items-center gap-1">
-                <Calendar className="h-4 w-4 text-gray-500" />
-                <span>{new Date(performance.submitted_at).toLocaleDateString()}</span>
+    <div className="space-y-6 pb-8">
+      {/* Performance Details Card */}
+      <Card className="border-2 border-primary/20">
+        <CardHeader className="bg-gradient-to-r from-primary/10 to-primary/5">
+          <div className="flex items-start justify-between">
+            <div className="space-y-2">
+              <div className="flex items-center gap-3">
+                <Video className="h-6 w-6 text-primary" />
+                <CardTitle className="text-2xl">{performance.performance_title}</CardTitle>
+              </div>
+              <div className="flex flex-wrap gap-2 text-sm text-muted-foreground">
+                <span>Performer: <strong>{performance.performer_name}</strong></span>
+                <span>•</span>
+                <Badge variant="secondary">{performance.dance_genre}</Badge>
               </div>
             </div>
           </div>
-          
+        </CardHeader>
+        <CardContent className="pt-6 space-y-4">
           {performance.performance_description && (
-            <div className="mt-4">
-              <Label className="text-sm font-medium">Description</Label>
-              <p className="text-gray-600">{performance.performance_description}</p>
-            </div>
+            <p className="text-muted-foreground">{performance.performance_description}</p>
           )}
-          
-          <div className="mt-4">
-            <Label className="text-sm font-medium">Video</Label>
-            <div className="flex items-center gap-2">
-              <Video className="h-4 w-4 text-gray-500" />
-              <a 
-                href={performance.video_url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                View Performance Video
-              </a>
-            </div>
+          <Button variant="outline" asChild className="w-full sm:w-auto">
+            <a 
+              href={performance.video_url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2"
+            >
+              <Video className="h-4 w-4" />
+              Watch Performance Video
+            </a>
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* Status Alerts */}
+      {hasSubmitted && (
+        <Alert className="border-green-500 bg-green-50">
+          <CheckCircle2 className="h-4 w-4 text-green-600" />
+          <AlertDescription className="text-green-800">
+            Feedback submitted successfully! This form is now locked and cannot be edited.
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {!hasSubmitted && (
+        <Alert>
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>
+            Select feedback points from each category and provide scores. You can also add custom comments. 
+            <strong> Once submitted, feedback cannot be edited.</strong>
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {/* Average Score Display */}
+      <Card className="bg-gradient-to-r from-primary/10 to-secondary/10">
+        <CardContent className="pt-6">
+          <div className="text-center">
+            <p className="text-sm text-muted-foreground mb-1">Overall Average Score</p>
+            <p className="text-4xl font-bold text-primary">{calculateAverageScore()}/10</p>
           </div>
         </CardContent>
       </Card>
 
-      {/* Scoring */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Star className="h-5 w-5" />
-            Performance Scoring
-          </CardTitle>
-          <div className="text-right">
-            <div className="text-2xl font-bold text-purple-600">
-              {averageScore}/100
-            </div>
-            <div className="text-sm text-gray-600">Average Score</div>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {Object.entries(scores).map(([category, value]) => (
-            <div key={category} className="space-y-2">
-              <div className="flex justify-between items-center">
-                <Label className="text-sm font-medium capitalize">
-                  {category} {category === 'overall' ? 'Performance' : ''}
-                </Label>
-                <span className="text-sm font-semibold text-purple-600">
-                  {value[0]}/100
-                </span>
-              </div>
-              <Slider
-                value={value}
-                onValueChange={(newValue) => handleScoreChange(category as keyof typeof scores, newValue)}
-                max={100}
-                min={0}
-                step={1}
-                className="w-full"
-              />
-            </div>
-          ))}
-        </CardContent>
-      </Card>
+      {/* Feedback Categories */}
+      <div className="space-y-4">
+        {FEEDBACK_BANKS.map((category) => (
+          <FeedbackCategorySection
+            key={category.id}
+            title={category.label}
+            sentences={category.sentences}
+            feedback={feedback[category.id as keyof CompleteFeedback]}
+            onChange={(catFeedback) => handleCategoryChange(category.id, catFeedback)}
+            isOpen={openSections[category.id]}
+            onToggle={() => toggleSection(category.id)}
+          />
+        ))}
+      </div>
 
-      {/* Written Feedback */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <MessageSquare className="h-5 w-5" />
-            Written Feedback
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div>
-            <Label htmlFor="text-feedback">Detailed Feedback *</Label>
-            <Textarea
-              id="text-feedback"
-              value={textFeedback}
-              onChange={(e) => setTextFeedback(e.target.value)}
-              placeholder="Provide detailed feedback on the performance. Include strengths, areas for improvement, and constructive suggestions..."
-              rows={6}
-              className="mt-1"
-              required
-            />
-          </div>
-          
-          <div>
-            <Label htmlFor="video-feedback">Video Feedback URL (Optional)</Label>
-            <Input
-              id="video-feedback"
-              type="url"
-              value={videoFeedbackUrl}
-              onChange={(e) => setVideoFeedbackUrl(e.target.value)}
-              placeholder="https://youtube.com/watch?v=... (optional video response)"
-              className="mt-1"
-            />
-            <p className="text-xs text-gray-600 mt-1">
-              You can provide a video response by uploading to YouTube or another platform and sharing the link here.
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Submit Actions */}
-      <div className="flex gap-4 justify-end">
-        <Button variant="outline" onClick={onCancel} disabled={isSubmitting}>
-          Cancel
+      {/* Action Buttons */}
+      <div className="flex flex-col sm:flex-row gap-4 pt-6 sticky bottom-0 bg-background/95 backdrop-blur-sm py-4 border-t">
+        <Button 
+          variant="outline" 
+          onClick={onCancel}
+          disabled={isSubmitting || hasSubmitted}
+          className="flex-1 sm:flex-none"
+        >
+          {hasSubmitted ? 'Close' : 'Cancel'}
         </Button>
         <Button 
-          onClick={handleSubmitFeedback} 
-          disabled={isSubmitting || !textFeedback.trim()}
-          className="bg-gradient-to-r from-purple-600 to-blue-600 text-white"
+          onClick={handleSubmitFeedback}
+          disabled={!isFormComplete() || isSubmitting || hasSubmitted}
+          className="flex-1 bg-gradient-to-r from-primary to-secondary text-white hover:opacity-90"
         >
-          {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
+          {isSubmitting ? 'Submitting...' : hasSubmitted ? 'Submitted ✓' : 'Submit Feedback'}
         </Button>
       </div>
+
+      {!isFormComplete() && !hasSubmitted && (
+        <p className="text-sm text-muted-foreground text-center">
+          Please provide feedback in all categories before submitting
+        </p>
+      )}
     </div>
   );
 };
