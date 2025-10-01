@@ -69,33 +69,33 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border shadow-sm">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-4 min-h-[88px]">
+      <div className="container mx-auto px-2 sm:px-4 lg:px-6">
+        <div className="flex items-center justify-between py-2 lg:py-3 gap-2 lg:gap-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 font-poppins font-bold text-xl">
-            <Heart className="h-8 w-8 text-neon-pink" />
+          <Link to="/" className="flex items-center space-x-1 lg:space-x-2 font-poppins font-bold text-base lg:text-lg flex-shrink-0">
+            <Heart className="h-5 w-5 lg:h-6 lg:w-6 text-neon-pink" />
             <span className="text-neon-pink">Love</span>
             <span className="text-primary">Dance</span>
             <span className="text-accent">Live</span>
           </Link>
 
           {/* Desktop Navigation - Two Row Layout */}
-          <nav className="hidden lg:block">
+          <nav className="hidden lg:block flex-1 min-w-0">
             {/* First Row */}
-            <div className="flex items-center justify-center space-x-6 mb-2">
+            <div className="flex items-center justify-center space-x-2 lg:space-x-4 xl:space-x-6 mb-1">
               {navigationLinks.slice(0, 7).map((link) => (
                 link.hasDropdown ? (
                   <div key={link.path} className="relative" ref={dropdownRef}>
                     <button
                       onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                      className={`flex items-center px-3 py-2 text-sm font-medium transition-colors hover:text-accent rounded-md whitespace-nowrap ${
+                      className={`flex items-center px-2 lg:px-3 py-1 lg:py-1.5 text-xs lg:text-sm font-medium transition-colors hover:text-accent rounded-md whitespace-nowrap ${
                         location.pathname === link.path || location.pathname.startsWith('/competitions/')
                           ? 'bg-accent text-accent-foreground'
                           : 'text-muted-foreground hover:bg-accent/10'
                       }`}
                     >
                       {link.name}
-                      <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`ml-1 h-3 w-3 lg:h-4 lg:w-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
                     </button>
                     {isDropdownOpen && (
                       <div className="absolute top-full left-0 mt-1 w-80 bg-popover border border-border rounded-md shadow-lg z-50">
@@ -118,7 +118,7 @@ const Header = () => {
                   <Link
                     key={link.path}
                     to={link.path}
-                    className={`px-3 py-2 text-sm font-medium transition-colors hover:text-accent rounded-md whitespace-nowrap ${
+                    className={`px-2 lg:px-3 py-1 lg:py-1.5 text-xs lg:text-sm font-medium transition-colors hover:text-accent rounded-md whitespace-nowrap ${
                       location.pathname === link.path
                         ? 'bg-accent text-accent-foreground'
                         : 'text-muted-foreground hover:bg-accent/10'
@@ -131,12 +131,12 @@ const Header = () => {
             </div>
             
             {/* Second Row */}
-            <div className="flex items-center justify-center space-x-6">
+            <div className="flex items-center justify-center space-x-2 lg:space-x-4 xl:space-x-6">
               {navigationLinks.slice(7).map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-3 py-2 text-sm font-medium transition-colors hover:text-accent rounded-md whitespace-nowrap ${
+                  className={`px-2 lg:px-3 py-1 lg:py-1.5 text-xs lg:text-sm font-medium transition-colors hover:text-accent rounded-md whitespace-nowrap ${
                     location.pathname === link.path
                       ? 'bg-accent text-accent-foreground'
                       : 'text-muted-foreground hover:bg-accent/10'
@@ -149,31 +149,31 @@ const Header = () => {
           </nav>
 
           {/* CTA Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
+          <div className="hidden lg:flex items-center space-x-1 lg:space-x-2 flex-shrink-0">
             {profile?.role === 'admin' && (
-              <Button variant="secondary" size="sm" asChild>
+              <Button variant="secondary" size="sm" className="h-7 lg:h-8 px-2 lg:px-3 text-xs" asChild>
                 <Link to="/admin">
-                  <Settings className="h-4 w-4 mr-2" />
-                  Admin
+                  <Settings className="h-3 w-3 lg:h-4 lg:w-4 lg:mr-1" />
+                  <span className="hidden xl:inline">Admin</span>
                 </Link>
               </Button>
             )}
             {profile ? (
-              <Button variant="outline" size="sm" onClick={signOut}>
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
+              <Button variant="outline" size="sm" className="h-7 lg:h-8 px-2 lg:px-3 text-xs" onClick={signOut}>
+                <LogOut className="h-3 w-3 lg:h-4 lg:w-4 lg:mr-1" />
+                <span className="hidden xl:inline">Logout</span>
               </Button>
             ) : (
-              <Button variant="outline" size="sm" asChild>
+              <Button variant="outline" size="sm" className="h-7 lg:h-8 px-2 lg:px-3 text-xs" asChild>
                 <Link to="/auth">
                   Login
                 </Link>
               </Button>
             )}
-            <Button variant="outline" size="sm" asChild>
+            <Button variant="outline" size="sm" className="h-7 lg:h-8 px-2 lg:px-3 text-xs" asChild>
               <Link to="/registration">
-                <Play className="h-4 w-4 mr-2" />
-                Enter Competition
+                <Play className="h-3 w-3 lg:h-4 lg:w-4 lg:mr-1" />
+                <span className="hidden xl:inline">Enter</span>
               </Link>
             </Button>
           </div>
