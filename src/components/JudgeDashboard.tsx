@@ -140,9 +140,9 @@ const JudgeDashboard: React.FC<JudgeDashboardProps> = ({ judge, onLogout, onBack
 
   if (showProfile && judgeData) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 overflow-x-hidden">
         <Navigation onBack={() => setShowProfile(false)} title="My Profile" />
-        <div className="max-w-4xl mx-auto p-4 sm:p-6">
+        <div className="max-w-4xl mx-auto p-4 sm:p-6 w-full">
           <JudgeProfile judge={judgeData} isOwnProfile={true} />
         </div>
       </div>
@@ -151,9 +151,9 @@ const JudgeDashboard: React.FC<JudgeDashboardProps> = ({ judge, onLogout, onBack
 
   if (showFeedbackForm && selectedPerformance) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 overflow-x-hidden">
         <Navigation onBack={() => setShowFeedbackForm(false)} title="Provide Feedback" />
-        <div className="max-w-4xl mx-auto p-4 sm:p-6">
+        <div className="max-w-4xl mx-auto p-4 sm:p-6 w-full">
           <FeedbackForm
             performance={selectedPerformance}
             judge={judge}
@@ -166,15 +166,15 @@ const JudgeDashboard: React.FC<JudgeDashboardProps> = ({ judge, onLogout, onBack
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       {onBack && <Navigation onBack={onBack} title="Judge Dashboard" />}
-      <div className="max-w-6xl mx-auto p-4 sm:p-6">
+      <div className="max-w-6xl mx-auto p-4 sm:p-6 w-full">
         {/* Header */}
-        <div className="mb-6 sm:mb-8">
-          <Card className="border-0 shadow-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+        <div className="mb-6 sm:mb-8 w-full">
+          <Card className="border-0 shadow-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white w-full">
             <CardHeader className="p-4 sm:p-6">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div className="flex items-start sm:items-center gap-3 sm:gap-4 flex-1 min-w-0">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full">
+                <div className="flex items-start sm:items-center gap-3 sm:gap-4 flex-1 min-w-0 w-full sm:w-auto">
                   <Avatar className="h-12 w-12 sm:h-16 sm:w-16 border-2 sm:border-4 border-white flex-shrink-0">
                     <AvatarImage src={judgeData?.profile_image} />
                     <AvatarFallback className="bg-white text-purple-600 text-base sm:text-lg font-bold">
@@ -236,10 +236,10 @@ const JudgeDashboard: React.FC<JudgeDashboardProps> = ({ judge, onLogout, onBack
               </TabsTrigger>
             </TabsList>
             
-            <TabsContent value="performances" className="mt-4 sm:mt-6">
-              <div>
+            <TabsContent value="performances" className="mt-4 sm:mt-6 w-full">
+              <div className="w-full">
                 <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6">Performances Awaiting Review</h2>
-                <div className="grid gap-4 sm:gap-6">
+                <div className="grid gap-4 sm:gap-6 w-full">
                   {performances.filter(p => p.status !== 'REVIEWED').map((performance) => (
                     <Card key={performance.id} className="hover:shadow-lg transition-shadow">
                       <CardHeader className="p-4 sm:p-6">
@@ -308,10 +308,10 @@ const JudgeDashboard: React.FC<JudgeDashboardProps> = ({ judge, onLogout, onBack
               </div>
             </TabsContent>
 
-            <TabsContent value="requests" className="mt-4 sm:mt-6">
-              <div>
+            <TabsContent value="requests" className="mt-4 sm:mt-6 w-full">
+              <div className="w-full">
                 <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6">Direct Feedback Requests</h2>
-                <div className="grid gap-4 sm:gap-6">
+                <div className="grid gap-4 sm:gap-6 w-full">
                   {feedbackRequests.map((request) => (
                     <Card key={request.id} className="hover:shadow-lg transition-shadow">
                       <CardHeader className="p-4 sm:p-6">
