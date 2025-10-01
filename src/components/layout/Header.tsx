@@ -80,7 +80,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation - Two Row Layout */}
-          <nav className="hidden xl:block">
+          <nav className="hidden lg:block">
             {/* First Row */}
             <div className="flex items-center justify-center space-x-6 mb-2">
               {navigationLinks.slice(0, 7).map((link) => (
@@ -182,7 +182,7 @@ const Header = () => {
           <Button
             variant="ghost"
             size="sm"
-            className="xl:hidden"
+            className="lg:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -191,7 +191,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="xl:hidden border-t border-border py-4 max-h-[calc(100vh-120px)] overflow-y-auto">
+          <div className="lg:hidden border-t border-border py-4 max-h-[calc(100vh-120px)] overflow-y-auto">
             <nav className="space-y-2 mb-4">
               {navigationLinks.map((link) => (
                 <div key={link.path}>
