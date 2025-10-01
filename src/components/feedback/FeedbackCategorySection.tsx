@@ -4,8 +4,9 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, X } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { CategoryFeedback } from '@/data/feedbackBanks';
 
 interface FeedbackCategorySectionProps {
@@ -29,13 +30,17 @@ const FeedbackCategorySection: React.FC<FeedbackCategorySectionProps> = ({
     onChange({ ...feedback, score: value[0] });
   };
 
-  const handleSentenceToggle = (sentence: string) => {
-    const isSelected = feedback.selectedSentences.includes(sentence);
-    const newSelected = isSelected
-      ? feedback.selectedSentences.filter((s) => s !== sentence)
-      : [...feedback.selectedSentences, sentence];
-    
-    onChange({ ...feedback, selectedSentences: newSelected });
+  const handleSentenceAdd = (sentence: string) => {
+    if (!feedback.selectedSentences.includes(sentence)) {
+      onChange({ ...feedback, selectedSentences: [...feedback.selectedSentences, sentence] });
+    }
+  };
+
+  const handleSentenceRemove = (sentence: string) => {
+    onChange({ 
+      ...feedback, 
+      selectedSentences: feedback.selectedSentences.filter((s) => s !== sentence) 
+    });
   };
 
   const handleCustomCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -83,32 +88,48 @@ const FeedbackCategorySection: React.FC<FeedbackCategorySectionProps> = ({
               />
             </div>
 
-            {/* Feedback Sentences */}
+            {/* Feedback Sentences Dropdown */}
             <div className="space-y-3">
-              <Label className="text-base font-semibold">Select Feedback Points</Label>
-              <div className="flex flex-wrap gap-2">
-                {sentences.map((sentence, index) => {
-                  const isSelected = feedback.selectedSentences.includes(sentence);
-                  return (
-                    <Badge
-                      key={index}
-                      variant={isSelected ? 'default' : 'outline'}
-                      className={`cursor-pointer px-3 py-2 text-sm transition-all hover:scale-105 ${
-                        isSelected
-                          ? 'bg-primary text-primary-foreground'
-                          : 'hover:bg-accent'
-                      }`}
-                      onClick={() => handleSentenceToggle(sentence)}
-                    >
-                      {sentence}
-                    </Badge>
-                  );
-                })}
-              </div>
+              <Label className="text-base font-semibold">Add Feedback Points</Label>
+              <Select onValueChange={handleSentenceAdd}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select a feedback point to add..." />
+                </SelectTrigger>
+                <SelectContent className="max-h-[300px]">
+                  {sentences
+                    .filter(s => !feedback.selectedSentences.includes(s))
+                    .map((sentence, index) => (
+                      <SelectItem key={index} value={sentence} className="cursor-pointer">
+                        {sentence}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+              
+              {/* Selected Feedback Points */}
               {feedback.selectedSentences.length > 0 && (
-                <p className="text-sm text-muted-foreground mt-2">
-                  {feedback.selectedSentences.length} point{feedback.selectedSentences.length !== 1 ? 's' : ''} selected
-                </p>
+                <div className="space-y-2 mt-3">
+                  <p className="text-sm font-medium">
+                    Selected Points ({feedback.selectedSentences.length}):
+                  </p>
+                  <div className="space-y-2">
+                    {feedback.selectedSentences.map((sentence, index) => (
+                      <div
+                        key={index}
+                        className="flex items-start gap-2 p-3 bg-muted/50 rounded-lg group hover:bg-muted transition-colors"
+                      >
+                        <span className="flex-1 text-sm">{sentence}</span>
+                        <button
+                          onClick={() => handleSentenceRemove(sentence)}
+                          className="text-muted-foreground hover:text-destructive transition-colors opacity-0 group-hover:opacity-100"
+                          aria-label="Remove feedback point"
+                        >
+                          <X className="h-4 w-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               )}
             </div>
 

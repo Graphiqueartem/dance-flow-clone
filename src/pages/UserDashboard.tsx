@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -52,10 +53,18 @@ interface Feedback {
 const UserDashboard: React.FC = () => {
   const { signOut, profile, user } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [performances, setPerformances] = useState<Performance[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [feedback, setFeedback] = useState<Feedback[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Redirect judges to their dashboard
+  useEffect(() => {
+    if (profile?.role === 'judge') {
+      navigate('/judge-dashboard', { replace: true });
+    }
+  }, [profile, navigate]);
 
   useEffect(() => {
     if (user) {

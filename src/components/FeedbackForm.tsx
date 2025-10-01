@@ -151,7 +151,7 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ performance, judge, onSubmi
       <Card className="border-2 border-primary/20">
         <CardHeader className="bg-gradient-to-r from-primary/10 to-primary/5">
           <div className="flex items-start justify-between">
-            <div className="space-y-2">
+            <div className="space-y-2 flex-1">
               <div className="flex items-center gap-3">
                 <Video className="h-6 w-6 text-primary" />
                 <CardTitle className="text-2xl">{performance.performance_title}</CardTitle>
@@ -160,6 +160,14 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ performance, judge, onSubmi
                 <span>Performer: <strong>{performance.performer_name}</strong></span>
                 <span>•</span>
                 <Badge variant="secondary">{performance.dance_genre}</Badge>
+                {performance.feedback_type && (
+                  <>
+                    <span>•</span>
+                    <Badge variant="outline" className="capitalize">
+                      {performance.feedback_type} Feedback
+                    </Badge>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -168,6 +176,18 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ performance, judge, onSubmi
           {performance.performance_description && (
             <p className="text-muted-foreground">{performance.performance_description}</p>
           )}
+          
+          {/* Video Review Notice */}
+          {(performance.feedback_type === 'PAID' || performance.platinum_upgrade) && (
+            <Alert className="border-primary/50 bg-primary/5">
+              <Video className="h-4 w-4 text-primary" />
+              <AlertDescription className="text-sm">
+                <strong>Video Feedback Required:</strong> This performer has opted for paid video review. 
+                Please record and submit a video feedback along with your written feedback.
+              </AlertDescription>
+            </Alert>
+          )}
+
           <Button variant="outline" asChild className="w-full sm:w-auto">
             <a 
               href={performance.video_url} 
