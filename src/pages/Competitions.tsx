@@ -61,7 +61,7 @@ const Competitions = () => {
               </div>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-poppins font-bold mb-4 text-white">
-              Dance Competitions
+              Competitions - Regional & Grand Final Events
             </h1>
             <p className="text-lg sm:text-xl font-open-sans text-white/90 max-w-2xl mx-auto">
               Showcase your talent on the global stage
@@ -75,12 +75,10 @@ const Competitions = () => {
         {/* Overview */}
         <div className="max-w-4xl mx-auto mb-12 sm:mb-16 text-center">
           <h2 className="text-2xl sm:text-3xl font-poppins font-bold text-foreground mb-6">
-            Join the Global Dance Movement
+            Compete Live or Online
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-            Our regional qualifiers happen in five vibrant cities each year — Mexico City, Sydney, 
-            Johannesburg, Seoul, and London. Each event features live battles, workshops, and more. 
-            Can't make it in person? Submit your video online and compete for a place in the Grand Final in Dubai.
+            Compete live in your city or submit your dance video from anywhere to qualify for the Grand Final in Dubai. Join thousands of dancers from Mexico City to London and beyond.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild className="bg-accent text-accent-foreground hover:bg-accent/90">

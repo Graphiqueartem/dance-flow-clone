@@ -16,10 +16,10 @@ const ResultsVideos = () => {
             </div>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-poppins font-bold mb-4">
-            Results & Videos
+            Results & Videos - Winners & Highlights
           </h1>
           <p className="text-lg sm:text-xl font-open-sans text-primary-foreground/90 max-w-2xl mx-auto">
-            Winners & Highlights
+            Celebrate Excellence in Dance
           </p>
         </div>
       </div>
@@ -32,8 +32,7 @@ const ResultsVideos = () => {
             Celebrate Excellence
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-            Celebrate winners and watch highlights from past events. Download professional-quality videos 
-            of your performances or order premium critiques for detailed feedback from our expert panel.
+            Celebrate dancers from Mexico City, Sydney, Johannesburg, Seoul, and London. Watch highlights, download your performance videos, or order detailed critiques.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild className="bg-accent text-accent-foreground hover:bg-accent/90">

@@ -42,10 +42,10 @@ const Contact = () => {
             </div>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-poppins font-bold mb-4">
-            Contact Us
+            Contact Us - Help & Support
           </h1>
           <p className="text-lg sm:text-xl font-open-sans text-primary-foreground/90 max-w-2xl mx-auto">
-            Help & Support
+            Questions? Reach out anytime. We're here to help you dance your best.
           </p>
         </div>
       </div>
@@ -58,7 +58,7 @@ const Contact = () => {
             Get in Touch
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Have questions? Reach out via our contact form or browse FAQs for quick answers.
+            Questions? Reach out anytime. We're here to help you dance your best.
           </p>
         </div>
 

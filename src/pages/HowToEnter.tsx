@@ -29,11 +29,10 @@ const HowToEnter = () => {
         {/* Overview */}
         <div className="max-w-4xl mx-auto mb-12 sm:mb-16 text-center">
           <h2 className="text-2xl sm:text-3xl font-poppins font-bold text-foreground mb-6">
-            Jump into the Action
+            Ready to Take the Stage?
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Jump into the action with simple, clear steps. Whether you prefer the energy of live performance 
-            or the convenience of online submission, we've made it easy to showcase your talent.
+            Ready to take the stage? Register for live events in Mexico City, Sydney, Johannesburg, Seoul, or London. Can't make it? Upload your dance video online from anywhere. Upgrade with a premium critique for expert feedback.
           </p>
         </div>
 

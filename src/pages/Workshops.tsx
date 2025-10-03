@@ -54,10 +54,10 @@ const Workshops = () => {
             </div>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-poppins font-bold mb-6">
-            Workshops
+            Workshops - Learn From the Best
           </h1>
           <p className="text-xl sm:text-2xl font-open-sans text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
-            Learn From the Best Dance Instructors
+            Master Your Craft with Expert Instructors
           </p>
         </div>
       </div>
@@ -67,11 +67,10 @@ const Workshops = () => {
         {/* Overview */}
         <div className="max-w-5xl mx-auto mb-16 sm:mb-20 text-center">
           <h2 className="text-3xl sm:text-4xl font-poppins font-bold text-foreground mb-8">
-            Master Your Craft
+            Learn From Top Instructors
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-3xl mx-auto">
-            Learn from the best. Our workshops cover five dance genres, led by top instructors at each regional event. 
-            Whether you're a beginner or an experienced dancer, there's a class for you. Register early to secure your spot.
+            Learn from top instructors in Mexico City, Sydney, Johannesburg, Seoul, and London. Workshops cover five genres and all skill levels. Can't attend in person? Explore classes online anytime.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Button size="lg" variant="default" asChild>

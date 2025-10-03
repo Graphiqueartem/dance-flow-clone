@@ -6,11 +6,11 @@
 
 @layer base {
   :root {
-    /* LoveDanceLive Dance Flow Theme Color Palette */
-    --turquoise: 180 100% 50%;        /* #00FFFF - Bright cyan */
-    --baby-pink: 320 100% 88%;        /* #FFB3E6 - Soft pink */
-    --neon-pink: 320 100% 60%;        /* #FF33CC - Vibrant magenta */
-    --light-blue: 180 100% 85%;       /* #B3FFFF - Light cyan */
+    /* LoveDanceLive Dance Flow Theme Color Palette - Exact Brand Colors */
+    --turquoise: 174 72% 56%;         /* #40E0D0 - Turquoise */
+    --baby-pink: 350 100% 88%;        /* #FFC0CB - Baby Pink */
+    --neon-pink: 328 100% 54%;        /* #FF1493 - Neon Pink */
+    --light-blue: 195 53% 79%;        /* #ADD8E6 - Light Blue */
     --teal-gradient: 174 100% 42%;    /* #00B5B8 - Deep teal */
 
     --background: 0 0% 100%;
@@ -22,19 +22,19 @@
     --popover: 0 0% 100%;
     --popover-foreground: 220 8.9% 46.1%;
 
-    /* Primary: Bright Turquoise/Cyan */
-    --primary: 180 100% 50%;
+    /* Primary: Turquoise */
+    --primary: 174 72% 56%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Soft Pink */
-    --secondary: 320 100% 88%;
+    /* Secondary: Baby Pink */
+    --secondary: 350 100% 88%;
     --secondary-foreground: 220 8.9% 46.1%;
 
     --muted: 210 40% 98%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    /* Accent: Vibrant Magenta */
-    --accent: 320 100% 60%;
+    /* Accent: Neon Pink */
+    --accent: 328 100% 54%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -42,7 +42,7 @@
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 180 100% 50%;
+    --ring: 174 72% 56%;
 
     --radius: 0.5rem;
 

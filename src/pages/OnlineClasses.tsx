@@ -47,10 +47,10 @@ const OnlineClasses = () => {
             </div>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-poppins font-bold mb-4">
-            Online Classes Portal
+            Online Classes Portal - Dance Anytime
           </h1>
           <p className="text-lg sm:text-xl font-open-sans text-primary-foreground/90 max-w-2xl mx-auto">
-            Dance Anytime, Anywhere
+            Keep Dancing Year-Round
           </p>
         </div>
       </div>
@@ -60,12 +60,10 @@ const OnlineClasses = () => {
         {/* Overview */}
         <div className="max-w-4xl mx-auto mb-12 sm:mb-16 text-center">
           <h2 className="text-2xl sm:text-3xl font-poppins font-bold text-foreground mb-6">
-            Keep Dancing All Year Long
+            Dance Anytime, Anywhere
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-            Keep dancing all year long with our online classes: Browse by genre and skill level, 
-            subscribe for unlimited access or purchase single classes, engage with instructors 
-            through live Q&A sessions and homework uploads.
+            Keep dancing year-round with our online classes. Subscribe for unlimited access or buy classes one-by-one. Join live Q&A sessions and upload homework for personal feedback.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild className="bg-accent text-accent-foreground hover:bg-accent/90">

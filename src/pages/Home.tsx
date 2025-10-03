@@ -37,29 +37,29 @@ const Home = () => {
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-poppins font-bold leading-tight text-white">
-              {getContent('hero_title', 'Where Young Dreams Take Flight')}
+              Where Passion Meets Performance — Live & Online
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl font-open-sans text-white/90">
-              {getContent('hero_subtitle', 'Youth Dance Competition Platform')}
+              Join dancers from Mexico City, Sydney, Johannesburg, Seoul, London — or submit your dance video from anywhere!
             </p>
             <p className="text-base sm:text-lg font-lato max-w-2xl mx-auto text-white/80">
-              {getContent('hero_description', 'Nurturing the next generation of dancers. Young performers can compete live or submit performances online to receive expert feedback and win amazing prizes.')}
+              Welcome to LoveDanceLive — your global stage for dance. Whether you're stepping into the spotlight in Mexico City, Sydney, Johannesburg, Seoul, London, or sharing your moves online from anywhere in the world, this is your moment. Compete, learn, and connect with a vibrant community that shares your rhythm.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-6 sm:mt-8">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
+              <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
                 <Link to="/competitions">
                   <Trophy className="h-4 sm:h-5 w-4 sm:w-5 mr-2" />
                   Enter Competition
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
-                <Link to="/submit-performance">
+              <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
+                <Link to="/how-to-enter">
                   <Upload className="h-4 sm:h-5 w-4 sm:w-5 mr-2" />
-                  Submit Performance
+                  Submit Dance Video
                 </Link>
               </Button>
-              <Button size="lg" variant="ghost" className="text-white hover:bg-white/10 font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary font-semibold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg w-full sm:w-auto" asChild>
                 <Link to="/live-chat">
                   <Play className="h-4 sm:h-5 w-4 sm:w-5 mr-2" />
                   Watch Live
@@ -81,10 +81,10 @@ const Home = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="space-y-4 sm:space-y-6">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-poppins font-bold text-foreground">
-                Global Dance Community
+                About LoveDanceLive
               </h2>
               <p className="text-base sm:text-lg text-muted-foreground">
-                LoveDanceLive connects dancers from around the world through live competitions, online submissions, and expert mentorship. Whether you're a beginner or professional, find your stage with us.
+                LoveDanceLive brings together dancers from Mexico City, Sydney, Johannesburg, Seoul, and London, creating a global family united by passion. Our mission is to empower dancers of all backgrounds through live competition and online connection.
               </p>
               <Button variant="outline" size="lg" asChild>
                 <Link to="/about">

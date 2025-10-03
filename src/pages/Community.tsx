@@ -13,12 +13,12 @@ const Community = () => {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl font-poppins font-bold mb-6 bg-gradient-to-r from-primary via-neon-pink to-accent bg-clip-text text-transparent">
-            Community
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Connect with dancers worldwide, share your passion, and participate in community challenges
-          </p>
+            <h1 className="text-4xl sm:text-5xl font-poppins font-bold mb-6 bg-gradient-to-r from-primary via-neon-pink to-accent bg-clip-text text-transparent">
+              Community - Forums & Challenges
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Connect with dancers worldwide, share your passion, and participate in community challenges
+            </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -31,7 +31,7 @@ const Community = () => {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-4">
-                Join discussions, share tips, and connect with fellow dancers from around the world.
+                Connect with dancers from Mexico City, Sydney, Johannesburg, Seoul, London, and beyond. Share tips, find friends, and keep dancing year-round.
               </p>
               <Button variant="outline" className="w-full">
                 Coming Soon
@@ -48,7 +48,7 @@ const Community = () => {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-4">
-                Participate in weekly dance challenges and showcase your creativity to win amazing prizes.
+                Show your skills in our monthly dance challenges. Submit videos or tag on social media to win prizes and be featured.
               </p>
               <Button variant="outline" className="w-full">
                 Coming Soon

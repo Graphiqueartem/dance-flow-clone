@@ -67,10 +67,10 @@ const Gallery = () => {
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-poppins font-bold mb-6 text-white">
-              Dance Gallery
+              User Gallery - Share Your Moves
             </h1>
             <p className="text-lg sm:text-xl text-white/90 max-w-3xl mx-auto">
-              Share your dance performances and discover amazing talent from around the world
+              Your moves belong here. Upload your photos and videos to inspire dancers worldwide.
             </p>
           </div>
         </div>

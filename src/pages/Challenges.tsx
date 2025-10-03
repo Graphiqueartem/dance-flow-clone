@@ -51,10 +51,10 @@ const Challenges = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-poppins font-bold mb-6 bg-gradient-to-r from-primary via-neon-pink to-accent bg-clip-text text-transparent">
-            Dance Challenges
+            Dance Challenges - Win Prizes
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Participate in weekly challenges, showcase your creativity, and win amazing prizes
+            Show your skills in our monthly dance challenges. Submit videos or tag on social media to win prizes and be featured.
           </p>
         </div>
 

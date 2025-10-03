@@ -36,10 +36,10 @@ const About = () => {
               </div>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-poppins font-bold mb-4 text-white">
-              {getContent('hero_title', 'About LoveDanceLive')}
+              About LoveDanceLive - Our Story & Mission
             </h1>
             <p className="text-lg sm:text-xl font-open-sans text-white/90 max-w-2xl mx-auto">
-              {getContent('hero_subtitle', 'Connecting dancers worldwide through passion and performance')}
+              Connecting dancers worldwide through passion and performance
             </p>
           </div>
         </div>
@@ -58,10 +58,7 @@ const About = () => {
                 </h2>
               </div>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                LoveDanceLive was born from a simple idea: bring dancers from every corner of the world together. 
-                We blend live competition energy with the power of digital connection, creating a platform that 
-                celebrates talent, culture, and creativity. Our mission is to empower dancers and build a global 
-                family through the joy of dance.
+                LoveDanceLive brings together dancers from Mexico City, Sydney, Johannesburg, Seoul, and London, creating a global family united by passion. Our mission is to empower dancers of all backgrounds through live competition and online connection.
               </p>
               <div className="text-center">
                 <Button size="lg" asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
