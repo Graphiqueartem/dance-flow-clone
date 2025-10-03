@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Trophy, Gift, Star, Calendar, Users } from 'lucide-react';
+import WelcomeModal from '@/components/onboarding/WelcomeModal';
 
 const Challenges = () => {
   useEffect(() => {
@@ -48,6 +49,7 @@ const Challenges = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <WelcomeModal pageName="challenges" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-poppins font-bold mb-6 bg-gradient-to-r from-primary via-neon-pink to-accent bg-clip-text text-transparent">

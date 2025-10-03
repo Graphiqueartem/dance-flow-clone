@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MessageSquare, Video, Zap, Globe } from 'lucide-react';
+import WelcomeModal from '@/components/onboarding/WelcomeModal';
 
 const LiveChat = () => {
   useEffect(() => {
@@ -11,6 +12,7 @@ const LiveChat = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <WelcomeModal pageName="live-chat" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-poppins font-bold mb-6 bg-gradient-to-r from-primary via-neon-pink to-accent bg-clip-text text-transparent">

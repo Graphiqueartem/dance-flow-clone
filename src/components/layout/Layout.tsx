@@ -3,6 +3,7 @@ import Header from './Header';
 import CountryBanner from './CountryBanner';
 import StickyCTA from './StickyCTA';
 import Footer from './Footer';
+import ChatBot from '@/components/chatbot/ChatBot';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -22,6 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ children, showStickyCTA = true }) => {
       <Footer />
       
       {showStickyCTA && <StickyCTA />}
+      <ChatBot />
     </div>
   );
 };
